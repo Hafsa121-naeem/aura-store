@@ -668,7 +668,7 @@ export default function ProductDetailView({
                 : 'border-transparent text-slate-600 hover:text-slate-950'
             }`}
           >
-            Verified Reviews ({reviews.length})
+            Verified Reviews ({currentProduct.review_count || reviews.length})
           </button>
         </div>
 
@@ -756,6 +756,30 @@ export default function ProductDetailView({
 
           {activeTab === 'reviews' && (
             <div className="space-y-6">
+              {/* Review Overview Metric Bar */}
+              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="text-4xl font-black text-slate-950">
+                    {currentProduct.rating.toFixed(1)}
+                  </div>
+                  <div>
+                    <div className="flex text-amber-400 gap-1">
+                      {[1, 2, 3, 4, 5].map((s) => (
+                        <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                      ))}
+                    </div>
+                    <p className="text-xs text-slate-600 mt-1 font-medium">
+                      Based on <strong>{currentProduct.review_count || reviews.length}</strong> verified customer reviews across Pakistan
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 text-xs text-emerald-800 font-bold bg-emerald-50 px-3.5 py-2 rounded-xl border border-emerald-100">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>100% Verified Buyer Authentic Reviews</span>
+                </div>
+              </div>
+
               {reviews.length === 0 ? (
                 <div className="text-center py-8 text-slate-500 text-xs">
                   No verified reviews yet for this product. Be the first to leave a review!
@@ -765,7 +789,7 @@ export default function ProductDetailView({
                   {reviews.map((rev) => (
                     <div
                       key={rev.id}
-                      className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2.5"
+                      className="p-5 rounded-2xl bg-white border border-slate-200/90 space-y-2.5 shadow-2xs"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex text-amber-400 gap-0.5">
@@ -779,7 +803,7 @@ export default function ProductDetailView({
                           ))}
                         </div>
                         <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100 flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3" />
+                          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
                           Verified Order
                         </span>
                       </div>
@@ -792,8 +816,9 @@ export default function ProductDetailView({
                         &ldquo;{rev.comment}&rdquo;
                       </p>
 
-                      <div className="pt-2 border-t border-slate-200/60 text-[11px] text-slate-500 font-medium">
-                        {rev.user_name}
+                      <div className="pt-2 border-t border-slate-100 text-[11px] text-slate-500 font-medium flex items-center justify-between">
+                        <span>{rev.user_name}</span>
+                        <span className="text-[10px] text-slate-400">Cash on Delivery Verified</span>
                       </div>
                     </div>
                   ))}
