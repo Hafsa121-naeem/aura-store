@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, Star, Truck, CheckCircle2, ShoppingBag, Check, Sparkles } from 'lucide-react';
+import { ShoppingBag, Check, ArrowRight } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { formatPrice } from '@/lib/utils';
 
@@ -12,6 +12,7 @@ export default function HeroShowcase() {
   const { addItem, setIsCartOpen } = useCart();
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [isAdded, setIsAdded] = useState(false);
+  const [activeTag, setActiveTag] = useState('ALL');
 
   const heroItems = [
     {
@@ -23,9 +24,12 @@ export default function HeroShowcase() {
       salePrice: 22499,
       rating: 4.9,
       reviews: 74,
-      category: 'Electronics & Hi-Fi Audio',
-      image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=1200&q=85',
-      badge: 'Editor Audio Flagship',
+      category: 'Electronics & Audio',
+      productImage: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=800&q=80',
+      // High-fashion luxury shopaholic background with designer shopping bags
+      bgImage: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1800&q=85',
+      badge: 'Object 01 • Acoustic Sculpture',
+      material: 'Beryllium Drivers & Protein Leather',
     },
     {
       id: 'sw-ap-01',
@@ -36,9 +40,12 @@ export default function HeroShowcase() {
       salePrice: 16999,
       rating: 4.8,
       reviews: 62,
-      category: 'Luxury Wearables',
-      image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&q=85',
-      badge: 'Trending Wearable',
+      category: 'Precision Horology',
+      productImage: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80',
+      // Warm luxury boutique lifestyle store interior
+      bgImage: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1800&q=85',
+      badge: 'Object 02 • Horological Instrument',
+      material: 'Aerospace Titanium & Sapphire Crystal',
     },
     {
       id: 'f-hb-01',
@@ -49,9 +56,12 @@ export default function HeroShowcase() {
       salePrice: 19999,
       rating: 5.0,
       reviews: 48,
-      category: 'Artisan Fashion',
-      image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=1200&q=85',
-      badge: 'Artisan Handcrafted',
+      category: 'Sartorial Wardrobe',
+      productImage: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80',
+      // High-fashion editorial shopper with artisan leather apparel
+      bgImage: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1800&q=85',
+      badge: 'Object 03 • Handcrafted Leather',
+      material: 'Full-Grain Tuscan Calfskin',
     },
   ];
 
@@ -71,206 +81,218 @@ export default function HeroShowcase() {
         review_count: currentItem.reviews,
         status: 'published',
         featured: true,
-        images: [{ id: '1', product_id: currentItem.id, image_url: currentItem.image, is_primary: true }],
+        images: [{ id: '1', product_id: currentItem.id, image_url: currentItem.productImage, is_primary: true }],
       } as any,
       1,
       undefined,
       undefined,
-      currentItem.image
+      currentItem.productImage
     );
     setIsAdded(true);
     setTimeout(() => {
       setIsAdded(false);
       setIsCartOpen(true);
-    }, 600);
+    }, 500);
   };
 
   return (
-    <section className="relative w-full bg-[#FAF7F2] overflow-hidden pt-6 sm:pt-12 pb-16 sm:pb-24">
-      {/* Decorative Champagne Atmosphere Orbs */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#f5e6d0] to-[#fbf7f0] blur-3xl opacity-70 pointer-events-none" />
-      <div className="absolute bottom-0 left-10 w-[400px] h-[400px] rounded-full bg-[#f3e4cf] blur-3xl opacity-50 pointer-events-none" />
+    <section className="relative w-full bg-[#FAF8F5] overflow-hidden">
+      
+      {/* 1. ferm LIVING Signature Atmospheric Cinematic Hero Stage */}
+      <div className="relative w-full h-[78vh] sm:h-[84vh] min-h-[580px] max-h-[820px] bg-[#1A1918] overflow-hidden">
+        
+        {/* Background Atmospheric Luxury Shopaholic Lifestyle Photograph */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentItem.id}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={currentItem.bgImage}
+              alt="AURA Luxury Shopping Atmosphere"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center brightness-[0.70] contrast-105"
+              unoptimized
+            />
+            {/* Cinematic Film Vignette & Moody Lighting Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1A1918]/95 via-[#1A1918]/40 to-black/50" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1A1918]/85 via-[#1A1918]/30 to-black/40" />
+          </motion.div>
+        </AnimatePresence>
 
-      <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-10 lg:gap-16 min-h-[70vh]">
+        {/* Hero Content Container */}
+        <div className="relative z-10 h-full max-w-[1540px] mx-auto px-6 sm:px-10 flex flex-col justify-between py-10 sm:py-16">
           
-          {/* Left Column: Brand Identity, Master Headline & Switchers */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left">
-            
-            {/* Master Identity Pill */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-[#b48a4c]/30 text-[#8c6b2d] text-[11px] uppercase tracking-[0.26em] font-bold shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-[#b48a4c] animate-pulse" />
-              <span>Pakistan&apos;s Premier Multi-Category Marketplace</span>
-            </div>
+          {/* Top Row: Collection Sub-indicator & Item Switchers */}
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] uppercase tracking-[0.28em] font-light text-[#E8D4B0]">
+              Autumn / Winter Edit &bull; Collection 04
+            </span>
 
-            {/* Editorial Brand Headline */}
-            <div className="space-y-4">
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-light tracking-[0.14em] text-slate-950 uppercase font-serif leading-[1.05]">
-                AURA STORE
-              </h1>
-              
-              <p className="text-xl sm:text-2xl lg:text-3xl font-light text-slate-800 tracking-wide font-sans">
-                Everything You Love, All in One Place.
-              </p>
-
-              <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
-                Discover authentic hi-fi acoustic headphones, titanium smartwatches, full-grain Italian leather, and clean botanical skincare — delivered nationwide with doorstep Cash on Delivery inspection.
-              </p>
-            </div>
-
-            {/* Master Action CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-              <Link
-                href="/products"
-                className="w-full sm:w-auto px-10 py-4 rounded-full bg-slate-950 text-white font-bold text-xs uppercase tracking-[0.22em] hover:bg-[#b48a4c] hover:text-slate-950 transition-all duration-300 shadow-xl flex items-center justify-center gap-2.5 group active:scale-98"
-              >
-                <span>Explore Catalog</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
-              </Link>
-
-              <Link
-                href="/special-offers"
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-white/90 backdrop-blur-md text-slate-900 border border-slate-300 font-semibold text-xs uppercase tracking-[0.18em] hover:bg-white hover:border-[#b48a4c] transition-all duration-300 flex items-center justify-center active:scale-98 shadow-2xs"
-              >
-                <span>Special Offers &bull; Up to 25% Off</span>
-              </Link>
-            </div>
-
-            {/* Interactive Hero Product Switcher Tabs */}
-            <div className="pt-4 border-t border-slate-200/60">
-              <p className="text-[10px] uppercase tracking-widest text-[#8c6b2d] font-bold mb-3">
-                Featured Flagship Spotlight:
-              </p>
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
-                {heroItems.map((item, idx) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setActiveItemIndex(idx)}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                      activeItemIndex === idx
-                        ? 'bg-slate-950 text-white shadow-md'
-                        : 'bg-white/80 hover:bg-white text-slate-700 border border-slate-200/80 hover:border-slate-300'
-                    }`}
-                  >
-                    <span>{item.name.split(' ')[0]} {item.name.split(' ')[1]}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Trust Assurance Strip */}
-            <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-5 text-xs text-slate-600">
-              <span className="flex items-center gap-1.5 font-medium">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                Cash on Delivery (COD) Nationwide
-              </span>
-              <span className="flex items-center gap-1.5 font-medium">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                100% Verified Authentic Stock
-              </span>
-              <span className="flex items-center gap-1.5 font-medium">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                7-Day Easy Return Policy
-              </span>
+            {/* Subtle Object Switchers */}
+            <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 border border-white/10">
+              {heroItems.map((item, idx) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setActiveItemIndex(idx)}
+                  className={`text-[10px] font-mono tracking-wider px-2 py-0.5 transition-colors ${
+                    activeItemIndex === idx
+                      ? 'bg-white/20 text-[#FAF8F5] font-semibold'
+                      : 'text-[#EDE8DF]/60 hover:text-white'
+                  }`}
+                >
+                  0{idx + 1}
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Right Column: Dynamic Interactive Spotlight Stage */}
-          <div className="lg:col-span-5 relative flex items-center justify-center">
-            
-            {/* Stylized Champagne Circular Stage */}
-            <div className="relative w-[320px] h-[320px] sm:w-[440px] sm:h-[440px] lg:w-[480px] lg:h-[480px] rounded-full bg-gradient-to-tr from-[#ecd8be] via-[#f5e6d0] to-[#fcf6ee] shadow-2xl border border-amber-900/10 flex items-center justify-center">
-              
-              {/* Outer Decorative Luminous Ring */}
-              <div className="absolute inset-[-18px] rounded-full border border-[#d4af37]/30 border-dashed animate-spin-slow opacity-60 pointer-events-none" />
+          {/* Center-Right: Editorial Poetic Headline & Underline CTA */}
+          <div className="max-w-2xl my-auto space-y-6">
+            <div className="space-y-3">
+              <span className="text-xs uppercase tracking-[0.3em] font-light text-[#E0D8CB] block">
+                Ny kollektion &bull; The Mindful Living Space
+              </span>
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-editorial font-light text-[#FAF8F5] leading-[1.08] tracking-tight">
+                A life of contrasts: <br />
+                <span className="italic font-normal text-[#E8D4B0]">Curated for the modern space</span>
+              </h1>
+            </div>
 
-              {/* Dynamic Animated Photograph */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentItem.id}
-                  initial={{ opacity: 0, scale: 0.94 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.94 }}
-                  transition={{ duration: 0.4 }}
-                  className="relative w-[280px] h-[360px] sm:w-[380px] sm:h-[480px] lg:w-[420px] lg:h-[520px] -mt-10 overflow-hidden rounded-3xl shadow-2xl bg-white border border-amber-900/10"
-                >
-                  <Image
-                    src={currentItem.image}
-                    alt={currentItem.name}
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 550px"
-                    className="object-cover object-center"
-                    unoptimized
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
+            <p className="text-xs sm:text-sm text-[#EDE8DF]/80 font-light leading-relaxed max-w-lg">
+              A bespoke convergence where acoustic purity, aerospace titanium, and handcrafted Italian leather live in quiet, sculptural harmony. Sourced with official brand warranties and certified nationwide delivery.
+            </p>
 
-                  {/* Spotlight Bottom Card */}
-                  <div className="absolute bottom-4 inset-x-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-slate-200/80 shadow-lg flex items-center justify-between">
-                    <div>
-                      <span className="text-[9px] uppercase tracking-wider text-[#8c6b2d] font-bold">
-                        {currentItem.badge}
-                      </span>
-                      <h4 className="text-xs font-bold text-slate-900 line-clamp-1">
-                        {currentItem.name}
-                      </h4>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-sm font-black text-slate-950">
-                          {formatPrice(currentItem.salePrice)}
-                        </span>
-                        <span className="text-[10px] text-slate-400 line-through">
-                          {formatPrice(currentItem.price)}
-                        </span>
-                      </div>
-                    </div>
+            <div className="flex items-center gap-8 pt-2">
+              <Link
+                href="/products"
+                className="text-xs uppercase tracking-[0.24em] font-light text-[#FAF8F5] hover:text-[#E8D4B0] underline underline-offset-8 transition-colors"
+              >
+                Udforsk nu &bull; Explore collection &rarr;
+              </Link>
 
-                    <button
-                      type="button"
-                      onClick={handleQuickAdd}
-                      disabled={isAdded}
-                      className={`p-3 rounded-xl transition-all shadow-md active:scale-95 ${
-                        isAdded
-                          ? 'bg-emerald-600 text-white'
-                          : 'bg-slate-950 text-white hover:bg-[#b48a4c] hover:text-slate-950'
-                      }`}
-                      title="Quick Add to Bag"
-                    >
-                      {isAdded ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
-                    </button>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+              <a
+                href="#scene"
+                className="text-xs uppercase tracking-[0.22em] font-light text-[#EDE8DF]/80 hover:text-white transition-colors"
+              >
+                Shop The Scene
+              </a>
+            </div>
+          </div>
 
-              {/* Floating Glassmorphic Pill: Verified Rating */}
-              <div className="absolute top-8 -right-2 sm:right-2 bg-white/95 backdrop-blur-md px-4 py-2 rounded-2xl border border-slate-200/80 shadow-xl flex items-center gap-2.5 z-20">
-                <div className="w-8 h-8 rounded-full bg-amber-50 text-[#b48a4c] flex items-center justify-center">
-                  <Star className="w-4 h-4 fill-[#b48a4c]" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1">
-                    <span>4.9 / 5.0</span>
-                    <span className="text-[10px] text-emerald-600 font-semibold">(50k+ Orders)</span>
-                  </div>
-                  <div className="text-[10px] text-slate-500 font-medium">Customer Satisfaction</div>
-                </div>
+          {/* Bottom Floating Architectural Product Card */}
+          <div className="self-start sm:self-end bg-[#FAF8F5]/95 backdrop-blur-md p-5 sm:p-6 border border-[#D8D2C6] max-w-sm w-full shadow-2xl space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase tracking-[0.24em] text-[#806B43] font-medium">
+                {currentItem.badge}
+              </span>
+              <span className="text-[10px] text-[#5C5852] font-mono">
+                {currentItem.material}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="relative w-14 h-14 bg-[#EDE8DF] border border-[#D8D2C6] overflow-hidden shrink-0">
+                <Image
+                  src={currentItem.productImage}
+                  alt={currentItem.name}
+                  fill
+                  sizes="60px"
+                  className="object-cover"
+                  unoptimized
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm font-editorial font-normal text-[#1A1918] truncate">
+                  {currentItem.name}
+                </h3>
+                <p className="text-[10px] text-[#5C5852] font-light line-clamp-1">
+                  {currentItem.tagline}
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-3 flex items-baseline justify-between hairline-t">
+              <div className="flex items-baseline gap-2">
+                <span className="text-base font-light text-[#1A1918]">
+                  {formatPrice(currentItem.salePrice)}
+                </span>
+                <span className="text-xs text-[#8C867D] line-through">
+                  {formatPrice(currentItem.price)}
+                </span>
               </div>
 
-              {/* Floating Glassmorphic Pill: Nationwide COD */}
-              <div className="absolute bottom-6 -left-2 sm:left-2 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-slate-200/80 shadow-xl flex items-center gap-2.5 z-20">
-                <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center">
-                  <Truck className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-slate-900">Cash on Delivery</div>
-                  <div className="text-[10px] text-slate-500">All Cities Across Pakistan</div>
-                </div>
-              </div>
+              <button
+                type="button"
+                onClick={handleQuickAdd}
+                disabled={isAdded}
+                className="text-xs uppercase tracking-[0.2em] font-medium text-[#1A1918] hover:text-[#806B43] flex items-center gap-1.5 transition-colors disabled:opacity-50"
+              >
+                {isAdded ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Added</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingBag className="w-3.5 h-3.5" />
+                    <span>Add to Bag &rarr;</span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
 
         </div>
       </div>
+
+      {/* 2. ferm LIVING "Featured Products" Header & Filter Bar */}
+      <div className="hairline-b bg-[#F5F2EB] py-4 sm:py-5 px-6 sm:px-10">
+        <div className="max-w-[1540px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          
+          <div className="flex items-baseline gap-3">
+            <h2 className="text-sm uppercase tracking-[0.24em] font-light text-[#1A1918]">
+              Featured products
+            </h2>
+            <span className="text-[11px] text-[#8C867D] font-mono">
+              (76 Mindfully Curated Objects)
+            </span>
+          </div>
+
+          {/* Minimalist Architectural Tags */}
+          <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-[#5C5852]">
+            {[
+              { id: 'ALL', label: 'ALL OBJECTS' },
+              { id: 'NEW', label: 'NYHED / NEW IN' },
+              { id: 'RESPONSIBLE', label: 'RESPONSIBLE' },
+              { id: 'BESTSELLER', label: 'BESTSELLER' },
+              { id: 'COD', label: 'DOORSTEP COD' },
+            ].map((tag) => (
+              <button
+                key={tag.id}
+                type="button"
+                onClick={() => setActiveTag(tag.id)}
+                className={`px-3 py-1 border transition-colors ${
+                  activeTag === tag.id
+                    ? 'border-[#1A1918] bg-[#1A1918] text-[#FAF8F5]'
+                    : 'border-[#D8D2C6] bg-transparent hover:border-[#1A1918] text-[#5C5852]'
+                }`}
+              >
+                {tag.label}
+              </button>
+            ))}
+          </div>
+
+        </div>
+      </div>
+
     </section>
   );
 }

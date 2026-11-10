@@ -3,118 +3,105 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ShieldCheck, Sparkles, CheckCircle2, Award } from 'lucide-react';
+import { ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 export default function BrandStorytelling() {
   return (
-    <section className="py-20 sm:py-28 bg-[#FAF7F2]/60 border-t border-amber-900/10 overflow-hidden">
-      <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="stories" className="py-20 sm:py-28 bg-[#F5F2EB] hairline-b">
+      <div className="max-w-[1540px] mx-auto px-6 sm:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Left Column: Magazine Editorial Story */}
+          {/* Left Column: ferm LIVING Magazine Editorial Story */}
           <div className="lg:col-span-6 space-y-8">
             <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#b48a4c]/30 text-[#8c6b2d] text-[10px] uppercase tracking-[0.24em] font-bold shadow-2xs">
-                <Award className="w-3.5 h-3.5 text-[#b48a4c]" />
-                <span>Our Heritage &bull; Pakistan</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light font-serif text-slate-950 tracking-tight leading-[1.15]">
-                Curating Elegance. <br />
-                <span className="italic font-normal text-[#8c6b2d]">Delivering Trust Across Pakistan.</span>
+              <span className="text-[11px] uppercase tracking-[0.28em] font-light text-[#8C867D] block">
+                Brand Heritage &bull; Sourced with Intention
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-editorial font-light text-[#1A1918] leading-[1.08]">
+                A life of contrasts: <br />
+                <span className="italic font-normal text-[#806B43]">Raw materials, refined engineering</span>
               </h2>
             </div>
 
-            <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
-              AURA STORE was founded on a singular principle: Pakistani consumers deserve access to authentic, internationally acclaimed electronics, smart wearables, and artisan fashion without compromise or uncertainty.
+            <p className="text-xs sm:text-sm text-[#5C5852] font-light leading-relaxed">
+              AURA STORE was founded on the belief that everyday objects should elevate the senses. From acoustic chambers milled to micron tolerances to full-grain vegetable-tanned leather that develops a personal patina over decades, we curate objects that bridge craftsmanship and modern utility.
             </p>
 
-            {/* 3 Pillars of Distinction */}
-            <div className="space-y-5 pt-2">
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs">
-                <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#8c6b2d] flex items-center justify-center shrink-0 font-serif font-bold text-sm">
-                  01
+            {/* 3 Danish Architectural Pillars */}
+            <div className="space-y-4 pt-2">
+              {[
+                {
+                  number: '01',
+                  title: 'Material Honesty & Authenticity',
+                  desc: 'Aerospace-grade titanium, custom beryllium drivers, and organic flax linens sourced directly with official manufacturer warranties.',
+                },
+                {
+                  number: '02',
+                  title: 'Doorstep Cash on Delivery Nationwide',
+                  desc: 'Every parcel is packed in tamper-evident sealed casing with full doorstep inspection privileges before payment across all Pakistani cities.',
+                },
+                {
+                  number: '03',
+                  title: 'Mindful 7-Day Hassle-Free Returns',
+                  desc: 'Experience our objects in your own living space. If the tactile weight or acoustic profile is not pure perfection, enjoy prompt replacement.',
+                },
+              ].map((p) => (
+                <div
+                  key={p.number}
+                  className="p-5 bg-[#FAF8F5] border border-[#D8D2C6] flex items-start gap-4 transition-colors hover:border-[#1A1918]"
+                >
+                  <span className="font-editorial text-lg text-[#806B43] font-light">
+                    {p.number}
+                  </span>
+                  <div>
+                    <h4 className="text-xs font-editorial uppercase tracking-[0.18em] text-[#1A1918] font-normal">
+                      {p.title}
+                    </h4>
+                    <p className="text-[11px] text-[#5C5852] font-light mt-1 leading-relaxed">
+                      {p.desc}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-xs font-bold text-slate-950 uppercase tracking-wider">
-                    Official Authenticity Guarantee
-                  </h4>
-                  <p className="text-[11px] text-slate-600 mt-1 font-normal leading-relaxed">
-                    Direct brand procurement with verified serial numbers and official 12-month replacement warranties.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs">
-                <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#8c6b2d] flex items-center justify-center shrink-0 font-serif font-bold text-sm">
-                  02
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-slate-950 uppercase tracking-wider">
-                    Tamper-Evident Sealed Packaging
-                  </h4>
-                  <p className="text-[11px] text-slate-600 mt-1 font-normal leading-relaxed">
-                    Every shipment is individually bubble-sealed and inspected before express dispatch via TCS &amp; Leopards Courier.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs">
-                <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#8c6b2d] flex items-center justify-center shrink-0 font-serif font-bold text-sm">
-                  03
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-slate-950 uppercase tracking-wider">
-                    Nationwide Doorstep Inspection &amp; COD
-                  </h4>
-                  <p className="text-[11px] text-slate-600 mt-1 font-normal leading-relaxed">
-                    Verify your parcel upon arrival at your residence in Lahore, Karachi, Islamabad or any city before completing cash payment.
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
 
             <div className="pt-2">
               <Link
                 href="/products"
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-slate-950 text-white hover:bg-[#b48a4c] hover:text-slate-950 text-xs font-bold uppercase tracking-[0.2em] transition-all shadow-md group"
+                className="text-xs uppercase tracking-[0.24em] font-light text-[#1A1918] hover:text-[#806B43] transition-colors underline underline-offset-8"
               >
-                <span>Discover The Full Collection</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                Read our design manifesto &rarr;
               </Link>
             </div>
           </div>
 
-          {/* Right Column: Editorial Visual Composition */}
-          <div className="lg:col-span-6 relative">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-xl bg-white border border-amber-900/10">
-                <Image
-                  src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=85"
-                  alt="Italian Leather Craftsmanship"
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-700"
-                  unoptimized
-                />
+          {/* Right Column: Ferm Living Double Photographic Diptych */}
+          <div className="lg:col-span-6 grid grid-cols-2 gap-4">
+            <div className="relative aspect-[3/4] bg-[#EDE8DF] border border-[#D8D2C6] overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=85"
+                alt="Full-Grain Leather Detail"
+                fill
+                sizes="(max-width: 1024px) 50vw, 400px"
+                className="object-cover"
+                unoptimized
+              />
+              <div className="absolute bottom-3 left-3 bg-[#FAF8F5]/90 backdrop-blur-sm px-2.5 py-1 border border-[#D8D2C6] text-[9px] font-mono uppercase tracking-wider text-[#1A1918]">
+                Tuscan Leather
               </div>
+            </div>
 
-              <div className="space-y-4 pt-8">
-                <div className="relative aspect-square rounded-3xl overflow-hidden shadow-xl bg-white border border-amber-900/10">
-                  <Image
-                    src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=85"
-                    alt="Precision Watchmaking"
-                    fill
-                    className="object-cover hover:scale-105 transition-transform duration-700"
-                    unoptimized
-                  />
-                </div>
-
-                <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-md space-y-2">
-                  <div className="text-3xl font-black text-slate-950 font-serif">50,000+</div>
-                  <div className="text-xs font-bold text-slate-900">Satisfied Pakistani Customers</div>
-                  <p className="text-[11px] text-slate-500 font-normal">
-                    Delivered across 120+ cities nationwide with verified 4.9-star average rating.
-                  </p>
-                </div>
+            <div className="relative aspect-[3/4] bg-[#EDE8DF] border border-[#D8D2C6] overflow-hidden mt-8">
+              <Image
+                src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=85"
+                alt="Mindful Interior Space"
+                fill
+                sizes="(max-width: 1024px) 50vw, 400px"
+                className="object-cover"
+                unoptimized
+              />
+              <div className="absolute bottom-3 left-3 bg-[#FAF8F5]/90 backdrop-blur-sm px-2.5 py-1 border border-[#D8D2C6] text-[9px] font-mono uppercase tracking-wider text-[#1A1918]">
+                Interior Harmony
               </div>
             </div>
           </div>

@@ -7,7 +7,7 @@ import { motion } from 'motion/react';
 import { Product, ProductColorVariant } from '@/lib/types/database';
 import { useCart } from '@/context/CartContext';
 import { formatPrice } from '@/lib/utils';
-import { Star, ShoppingBag, Check, Heart, Eye, Sparkles } from 'lucide-react';
+import { Star, ShoppingBag, Check, Heart, Eye } from 'lucide-react';
 import QuickViewModal from './QuickViewModal';
 
 interface ProductCardProps {
@@ -93,13 +93,13 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
     setTimeout(() => {
       setIsAdded(false);
       setIsCartOpen(true);
-    }, 600);
+    }, 500);
   };
 
   const handleToggleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsWishlisted(!isWishlisted);
+    setIsWishlisted((prev) => !prev);
   };
 
   const handleOpenQuickView = (e: React.MouseEvent) => {
@@ -114,17 +114,15 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
 
   return (
     <>
-      <motion.div
-        whileHover={{ y: -6 }}
-        transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+      <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="group relative flex flex-col bg-white rounded-3xl border border-slate-200/80 hover:border-[#b48a4c]/50 overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(180,138,76,0.15)] transition-all duration-300"
+        className="group relative flex flex-col bg-[#FAF8F5] border border-[#D8D2C6]/70 hover:border-[#1A1918] transition-all duration-300"
       >
         {/* Product Image Frame with Dual Hover Crossfade */}
         <Link
           href={`/products/${currentProduct.slug}`}
-          className="relative aspect-square w-full overflow-hidden bg-[#FAF7F2] block group"
+          className="relative aspect-square w-full overflow-hidden bg-[#EDE8DF] block group"
         >
           {/* Primary Product Image */}
           <Image
@@ -134,8 +132,8 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className={`object-cover object-center transition-all duration-700 ${
               isHovered && secondaryImage !== activePreviewImage
-                ? 'opacity-0 scale-105'
-                : 'opacity-100 group-hover:scale-105'
+                ? 'opacity-0 scale-102'
+                : 'opacity-100 group-hover:scale-102'
             }`}
             onError={() => {
               setActivePreviewImage('https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80');
@@ -151,180 +149,167 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               className={`object-cover object-center transition-all duration-700 absolute inset-0 ${
-                isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
+                isHovered ? 'opacity-100 scale-102' : 'opacity-0 scale-100'
               }`}
               unoptimized
             />
           )}
 
-          {/* Top Badges */}
-          <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10 pointer-events-none">
+          {/* ferm LIVING Minimalist Badges */}
+          <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 z-10 pointer-events-none">
             {hasDiscount && (
-              <span className="bg-[#b48a4c] text-white text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm tracking-wider uppercase">
-                {discountPercent}% OFF
+              <span className="bg-[#1A1918] text-[#FAF8F5] text-[9px] font-mono px-2 py-0.5 uppercase tracking-wider">
+                -{discountPercent}%
               </span>
             )}
             {currentProduct.is_new && (
-              <span className="bg-slate-950 text-white text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wider uppercase shadow-sm">
-                NEW
+              <span className="bg-[#EDE8DF] text-[#1A1918] border border-[#D8D2C6] text-[9px] font-mono px-2 py-0.5 uppercase tracking-wider">
+                NYHED
               </span>
             )}
             {currentProduct.featured && (
-              <span className="bg-amber-100 text-[#8c6b2d] border border-amber-300/60 text-[9px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
-                <Sparkles className="w-2.5 h-2.5" />
-                <span>Featured</span>
+              <span className="bg-[#FAF8F5]/90 text-[#806B43] border border-[#806B43]/30 text-[9px] font-mono px-2 py-0.5 uppercase tracking-wider">
+                RESPONSIBLE
               </span>
             )}
           </div>
 
           {/* Floating Action Buttons: Wishlist & Quick View */}
-          <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
+          <div className="absolute top-2.5 right-2.5 flex flex-col gap-1.5 z-10">
             {/* Wishlist Button */}
             <button
               type="button"
               onClick={handleToggleWishlist}
-              className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 shadow-md ${
+              className={`w-8 h-8 flex items-center justify-center transition-all border ${
                 isWishlisted
-                  ? 'bg-rose-50 text-rose-600 border border-rose-200'
-                  : 'bg-white/90 backdrop-blur-md text-slate-600 hover:text-rose-600 hover:bg-white border border-slate-200/80'
+                  ? 'bg-[#1A1918] text-[#FAF8F5] border-[#1A1918]'
+                  : 'bg-[#FAF8F5]/90 backdrop-blur-sm text-[#1A1918] border-[#D8D2C6] hover:bg-[#1A1918] hover:text-[#FAF8F5]'
               }`}
               aria-label="Save to Wishlist"
             >
-              <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-rose-600' : ''}`} />
+              <Heart className={`w-3.5 h-3.5 ${isWishlisted ? 'fill-white' : ''}`} />
             </button>
 
             {/* Quick View Button (Reveals on Hover) */}
             <button
               type="button"
               onClick={handleOpenQuickView}
-              className={`w-9 h-9 rounded-full bg-white/90 backdrop-blur-md text-slate-700 hover:text-slate-950 hover:bg-white border border-slate-200/80 flex items-center justify-center transition-all duration-300 shadow-md ${
+              className={`w-8 h-8 bg-[#FAF8F5]/90 backdrop-blur-sm text-[#1A1918] border border-[#D8D2C6] hover:bg-[#1A1918] hover:text-[#FAF8F5] flex items-center justify-center transition-all ${
                 isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
               }`}
               aria-label="Quick View Product"
               title="Quick Preview"
             >
-              <Eye className="w-4 h-4" />
+              <Eye className="w-3.5 h-3.5" />
             </button>
           </div>
 
-          {/* Bottom Quick-Add Bar (Smooth slide-up on card hover) */}
+          {/* Bottom Quick-Add Bar (Slide up on hover) */}
           <div
-            className={`absolute bottom-3 inset-x-3 transition-all duration-300 z-10 ${
-              isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 pointer-events-none'
+            className={`absolute bottom-2.5 inset-x-2.5 transition-all duration-200 z-10 ${
+              isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
             }`}
           >
             <button
               type="button"
               onClick={handleAddToCart}
               disabled={isAdded}
-              className={`w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-[0.16em] flex items-center justify-center gap-2 shadow-lg transition-all duration-200 ${
+              className={`w-full py-2 px-3 text-[10px] uppercase tracking-[0.2em] font-light flex items-center justify-center gap-1.5 transition-all ${
                 isAdded
-                  ? 'bg-emerald-600 text-white'
-                  : 'bg-slate-950 text-white hover:bg-[#b48a4c] hover:text-slate-950 active:scale-98'
+                  ? 'bg-emerald-700 text-white'
+                  : 'bg-[#1A1918] text-[#FAF8F5] hover:bg-[#806B43]'
               }`}
             >
               {isAdded ? (
                 <>
-                  <Check className="w-3.5 h-3.5" />
-                  <span>Added</span>
+                  <Check className="w-3 h-3 text-emerald-300" />
+                  <span>Added to Bag</span>
                 </>
               ) : (
                 <>
-                  <ShoppingBag className="w-3.5 h-3.5" />
-                  <span>Quick Add &bull; {formatPrice(effectivePrice)}</span>
+                  <ShoppingBag className="w-3 h-3" />
+                  <span>Add to Bag</span>
                 </>
               )}
             </button>
           </div>
         </Link>
 
-        {/* Product Information Body */}
-        <div className="p-5 flex flex-col justify-between flex-1 space-y-3">
+        {/* Product Details Section */}
+        <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between hairline-t">
           <div className="space-y-1.5">
-            {/* Category / Subcategory & Star Rating */}
-            <div className="flex items-center justify-between text-[11px]">
-              <span className="text-[#8c6b2d] font-bold uppercase tracking-[0.18em] text-[10px]">
-                {currentProduct.subcategory || 'Luxury Collection'}
-              </span>
-
-              <div className="flex items-center gap-1 text-slate-700 font-semibold">
-                <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                <span className="text-slate-900 font-bold">{currentProduct.rating.toFixed(1)}</span>
-                <span className="text-slate-400 text-[10px]">({currentProduct.review_count || 32})</span>
-              </div>
-            </div>
-
-            {/* Product Title */}
-            <h3 className="text-sm font-semibold text-slate-900 line-clamp-1 group-hover:text-[#8c6b2d] transition-colors">
-              <Link href={`/products/${currentProduct.slug}`}>{currentProduct.name}</Link>
-            </h3>
-
-            {/* Short Description */}
-            <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed font-normal">
-              {currentProduct.description}
-            </p>
-          </div>
-
-          {/* Color Swatches if available */}
-          {colorVariants.length > 0 && (
-            <div className="flex items-center gap-1.5 pt-1">
-              {colorVariants.slice(0, 4).map((variant, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={(e) => handleColorSelect(variant, e)}
-                  className={`w-4 h-4 rounded-full border transition-all ${
-                    activeColor?.name === variant.name
-                      ? 'ring-2 ring-[#b48a4c] ring-offset-1 scale-110'
-                      : 'border-slate-300 hover:scale-105'
-                  }`}
-                  style={{ backgroundColor: variant.hex }}
-                  title={variant.name}
-                />
-              ))}
-              {colorVariants.length > 4 && (
-                <span className="text-[10px] text-slate-400 font-medium">
-                  +{colorVariants.length - 4}
+            {/* Category / Subtitle */}
+            <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-[#8C867D] font-light">
+              <span className="truncate">{currentProduct.subcategory || 'Curated Object'}</span>
+              {currentProduct.rating && (
+                <span className="flex items-center gap-1 font-mono text-[#5C5852]">
+                  <Star className="w-2.5 h-2.5 fill-[#9E814D] text-[#9E814D]" />
+                  <span>{currentProduct.rating.toFixed(1)}</span>
                 </span>
               )}
             </div>
-          )}
 
-          {/* Price & Cart Action */}
-          <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-            <div>
-              <div className="text-base font-black text-slate-950 tracking-tight">
-                {formatPrice(effectivePrice)}
+            {/* Product Name in Editorial Serif */}
+            <Link href={`/products/${currentProduct.slug}`} className="block group/link">
+              <h3 className="font-editorial text-base sm:text-lg text-[#1A1918] group-hover/link:text-[#806B43] transition-colors line-clamp-1 font-normal">
+                {currentProduct.name}
+              </h3>
+            </Link>
+
+            {/* Color Swatch Selectors */}
+            {colorVariants.length > 0 && (
+              <div className="flex items-center gap-1.5 pt-1">
+                {colorVariants.slice(0, 4).map((variant) => (
+                  <button
+                    key={variant.name}
+                    type="button"
+                    onClick={(e) => handleColorSelect(variant, e)}
+                    className={`w-3.5 h-3.5 rounded-full border transition-all ${
+                      activeColor?.name === variant.name
+                        ? 'ring-1 ring-offset-1 ring-[#1A1918] scale-110'
+                        : 'border-[#D8D2C6] hover:scale-105'
+                    }`}
+                    style={{ backgroundColor: variant.hex }}
+                    title={variant.name}
+                  />
+                ))}
+                {colorVariants.length > 4 && (
+                  <span className="text-[9px] text-[#8C867D] font-mono">
+                    +{colorVariants.length - 4}
+                  </span>
+                )}
               </div>
+            )}
+          </div>
+
+          {/* Pricing & Stock Status */}
+          <div className="pt-3 mt-3 hairline-t flex items-baseline justify-between">
+            <div className="flex items-baseline gap-2">
+              <span className="text-sm font-light text-[#1A1918]">
+                {formatPrice(effectivePrice)}
+              </span>
               {hasDiscount && (
-                <div className="text-[11px] text-slate-400 line-through">
+                <span className="text-xs text-[#8C867D] line-through">
                   {formatPrice(originalPrice)}
-                </div>
+                </span>
               )}
             </div>
 
-            <button
-              type="button"
-              onClick={handleAddToCart}
-              className={`p-2.5 rounded-full transition-all duration-300 shadow-2xs ${
-                isAdded
-                  ? 'bg-emerald-600 text-white'
-                  : 'bg-slate-100 text-slate-800 hover:bg-slate-950 hover:text-white active:scale-95'
-              }`}
-              title="Add to Shopping Bag"
-            >
-              {isAdded ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
-            </button>
+            <span className="text-[10px] uppercase tracking-wider text-[#8C867D] font-mono">
+              COD Ready
+            </span>
           </div>
         </div>
-      </motion.div>
+      </div>
 
-      {/* Embedded Quick View Modal */}
-      <QuickViewModal
-        product={currentProduct}
-        isOpen={isQuickViewOpen}
-        onClose={() => setIsQuickViewOpen(false)}
-      />
+      {/* Standalone Quick View Modal */}
+      {isQuickViewOpen && (
+        <QuickViewModal
+          product={currentProduct}
+          isOpen={isQuickViewOpen}
+          onClose={() => setIsQuickViewOpen(false)}
+        />
+      )}
     </>
   );
 }

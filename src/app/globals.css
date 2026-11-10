@@ -1,27 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @layer base {
   :root {
-    --background: 255 255 255;
-    --foreground: 15 23 42;
-    --card: 255 255 255;
-    --card-foreground: 15 23 42;
-    --primary: 15 23 42;
-    --primary-foreground: 255 255 255;
-    --muted: 248 250 252;
-    --muted-foreground: 100 116 139;
-    --border: 226 232 240;
-    --accent: 79 70 229;
+    --background: 245 242 235;
+    --foreground: 26 25 24;
+    --card: 250 248 245;
+    --card-foreground: 26 25 24;
+    --primary: 26 25 24;
+    --primary-foreground: 245 242 235;
+    --muted: 237 232 223;
+    --muted-foreground: 128 120 110;
+    --border: 216 210 198;
+    --accent: 158 129 77;
   }
 }
 
 body {
-  color: #0f172a;
-  background-color: #f8fafc;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1A1918;
+  background-color: #F5F2EB;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
+}
+
+/* Typography Utility Classes */
+.font-editorial {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-sans-clean {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Ferm Living Danish Architectural Hairline Borders */
+.hairline-b {
+  border-bottom: 1px solid rgba(216, 210, 198, 0.7);
+}
+
+.hairline-t {
+  border-top: 1px solid rgba(216, 210, 198, 0.7);
+}
+
+.hairline-r {
+  border-right: 1px solid rgba(216, 210, 198, 0.7);
+}
+
+.hairline-l {
+  border-left: 1px solid rgba(216, 210, 198, 0.7);
+}
+
+.hairline-all {
+  border: 1px solid rgba(216, 210, 198, 0.7);
 }
 
 /* Ensure images always scale down cleanly and never blow out containers */
@@ -37,11 +68,27 @@ html {
 }
 
 ::selection {
-  background: #e0e7ff;
-  color: #1e1b4b;
+  background: #E0D8CB;
+  color: #1A1918;
 }
 
-/* Modern Animations */
+/* Custom Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F2EB;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8D2C6;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9E814D;
+}
+
+/* Animations */
 @keyframes float {
   0%, 100% {
     transform: translateY(0);
@@ -56,18 +103,7 @@ html {
     transform: translateY(0) rotate(0deg);
   }
   50% {
-    transform: translateY(-12px) rotate(1deg);
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.9;
-    transform: scale(1.05);
+    transform: translateY(-10px) rotate(0.5deg);
   }
 }
 
@@ -80,12 +116,12 @@ html {
   }
 }
 
-@keyframes shimmer {
+@keyframes marquee-reverse {
   0% {
-    background-position: -200% 0;
+    transform: translateX(-50%);
   }
   100% {
-    background-position: 200% 0;
+    transform: translateX(0%);
   }
 }
 
@@ -97,25 +133,19 @@ html {
   animation: float-slow 7s ease-in-out infinite;
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 3s ease-in-out infinite;
-}
-
 .animate-marquee {
   display: flex;
-  width: 200%;
-  animation: marquee 25s linear infinite;
+  width: max-content;
+  animation: marquee 35s linear infinite;
 }
 
-.animate-marquee:hover {
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 35s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
   animation-play-state: paused;
-}
-
-.shimmer-text {
-  background: linear-gradient(90deg, #4f46e5 0%, #9333ea 50%, #4f46e5 100%);
-  background-size: 200% auto;
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: shimmer 6s linear infinite;
 }

@@ -3,8 +3,8 @@ import './globals.css';
 import { Providers } from './providers';
 
 export const metadata: Metadata = {
-  title: 'AURA | Modern Premium E-Commerce',
-  description: 'Precision engineered acoustic gear, tactile mechanical keyboards, and minimalist workspace essentials.',
+  title: 'AURA STORE — A Life of Contrasts | Danish Architectural Luxury',
+  description: 'Curated objects, acoustic engineering, precision horology, and architectural essentials for the mindful living space. Cash on Delivery across Pakistan.',
 };
 
 export default function RootLayout({
@@ -13,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 font-sans">
+    <html lang="en" className="h-full antialiased scroll-smooth">
+      <body className="min-h-full flex flex-col bg-[#F5F2EB] text-[#1A1918] font-sans-clean antialiased selection:bg-[#E0D8CB] selection:text-[#1A1918]">
         <Providers>{children}</Providers>
       </body>
     </html>

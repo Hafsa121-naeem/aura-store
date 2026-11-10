@@ -2,19 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import {
-  CheckCircle2,
-  ShieldCheck,
-  Truck,
-  RotateCcw,
-  Headphones,
-  Mail,
-  ArrowRight,
-  Phone,
-  MapPin,
-  Clock,
-  ExternalLink,
-} from 'lucide-react';
+import { ShieldCheck, Truck, RotateCcw, ArrowRight, Check } from 'lucide-react';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -29,236 +17,176 @@ export default function Footer() {
   };
 
   const departments = [
-    { name: 'Electronics & Audio', href: '/electronics' },
-    { name: 'Smart Watches', href: '/smart-watches' },
-    { name: 'Fashion & Handbags', href: '/fashion' },
-    { name: 'Beauty & Skincare', href: '/beauty' },
-    { name: 'Home & Living', href: '/home-living' },
-    { name: 'Mobile Accessories', href: '/mobile-accessories' },
+    { name: 'Acoustic Chamber (Electronics)', href: '/electronics' },
+    { name: 'Precision Horology (Smartwatches)', href: '/smart-watches' },
+    { name: 'Sartorial Wardrobe (Italian Leather)', href: '/fashion' },
+    { name: 'Botanical & Scent (Clean Skincare)', href: '/beauty' },
+    { name: 'Living Space (Home & Ceramics)', href: '/home-living' },
+    { name: 'Mobile Architecture (MagSafe Docks)', href: '/mobile-accessories' },
   ];
 
-  const quickLinks = [
-    { name: 'Explore All Catalog', href: '/products' },
-    { name: 'Special Offers (Up to 25% Off)', href: '/special-offers' },
-    { name: 'New Seasonal Arrivals', href: '/new-arrivals' },
-    { name: 'Best Sellers Leaderboard', href: '/best-sellers' },
-    { name: 'Saved Wishlist', href: '/wishlist' },
-    { name: 'Shopping Bag', href: '/cart' },
-  ];
-
-  const customerCare = [
+  const clientCare = [
     { name: 'Track Nationwide Order', href: '/account/orders' },
-    { name: 'Doorstep Cash on Delivery (COD)', href: '/checkout' },
-    { name: '7-Day Replacement Policy', href: '/products' },
-    { name: 'Official 12M Warranty Support', href: '/products' },
-    { name: 'Customer Account Login', href: '/auth/login' },
-    { name: 'Admin Management Portal', href: '/admin' },
-  ];
-
-  const cities = [
-    'Lahore',
-    'Karachi',
-    'Islamabad',
-    'Rawalpindi',
-    'Faisalabad',
-    'Multan',
-    'Peshawar',
-    'Sialkot',
-    'Gujranwala',
-    'Quetta',
-    'Hyderabad',
-    'Bahawalpur',
+    { name: 'Cash on Delivery Protocol', href: '/checkout' },
+    { name: 'Doorstep Inspection Policy', href: '/products' },
+    { name: '7-Day Replacement Guarantee', href: '/products' },
+    { name: 'Official 12-Month Warranty', href: '/products' },
+    { name: 'Admin Management Portal', href: '/admin/products' },
   ];
 
   return (
-    <footer className="bg-[#FAF7F2] text-slate-700 border-t border-amber-900/10 mt-20">
+    <footer className="bg-[#1A1918] text-[#EDE8DF] border-t border-[#3D3A35] mt-24">
       
-      {/* 1. Value Pillars Header Strip */}
-      <div className="border-b border-amber-900/10 bg-white">
-        <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 text-[#8c6b2d] flex items-center justify-center shrink-0 shadow-2xs">
-                <Truck className="w-5 h-5 stroke-[1.75]" />
-              </div>
-              <div>
-                <h4 className="text-slate-950 text-xs font-bold uppercase tracking-wider">
-                  Express Nationwide Dispatch
-                </h4>
-                <p className="text-[11px] text-slate-500 mt-0.5 font-normal">
-                  Free courier delivery on orders over Rs. 5,000
-                </p>
-              </div>
+      {/* 1. ferm LIVING Value Assurance Strip */}
+      <div className="border-b border-[#2E2C28] py-8 sm:py-10 px-6 sm:px-10">
+        <div className="max-w-[1540px] mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
+          <div className="flex items-center gap-4">
+            <Truck className="w-5 h-5 text-[#9E814D] stroke-[1.5]" />
+            <div>
+              <h4 className="text-xs uppercase tracking-[0.2em] font-light text-[#FAF8F5]">
+                Complimentary Express Delivery
+              </h4>
+              <p className="text-[11px] text-[#8C867D] font-light mt-0.5">
+                On all nationwide orders exceeding Rs. 5,000
+              </p>
             </div>
+          </div>
 
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 text-[#8c6b2d] flex items-center justify-center shrink-0 shadow-2xs">
-                <ShieldCheck className="w-5 h-5 stroke-[1.75]" />
-              </div>
-              <div>
-                <h4 className="text-slate-950 text-xs font-bold uppercase tracking-wider">
-                  100% Verified Authentic
-                </h4>
-                <p className="text-[11px] text-slate-500 mt-0.5 font-normal">
-                  Official manufacturer warranty &amp; sealed stock
-                </p>
-              </div>
+          <div className="flex items-center gap-4">
+            <ShieldCheck className="w-5 h-5 text-[#9E814D] stroke-[1.5]" />
+            <div>
+              <h4 className="text-xs uppercase tracking-[0.2em] font-light text-[#FAF8F5]">
+                100% Certified Authentic Stock
+              </h4>
+              <p className="text-[11px] text-[#8C867D] font-light mt-0.5">
+                Sourced with official manufacturer warranty cards
+              </p>
             </div>
+          </div>
 
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 text-[#8c6b2d] flex items-center justify-center shrink-0 shadow-2xs">
-                <RotateCcw className="w-5 h-5 stroke-[1.75]" />
-              </div>
-              <div>
-                <h4 className="text-slate-950 text-xs font-bold uppercase tracking-wider">
-                  7-Day Easy Returns
-                </h4>
-                <p className="text-[11px] text-slate-500 mt-0.5 font-normal">
-                  Doorstep collection &amp; hassle-free replacement
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 text-[#8c6b2d] flex items-center justify-center shrink-0 shadow-2xs">
-                <Headphones className="w-5 h-5 stroke-[1.75]" />
-              </div>
-              <div>
-                <h4 className="text-slate-950 text-xs font-bold uppercase tracking-wider">
-                  Doorstep COD Nationwide
-                </h4>
-                <p className="text-[11px] text-slate-500 mt-0.5 font-normal">
-                  Inspect parcel upon arrival before paying
-                </p>
-              </div>
+          <div className="flex items-center gap-4">
+            <RotateCcw className="w-5 h-5 text-[#9E814D] stroke-[1.5]" />
+            <div>
+              <h4 className="text-xs uppercase tracking-[0.2em] font-light text-[#FAF8F5]">
+                Doorstep Inspection &amp; COD
+              </h4>
+              <p className="text-[11px] text-[#8C867D] font-light mt-0.5">
+                Inspect parcel contents before paying at your door
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 2. Main Footer Navigation Links */}
-      <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+      {/* 2. Main Architectural Four-Column Footer */}
+      <div className="max-w-[1540px] mx-auto px-6 sm:px-10 py-16 sm:py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-14 pb-16 border-b border-[#2E2C28]">
           
-          {/* Brand Info & Mission */}
-          <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex flex-col items-start group">
-              <span className="text-2xl font-light tracking-[0.24em] text-slate-950 uppercase font-serif">
+          {/* Brand Manifesto */}
+          <div className="lg:col-span-4 space-y-4">
+            <Link href="/" className="inline-block">
+              <span className="text-2xl font-editorial font-light tracking-[0.28em] uppercase text-[#FAF8F5]">
                 AURA STORE
               </span>
-              <span className="text-[9px] uppercase tracking-[0.3em] text-[#8c6b2d] font-bold mt-1">
-                Luxury &bull; Pakistan
-              </span>
             </Link>
-
-            <p className="text-xs text-slate-600 leading-relaxed font-normal max-w-sm">
-              Pakistan&apos;s premier multi-category marketplace. Curating authenticated electronics, aerospace titanium timepieces, handcrafted Italian leather, and clean botanical skincare with nationwide Cash on Delivery.
+            <p className="text-xs text-[#8C867D] font-light leading-relaxed max-w-sm">
+              A bespoke convergence of Danish architectural restraint and sensory materiality. We curate hi-fi acoustics, precision horology, and artisan leather for the mindful living space.
             </p>
-
-            <div className="space-y-1.5 text-xs text-slate-600 pt-2">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-[#b48a4c]" />
-                <span>Headquarters: Gulberg III, Lahore, Pakistan</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-[#b48a4c]" />
-                <span>Concierge: +92 (42) 3578-9000 &bull; 0300-AURA-PK</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-3.5 h-3.5 text-[#b48a4c]" />
-                <span>Mon – Sat: 9:00 AM – 9:00 PM PKT</span>
-              </div>
+            <div className="pt-2 text-[11px] font-mono text-[#9E814D] uppercase tracking-wider">
+              Copenhagen Inspired &bull; Curated for Pakistan
             </div>
           </div>
 
           {/* Departments */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-950">
-              Departments
-            </h4>
-            <ul className="space-y-2 text-xs">
-              {departments.map((d) => (
-                <li key={d.name}>
+          <div className="lg:col-span-3 space-y-3">
+            <h5 className="text-xs uppercase tracking-[0.24em] font-light text-[#FAF8F5]">
+              Spaces &amp; Departments
+            </h5>
+            <ul className="space-y-2 text-xs font-light text-[#8C867D]">
+              {departments.map((dept) => (
+                <li key={dept.name}>
                   <Link
-                    href={d.href}
-                    className="text-slate-600 hover:text-slate-950 hover:underline transition-colors font-medium"
+                    href={dept.href}
+                    className="hover:text-[#FAF8F5] transition-colors"
                   >
-                    {d.name}
+                    {dept.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-950">
-              Catalog &amp; Offers
-            </h4>
-            <ul className="space-y-2 text-xs">
-              {quickLinks.map((q) => (
-                <li key={q.name}>
+          {/* Client Care */}
+          <div className="lg:col-span-2 space-y-3">
+            <h5 className="text-xs uppercase tracking-[0.24em] font-light text-[#FAF8F5]">
+              Client Care
+            </h5>
+            <ul className="space-y-2 text-xs font-light text-[#8C867D]">
+              {clientCare.map((item) => (
+                <li key={item.name}>
                   <Link
-                    href={q.href}
-                    className="text-slate-600 hover:text-slate-950 hover:underline transition-colors font-medium"
+                    href={item.href}
+                    className="hover:text-[#FAF8F5] transition-colors"
                   >
-                    {q.name}
+                    {item.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Customer Care & Admin */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-950">
-              Customer Assurance
-            </h4>
-            <ul className="space-y-2 text-xs">
-              {customerCare.map((c) => (
-                <li key={c.name}>
-                  <Link
-                    href={c.href}
-                    className="text-slate-600 hover:text-slate-950 hover:underline transition-colors font-medium"
-                  >
-                    {c.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Private Newsletter */}
+          <div className="lg:col-span-3 space-y-4">
+            <h5 className="text-xs uppercase tracking-[0.24em] font-light text-[#FAF8F5]">
+              Private Dispatch
+            </h5>
+            <p className="text-xs text-[#8C867D] font-light leading-relaxed">
+              Receive private seasonal previews, quiet notes on materiality, and exclusive collector drops.
+            </p>
+
+            <form onSubmit={handleSubscribe} className="space-y-3">
+              <div className="flex items-center border-b border-[#3D3A35] pb-2 focus-within:border-[#FAF8F5] transition-colors">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your email address..."
+                  required
+                  className="bg-transparent text-xs text-[#FAF8F5] placeholder-[#8C867D] focus:outline-none flex-1 font-light tracking-wide"
+                />
+                <button
+                  type="submit"
+                  className="text-xs uppercase tracking-[0.2em] text-[#EDE8DF] hover:text-[#9E814D] transition-colors pl-2"
+                >
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              {subscribed && (
+                <p className="text-[11px] text-[#9E814D] font-mono flex items-center gap-1.5">
+                  <Check className="w-3 h-3 text-emerald-400" />
+                  <span>Welcome to the private circle. Check your inbox.</span>
+                </p>
+              )}
+            </form>
           </div>
 
         </div>
 
-        {/* 3. Nationwide Delivery Coverage Strip */}
-        <div className="mt-12 pt-8 border-t border-amber-900/10">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-[#8c6b2d] mb-2">
-            Nationwide Cash on Delivery (COD) Cities:
-          </p>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500 font-medium">
-            {cities.map((city, idx) => (
-              <span key={city} className="flex items-center gap-3">
-                <span className="hover:text-slate-950 transition-colors">{city}</span>
-                {idx < cities.length - 1 && <span className="text-slate-300">&bull;</span>}
-              </span>
-            ))}
-            <span className="text-slate-400">&amp; 110+ other cities across Pakistan</span>
-          </div>
-        </div>
-
-        {/* 4. Bottom Legal & Currency Notice */}
-        <div className="mt-8 pt-8 border-t border-amber-900/10 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        {/* Bottom Colophon & Nationwide Cities */}
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-[#8C867D] font-light tracking-wider">
           <p>
-            &copy; {new Date().getFullYear()} <strong>AURA STORE (Private) Limited</strong>. All rights reserved.
+            &copy; 2026 AURA STORE. All prices in PKR (Rs.). Cash on Delivery across Pakistan.
           </p>
 
-          <div className="flex items-center gap-4 text-xs font-semibold">
-            <span className="text-[#8c6b2d]">All Prices Displayed in PKR (Rs.)</span>
-            <span>&bull;</span>
-            <span className="text-emerald-700 flex items-center gap-1 font-bold">
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              Verified Secure Checkout
-            </span>
+          <div className="flex flex-wrap items-center gap-3">
+            <span>Karachi</span> &bull;
+            <span>Lahore</span> &bull;
+            <span>Islamabad</span> &bull;
+            <span>Rawalpindi</span> &bull;
+            <span>Faisalabad</span> &bull;
+            <span>Peshawar</span> &bull;
+            <span>Quetta</span>
           </div>
         </div>
 
