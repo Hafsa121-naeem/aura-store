@@ -3,203 +3,274 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Sparkles, Check, ShoppingBag, Star, Zap, Truck } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ArrowRight, Star, Truck, CheckCircle2, ShoppingBag, Check, Sparkles } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { fallbackProducts } from '@/lib/data/fallback-data';
-import { Product } from '@/lib/types/database';
+import { formatPrice } from '@/lib/utils';
 
 export default function HeroShowcase() {
-  const { addItem } = useCart();
-  const [activeTab, setActiveTab] = useState(0);
+  const { addItem, setIsCartOpen } = useCart();
+  const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [isAdded, setIsAdded] = useState(false);
 
-  const showcaseItems = [
+  const heroItems = [
     {
-      id: 'aur-001',
-      slug: 'horizon-pro-anc-wireless-headphones',
-      category: 'Electronics & Audio',
-      name: 'Horizon Pro ANC Headphones',
-      description: '45mm custom beryllium drivers, 40dB hybrid active noise cancelling & 40-hour ultra battery.',
-      price: 24999,
-      originalPrice: 29999,
+      id: 'el-ha-01',
+      name: 'Horizon Pro ANC Hybrid Headphones',
+      slug: 'horizon-pro-anc-hybrid-wireless-headphones',
+      tagline: 'Custom 40mm Beryllium Drivers & 42dB Hybrid Noise Cancellation',
+      price: 26999,
+      salePrice: 22499,
       rating: 4.9,
-      reviews: 142,
-      badge: 'Editor Audio Pick',
-      delivery: 'Free TCS Delivery in Pakistan',
-      tag: 'Audio',
-      image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80',
+      reviews: 74,
+      category: 'Electronics & Hi-Fi Audio',
+      image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=1200&q=85',
+      badge: 'Editor Audio Flagship',
     },
     {
-      id: 'aur-002',
-      slug: 'apex-ultra-titanium-sapphire-amoled-smartwatch',
-      category: 'Smart Watches',
+      id: 'sw-ap-01',
       name: 'Apex Ultra Titanium Smartwatch',
-      description: '1.96" Ultra AMOLED 1000 nits display, titanium alloy casing, heart & SpO2 health tracking.',
-      price: 14999,
-      originalPrice: 18999,
+      slug: 'apex-ultra-titanium-sapphire-amoled-smartwatch',
+      tagline: 'Aerospace Grade Titanium Case with 1.96" Sapphire AMOLED Display',
+      price: 21999,
+      salePrice: 16999,
       rating: 4.8,
-      reviews: 98,
+      reviews: 62,
+      category: 'Luxury Wearables',
+      image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&q=85',
       badge: 'Trending Wearable',
-      delivery: 'TCS Dispatch in 24 Hours',
-      tag: 'Watch',
-      image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80',
     },
     {
-      id: 'aur-007',
-      slug: 'royal-oud-noir-extrait',
-      category: 'Luxury Fragrances',
-      name: 'Royal Oud Noir Extrait',
-      description: 'Aged Cambodian agarwood, Damascus rose, and rare smoked amber. 18+ hour sillage.',
-      price: 12500,
-      originalPrice: 16000,
-      rating: 4.9,
-      reviews: 164,
-      badge: 'Signature Scent',
-      delivery: 'Direct Authentic Stock',
-      tag: 'Fragrance',
-      image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800&q=80',
+      id: 'f-hb-01',
+      name: 'Verona Italian Kelly Handbag',
+      slug: 'verona-italian-kelly-handbag',
+      tagline: 'Handcrafted Full-Grain Italian Leather with Gold-Plated Clasp Hardware',
+      price: 24999,
+      salePrice: 19999,
+      rating: 5.0,
+      reviews: 48,
+      category: 'Artisan Fashion',
+      image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=1200&q=85',
+      badge: 'Artisan Handcrafted',
     },
   ];
 
-  const current = showcaseItems[activeTab];
+  const currentItem = heroItems[activeItemIndex];
 
   const handleQuickAdd = () => {
-    const product = fallbackProducts.find((p: Product) => p.slug === current.slug);
-    if (product) {
-      addItem(product, 1);
-      setIsAdded(true);
-      setTimeout(() => setIsAdded(false), 2000);
-    }
+    addItem(
+      {
+        id: currentItem.id,
+        name: currentItem.name,
+        slug: currentItem.slug,
+        price: currentItem.price,
+        sale_price: currentItem.salePrice,
+        category_id: 'featured',
+        stock: 25,
+        rating: currentItem.rating,
+        review_count: currentItem.reviews,
+        status: 'published',
+        featured: true,
+        images: [{ id: '1', product_id: currentItem.id, image_url: currentItem.image, is_primary: true }],
+      } as any,
+      1,
+      undefined,
+      undefined,
+      currentItem.image
+    );
+    setIsAdded(true);
+    setTimeout(() => {
+      setIsAdded(false);
+      setIsCartOpen(true);
+    }, 600);
   };
 
   return (
-    <div className="relative">
-      {/* Interactive Tabs Header */}
-      <div className="flex items-center gap-1.5 p-1.5 bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/90 shadow-xs mb-3 w-fit mx-auto lg:mx-0">
-        {showcaseItems.map((item, idx) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => {
-              setActiveTab(idx);
-              setIsAdded(false);
-            }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
-              activeTab === idx
-                ? 'bg-slate-900 text-white shadow-xs scale-102'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
-            }`}
-          >
-            {idx === 0 && <span>🎧</span>}
-            {idx === 1 && <span>⌚</span>}
-            {idx === 2 && <span>✨</span>}
-            <span>{item.tag}</span>
-          </button>
-        ))}
-      </div>
+    <section className="relative w-full bg-[#FAF7F2] overflow-hidden pt-6 sm:pt-12 pb-16 sm:pb-24">
+      {/* Decorative Champagne Atmosphere Orbs */}
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#f5e6d0] to-[#fbf7f0] blur-3xl opacity-70 pointer-events-none" />
+      <div className="absolute bottom-0 left-10 w-[400px] h-[400px] rounded-full bg-[#f3e4cf] blur-3xl opacity-50 pointer-events-none" />
 
-      {/* Main Glassmorphic Showcase Card */}
-      <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-5 sm:p-6 border border-slate-200/90 shadow-xl transition-all duration-300 hover:shadow-2xl space-y-4">
-        {/* Product Image Frame */}
-        <div className="relative aspect-4/3 w-full rounded-2xl overflow-hidden bg-slate-100 group">
-          <Image
-            key={current.image}
-            src={current.image}
-            alt={current.name}
-            fill
-            priority
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
-            unoptimized
-          />
+      <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-10 lg:gap-16 min-h-[70vh]">
+          
+          {/* Left Column: Brand Identity, Master Headline & Switchers */}
+          <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left">
+            
+            {/* Master Identity Pill */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-[#b48a4c]/30 text-[#8c6b2d] text-[11px] uppercase tracking-[0.26em] font-bold shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-[#b48a4c] animate-pulse" />
+              <span>Pakistan&apos;s Premier Multi-Category Marketplace</span>
+            </div>
 
-          {/* Top Left Badge */}
-          <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-slate-900 text-[11px] font-black px-2.5 py-1 rounded-md shadow-xs border border-slate-200/80 flex items-center gap-1.5">
-            <Sparkles className="w-3 h-3 text-indigo-600" />
-            <span>{current.badge}</span>
-          </div>
+            {/* Editorial Brand Headline */}
+            <div className="space-y-4">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-light tracking-[0.14em] text-slate-950 uppercase font-serif leading-[1.05]">
+                AURA STORE
+              </h1>
+              
+              <p className="text-xl sm:text-2xl lg:text-3xl font-light text-slate-800 tracking-wide font-sans">
+                Everything You Love, All in One Place.
+              </p>
 
-          {/* Bottom Right Delivery Badge */}
-          <div className="absolute bottom-3 right-3 bg-emerald-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-md shadow-xs flex items-center gap-1">
-            <Truck className="w-3 h-3" />
-            <span>{current.delivery}</span>
-          </div>
-        </div>
+              <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                Discover authentic hi-fi acoustic headphones, titanium smartwatches, full-grain Italian leather, and clean botanical skincare — delivered nationwide with doorstep Cash on Delivery inspection.
+              </p>
+            </div>
 
-        {/* Product Details Header */}
-        <div className="flex items-start justify-between gap-4 pt-1">
-          <div className="min-w-0">
-            <span className="text-[11px] font-extrabold uppercase tracking-wider text-indigo-600 block">
-              {current.category}
-            </span>
-            <h3 className="text-base sm:text-lg font-black text-slate-900 mt-0.5 truncate">
-              {current.name}
-            </h3>
-            <div className="flex items-center gap-2 mt-1">
-              <div className="flex items-center text-amber-500 font-extrabold text-xs">
-                <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 mr-1" />
-                <span>{current.rating}</span>
+            {/* Master Action CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <Link
+                href="/products"
+                className="w-full sm:w-auto px-10 py-4 rounded-full bg-slate-950 text-white font-bold text-xs uppercase tracking-[0.22em] hover:bg-[#b48a4c] hover:text-slate-950 transition-all duration-300 shadow-xl flex items-center justify-center gap-2.5 group active:scale-98"
+              >
+                <span>Explore Catalog</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+              </Link>
+
+              <Link
+                href="/special-offers"
+                className="w-full sm:w-auto px-8 py-4 rounded-full bg-white/90 backdrop-blur-md text-slate-900 border border-slate-300 font-semibold text-xs uppercase tracking-[0.18em] hover:bg-white hover:border-[#b48a4c] transition-all duration-300 flex items-center justify-center active:scale-98 shadow-2xs"
+              >
+                <span>Special Offers &bull; Up to 25% Off</span>
+              </Link>
+            </div>
+
+            {/* Interactive Hero Product Switcher Tabs */}
+            <div className="pt-4 border-t border-slate-200/60">
+              <p className="text-[10px] uppercase tracking-widest text-[#8c6b2d] font-bold mb-3">
+                Featured Flagship Spotlight:
+              </p>
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
+                {heroItems.map((item, idx) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setActiveItemIndex(idx)}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                      activeItemIndex === idx
+                        ? 'bg-slate-950 text-white shadow-md'
+                        : 'bg-white/80 hover:bg-white text-slate-700 border border-slate-200/80 hover:border-slate-300'
+                    }`}
+                  >
+                    <span>{item.name.split(' ')[0]} {item.name.split(' ')[1]}</span>
+                  </button>
+                ))}
               </div>
-              <span className="text-slate-400 text-xs">•</span>
-              <span className="text-slate-600 text-xs font-semibold">{current.reviews} verified reviews</span>
+            </div>
+
+            {/* Trust Assurance Strip */}
+            <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-5 text-xs text-slate-600">
+              <span className="flex items-center gap-1.5 font-medium">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                Cash on Delivery (COD) Nationwide
+              </span>
+              <span className="flex items-center gap-1.5 font-medium">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                100% Verified Authentic Stock
+              </span>
+              <span className="flex items-center gap-1.5 font-medium">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                7-Day Easy Return Policy
+              </span>
             </div>
           </div>
 
-          <div className="text-right shrink-0">
-            <span className="text-xl sm:text-2xl font-black text-slate-900 block leading-tight">
-              Rs. {current.price.toLocaleString('en-PK')}
-            </span>
-            <span className="text-xs text-slate-500 line-through block font-medium">
-              Rs. {current.originalPrice.toLocaleString('en-PK')}
-            </span>
+          {/* Right Column: Dynamic Interactive Spotlight Stage */}
+          <div className="lg:col-span-5 relative flex items-center justify-center">
+            
+            {/* Stylized Champagne Circular Stage */}
+            <div className="relative w-[320px] h-[320px] sm:w-[440px] sm:h-[440px] lg:w-[480px] lg:h-[480px] rounded-full bg-gradient-to-tr from-[#ecd8be] via-[#f5e6d0] to-[#fcf6ee] shadow-2xl border border-amber-900/10 flex items-center justify-center">
+              
+              {/* Outer Decorative Luminous Ring */}
+              <div className="absolute inset-[-18px] rounded-full border border-[#d4af37]/30 border-dashed animate-spin-slow opacity-60 pointer-events-none" />
+
+              {/* Dynamic Animated Photograph */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentItem.id}
+                  initial={{ opacity: 0, scale: 0.94 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.94 }}
+                  transition={{ duration: 0.4 }}
+                  className="relative w-[280px] h-[360px] sm:w-[380px] sm:h-[480px] lg:w-[420px] lg:h-[520px] -mt-10 overflow-hidden rounded-3xl shadow-2xl bg-white border border-amber-900/10"
+                >
+                  <Image
+                    src={currentItem.image}
+                    alt={currentItem.name}
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 550px"
+                    className="object-cover object-center"
+                    unoptimized
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
+
+                  {/* Spotlight Bottom Card */}
+                  <div className="absolute bottom-4 inset-x-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-slate-200/80 shadow-lg flex items-center justify-between">
+                    <div>
+                      <span className="text-[9px] uppercase tracking-wider text-[#8c6b2d] font-bold">
+                        {currentItem.badge}
+                      </span>
+                      <h4 className="text-xs font-bold text-slate-900 line-clamp-1">
+                        {currentItem.name}
+                      </h4>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="text-sm font-black text-slate-950">
+                          {formatPrice(currentItem.salePrice)}
+                        </span>
+                        <span className="text-[10px] text-slate-400 line-through">
+                          {formatPrice(currentItem.price)}
+                        </span>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleQuickAdd}
+                      disabled={isAdded}
+                      className={`p-3 rounded-xl transition-all shadow-md active:scale-95 ${
+                        isAdded
+                          ? 'bg-emerald-600 text-white'
+                          : 'bg-slate-950 text-white hover:bg-[#b48a4c] hover:text-slate-950'
+                      }`}
+                      title="Quick Add to Bag"
+                    >
+                      {isAdded ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Floating Glassmorphic Pill: Verified Rating */}
+              <div className="absolute top-8 -right-2 sm:right-2 bg-white/95 backdrop-blur-md px-4 py-2 rounded-2xl border border-slate-200/80 shadow-xl flex items-center gap-2.5 z-20">
+                <div className="w-8 h-8 rounded-full bg-amber-50 text-[#b48a4c] flex items-center justify-center">
+                  <Star className="w-4 h-4 fill-[#b48a4c]" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1">
+                    <span>4.9 / 5.0</span>
+                    <span className="text-[10px] text-emerald-600 font-semibold">(50k+ Orders)</span>
+                  </div>
+                  <div className="text-[10px] text-slate-500 font-medium">Customer Satisfaction</div>
+                </div>
+              </div>
+
+              {/* Floating Glassmorphic Pill: Nationwide COD */}
+              <div className="absolute bottom-6 -left-2 sm:left-2 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-slate-200/80 shadow-xl flex items-center gap-2.5 z-20">
+                <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center">
+                  <Truck className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-900">Cash on Delivery</div>
+                  <div className="text-[10px] text-slate-500">All Cities Across Pakistan</div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-          {current.description}
-        </p>
-
-        {/* Action Buttons */}
-        <div className="pt-2 flex items-center gap-2.5">
-          <button
-            type="button"
-            onClick={handleQuickAdd}
-            className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-xs ${
-              isAdded
-                ? 'bg-emerald-600 text-white'
-                : 'bg-slate-900 hover:bg-indigo-600 text-white active:scale-98'
-            }`}
-          >
-            {isAdded ? (
-              <>
-                <Check className="w-3.5 h-3.5" />
-                <span>Added to Cart!</span>
-              </>
-            ) : (
-              <>
-                <ShoppingBag className="w-3.5 h-3.5" />
-                <span>Quick Add (COD)</span>
-              </>
-            )}
-          </button>
-
-          <Link
-            href={`/products/${current.slug}`}
-            className="py-3 px-4 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-900 flex items-center justify-center gap-1.5 transition-colors border border-slate-200"
-          >
-            <span>Details</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        {/* Live Flash Deal Counter */}
-        <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-600">
-          <div className="flex items-center gap-1.5 text-rose-600 font-bold">
-            <Zap className="w-3.5 h-3.5 fill-rose-600" />
-            <span>Limited Stock Available</span>
-          </div>
-          <span className="text-emerald-700 font-bold">✓ Cash on Delivery Ready</span>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
