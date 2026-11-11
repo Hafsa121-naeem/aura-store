@@ -8,23 +8,20 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 export default function HeroShowcase() {
   return (
-    <section className="relative w-full bg-[#F4EFE6] overflow-hidden select-none hairline-b">
+    <section className="relative w-full min-h-[92vh] sm:min-h-screen bg-[#F4EFE6] overflow-hidden select-none hairline-b flex items-center">
       
-      {/* 1. Full-Bleed Atmospheric Cinematic Hero Stage - True Full-Page Height on Desktop & Mobile */}
-      <div
-        style={{ minHeight: 'calc(100vh - 5rem)', height: 'calc(100vh - 5rem)' }}
-        className="relative w-full flex items-center overflow-hidden"
-      >
+      {/* 1. Full-Bleed Atmospheric Cinematic Hero Stage - True Full-Screen Height on Desktop & Mobile */}
+      <div className="relative w-full min-h-[92vh] sm:min-h-screen flex items-center overflow-hidden">
         
         {/* Background Atmospheric Photograph with Authentic Richness, Natural Contrast & Realistic Depth */}
         <motion.div
-          initial={{ scale: 1.08, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
+          initial={{ scale: 1.15, opacity: 0 }}
+          animate={{ scale: 1.08, opacity: 1 }}
           transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0"
+          className="absolute inset-0 sm:scale-110 lg:scale-118 origin-[70%_35%]"
         >
           <Image
-            src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1800&q=85&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=2000&q=85&auto=format&fit=crop"
             alt="AURA Luxury Living & Architectural Design"
             fill
             priority
@@ -43,7 +40,7 @@ export default function HeroShowcase() {
         </motion.div>
 
         {/* Hero Editorial Content */}
-        <div className="relative z-10 w-full max-w-[1540px] mx-auto px-6 sm:px-10 pt-16 pb-12 sm:py-20 lg:py-24 flex flex-col justify-end sm:justify-center h-full">
+        <div className="relative z-10 w-full max-w-[1540px] mx-auto px-6 sm:px-10 py-16 sm:py-24 lg:py-32 flex flex-col justify-end sm:justify-center h-full">
 
           {/* Central Editorial Brand Introduction */}
           <div className="max-w-2xl space-y-6 sm:space-y-7">
