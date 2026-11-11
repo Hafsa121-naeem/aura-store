@@ -24,26 +24,26 @@ export default function BrandStorytelling() {
             </div>
 
             <p className="text-xs sm:text-sm text-[#5C5852] font-light leading-relaxed">
-              AURA STORE was founded on the belief that everyday objects should elevate the senses. From acoustic chambers milled to micron tolerances to full-grain vegetable-tanned leather that develops a personal patina over decades, we curate objects that bridge craftsmanship and modern utility.
+              AURA was created on a simple promise: the objects you touch every day should bring calm, beauty, and joy to your life. We curate timeless pieces—from crystal-clear acoustics and pure titanium to supple handcrafted leather—designed to feel wonderful in your hands and bring enduring harmony to your home.
             </p>
 
-            {/* 3 Danish Architectural Pillars */}
+            {/* 3 Brand Pillars */}
             <div className="space-y-4 pt-2">
               {[
                 {
                   number: '01',
-                  title: 'Material Honesty & Authenticity',
-                  desc: 'Aerospace-grade titanium, custom beryllium drivers, and organic flax linens sourced directly with official manufacturer warranties.',
+                  title: 'Authentic Craft & Honest Materials',
+                  desc: 'Grade-5 titanium, high-definition sound drivers, and pure natural textures—sourced directly from master makers with full 12-month official warranties.',
                 },
                 {
                   number: '02',
                   title: 'Doorstep Cash on Delivery Nationwide',
-                  desc: 'Every parcel is packed in tamper-evident sealed casing with full doorstep inspection privileges before payment across all Pakistani cities.',
+                  desc: 'Shop with effortless peace of mind. Every parcel arrives in tamper-evident sealed luxury packaging with complete doorstep inspection before you pay.',
                 },
                 {
                   number: '03',
-                  title: 'Mindful 7-Day Hassle-Free Returns',
-                  desc: 'Experience our objects in your own living space. If the tactile weight or acoustic profile is not pure perfection, enjoy prompt replacement.',
+                  title: '7-Day Worry-Free Home Trial',
+                  desc: 'Experience our pieces in the comfort of your own living space. If anything feels less than perfect, enjoy a quick, courteous replacement.',
                 },
               ].map((p) => (
                 <div
@@ -75,32 +75,32 @@ export default function BrandStorytelling() {
             </div>
           </div>
 
-          {/* Right Column: Ferm Living Double Photographic Diptych */}
-          <div className="lg:col-span-6 grid grid-cols-2 gap-4">
-            <div className="relative aspect-[3/4] bg-[#EDE8DF] border border-[#D8D2C6] overflow-hidden">
+          {/* Right Column: Visually Balanced Double Photographic Diptych */}
+          <div className="lg:col-span-6 grid grid-cols-2 gap-5 sm:gap-6 items-stretch">
+            <div className="group relative aspect-[4/5] bg-[#EDE8DF] border border-[#D8D2C6] hover:border-[#1A1918] overflow-hidden shadow-md transition-colors duration-500">
               <Image
                 src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=85"
                 alt="Full-Grain Leather Detail"
                 fill
                 sizes="(max-width: 1024px) 50vw, 400px"
-                className="object-cover"
+                className="object-cover group-hover:scale-104 transition-transform duration-700 ease-out"
                 unoptimized
               />
-              <div className="absolute bottom-3 left-3 bg-[#FAF8F5]/90 backdrop-blur-sm px-2.5 py-1 border border-[#D8D2C6] text-[9px] font-mono uppercase tracking-wider text-[#1A1918]">
+              <div className="absolute bottom-3 left-3 bg-[#FAF8F5]/90 backdrop-blur-sm px-3 py-1 border border-[#D8D2C6] text-[9px] font-mono uppercase tracking-wider text-[#1A1918]">
                 Full-Grain Leather
               </div>
             </div>
 
-            <div className="relative aspect-[3/4] bg-[#EDE8DF] border border-[#D8D2C6] overflow-hidden mt-8">
+            <div className="group relative aspect-[4/5] bg-[#EDE8DF] border border-[#D8D2C6] hover:border-[#1A1918] overflow-hidden shadow-md transition-colors duration-500">
               <Image
                 src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=85"
                 alt="Mindful Interior Space"
                 fill
                 sizes="(max-width: 1024px) 50vw, 400px"
-                className="object-cover"
+                className="object-cover group-hover:scale-104 transition-transform duration-700 ease-out"
                 unoptimized
               />
-              <div className="absolute bottom-3 left-3 bg-[#FAF8F5]/90 backdrop-blur-sm px-2.5 py-1 border border-[#D8D2C6] text-[9px] font-mono uppercase tracking-wider text-[#1A1918]">
+              <div className="absolute bottom-3 left-3 bg-[#FAF8F5]/90 backdrop-blur-sm px-3 py-1 border border-[#D8D2C6] text-[9px] font-mono uppercase tracking-wider text-[#1A1918]">
                 Interior Harmony
               </div>
             </div>
