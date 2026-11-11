@@ -250,10 +250,6 @@ export default function HeroShowcase() {
               </h1>
             </div>
 
-            <p className="text-xs sm:text-sm text-[#EDE8DF]/80 font-light leading-relaxed max-w-lg">
-              A bespoke convergence where acoustic purity, aerospace titanium, and handcrafted Italian leather live in quiet, sculptural harmony. Sourced with official brand warranties and certified nationwide delivery.
-            </p>
-
             <div className="flex items-center gap-8 pt-2">
               <Link
                 href="/products"

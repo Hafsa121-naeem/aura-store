@@ -2,6 +2,7 @@ import React from 'react';
 import { getProducts } from '@/lib/services/api';
 import HeroShowcase from '@/components/home/HeroShowcase';
 import BrandMarquee from '@/components/home/BrandMarquee';
+import AnimatedPhotoStream from '@/components/home/AnimatedPhotoStream';
 import ShopTheScene from '@/components/home/ShopTheScene';
 import AsymmetricObjectGrid from '@/components/home/AsymmetricObjectGrid';
 import CategoryBentoGrid from '@/components/home/CategoryBentoGrid';
@@ -20,28 +21,31 @@ export default async function HomePage() {
       {/* 1. ferm LIVING Full-Bleed Atmospheric Cinematic Hero & Filter Bar */}
       <HeroShowcase />
 
-      {/* 2. Quiet Architectural Assurance Marquee */}
+      {/* 2. Featured Objects & New Additions Architectural Carousel */}
       <BrandMarquee />
 
-      {/* 3. ferm LIVING Signature Feature: Shop The Scene (Interactive Hotspot Rooms) */}
+      {/* 3. Bigger Animated Classic Display Photos That Horizontally Move */}
+      <AnimatedPhotoStream />
+
+      {/* 4. ferm LIVING Signature Feature: Shop The Scene (Interactive Hotspot Rooms) */}
       <ShopTheScene />
 
-      {/* 4. ferm LIVING Asymmetric Catalog: Tall Portrait Feature + Complementary Objects */}
+      {/* 5. ferm LIVING Asymmetric Catalog: Tall Portrait Feature + Complementary Objects */}
       <AsymmetricObjectGrid products={products} />
 
-      {/* 5. Spaces & Curated Environments Bento Grid */}
+      {/* 6. Spaces & Curated Environments Bento Grid */}
       <CategoryBentoGrid />
 
-      {/* 6. Framer-Inspired Interactive 3D Kinetic Tilt & Materiality Pedestal */}
+      {/* 7. Framer-Inspired Interactive 3D Kinetic Tilt & Materiality Pedestal */}
       <Interactive3DShowcase />
 
-      {/* 7. Trending Objects with Minimalist Category Tag Filters */}
+      {/* 8. Trending Objects with Minimalist Category Tag Filters */}
       <TrendingSection initialProducts={products} />
 
-      {/* 8. Magazine Editorial Storytelling: Materiality & Craftsmanship Diptych */}
+      {/* 9. Magazine Editorial Storytelling: Materiality & Craftsmanship Diptych */}
       <BrandStorytelling />
 
-      {/* 9. Verified Customer Dialogue Carousel */}
+      {/* 10. Verified Customer Dialogue Carousel */}
       <TestimonialsCarousel />
 
     </div>
