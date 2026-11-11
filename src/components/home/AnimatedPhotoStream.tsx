@@ -36,7 +36,7 @@ export default function AnimatedPhotoStream() {
   const supportingObjects: FocalObject[] = [
     {
       id: 'sup-01',
-      tag: 'TITANIUM HOROLOGY',
+      tag: 'TITANIUM TIMEPIECE',
       title: 'Apex Titanium Sapphire Smartwatch',
       category: 'Precision Instruments',
       price: 16999,
@@ -46,9 +46,9 @@ export default function AnimatedPhotoStream() {
     },
     {
       id: 'sup-02',
-      tag: 'TUSCAN ATELIER',
-      title: 'Verona Italian Calfskin Handbag',
-      category: 'Sartorial Wardrobe',
+      tag: 'HANDCRAFTED LEATHER',
+      title: 'Verona Handcrafted Calfskin Handbag',
+      category: 'Luxury Fashion',
       price: 19999,
       image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=85',
       slug: 'verona-italian-calfskin-handbag',
@@ -67,7 +67,7 @@ export default function AnimatedPhotoStream() {
     {
       id: 'sup-04',
       tag: 'COLD-PRESSED PEPTIDES',
-      title: 'Luminance Vitamin C Radiance Elixir',
+      title: 'Luminance Vitamin C Radiance Serum',
       category: 'Botanical & Scent',
       price: 7899,
       image: 'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=1000&q=80',

@@ -55,7 +55,7 @@ export default function HeroShowcase() {
             <div className="hidden sm:flex items-center gap-3 text-[10px] font-mono uppercase tracking-widest text-[#FAF8F5]/70">
               <span>Acoustic Audio</span>
               <span>&bull;</span>
-              <span>Titanium Horology</span>
+              <span>Titanium Timepieces</span>
               <span>&bull;</span>
               <span>Artisan Leather</span>
             </div>

@@ -33,7 +33,7 @@ export default function BrandMarquee() {
     {
       id: 'sw-ap-01',
       name: 'Apex Titanium Sapphire Smartwatch',
-      category: 'Precision Horology',
+      category: 'Precision Timepieces',
       spec: 'Grade-5 Aerospace Titanium',
       price: 21999,
       salePrice: 16999,
@@ -46,9 +46,9 @@ export default function BrandMarquee() {
     },
     {
       id: 'f-hb-01',
-      name: 'Verona Italian Calfskin Handbag',
-      category: 'Sartorial Wardrobe',
-      spec: 'Full-Grain Tuscan Calfskin',
+      name: 'Verona Handcrafted Calfskin Handbag',
+      category: 'Luxury Fashion',
+      spec: 'Full-Grain Calfskin',
       price: 24999,
       salePrice: 19999,
       image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=85',
@@ -56,7 +56,7 @@ export default function BrandMarquee() {
       slug: 'verona-italian-calfskin-handbag',
       tag: 'BESTSELLER',
       colors: ['#B8392A', '#1A1918', '#8A6D3B'],
-      description: 'Handcrafted full-grain Italian calfskin with solid gold-plated hardware and protective travel dustbag.',
+      description: 'Handcrafted full-grain calfskin with solid gold-plated hardware and protective travel dustbag.',
     },
     {
       id: 'h-la-01',

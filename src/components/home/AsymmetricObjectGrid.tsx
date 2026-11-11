@@ -77,7 +77,7 @@ export default function AsymmetricObjectGrid({ products }: AsymmetricObjectGridP
                     Editorial Feature &bull; 01
                   </span>
                   <span className="text-[10px] font-mono text-[#8C867D]">
-                    {flagship.category_id || 'Horology'}
+                    {flagship.category_id || 'Timepieces'}
                   </span>
                 </div>
 

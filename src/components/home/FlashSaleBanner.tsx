@@ -45,7 +45,7 @@ export default function FlashSaleBanner() {
     },
     {
       id: 'f-hb-01',
-      name: 'Verona Italian Kelly Handbag in Full-Grain Leather',
+      name: 'Verona Handcrafted Handbag in Full-Grain Leather',
       slug: 'verona-italian-kelly-handbag',
       price: 24999,
       salePrice: 19999,

@@ -17,7 +17,7 @@ export default function ShopTheScene() {
   const scenes = [
     {
       id: 'study',
-      title: 'The Copenhagen Study',
+      title: 'The Modern Study',
       subtitle: 'A room shaped by quiet discipline, acoustic isolation, and tactile materials.',
       image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1600&q=85',
       hotspots: [
@@ -40,7 +40,7 @@ export default function ShopTheScene() {
           y: '62%',
           number: '02',
           name: 'Apex Ultra Titanium Smartwatch',
-          category: 'Precision Horology',
+          category: 'Precision Timepieces',
           price: 16999,
           originalPrice: 21999,
           image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80',
@@ -52,20 +52,20 @@ export default function ShopTheScene() {
           x: '24%',
           y: '72%',
           number: '03',
-          name: 'Verona Italian Calfskin Handbag',
-          category: 'Sartorial Wardrobe',
+          name: 'Verona Handcrafted Calfskin Handbag',
+          category: 'Luxury Fashion',
           price: 19999,
           originalPrice: 24999,
           image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80',
           slug: 'verona-italian-calfskin-handbag',
-          description: 'Full-grain Italian calfskin with solid gold-plated hardware.',
+          description: 'Full-grain calfskin leather with solid gold-plated hardware.',
         },
       ],
     },
     {
       id: 'living',
       title: 'The Living Sanctuary',
-      subtitle: 'Warm limestone, ceramic vessels, and botanical elixirs for peaceful evenings.',
+      subtitle: 'Warm limestone, ceramic vessels, and botanical serums for peaceful evenings.',
       image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=85',
       hotspots: [
         {
@@ -143,7 +143,7 @@ export default function ShopTheScene() {
               <span className="italic font-normal text-[#806B43]">Architectural spaces, mindfully lived</span>
             </h2>
             <p className="text-xs sm:text-sm text-[#5C5852] font-light leading-relaxed">
-              Explore how our curated acoustic gear, titanium horology, and Italian leather live together in quiet domestic harmony. Hover or tap the pins to discover and acquire each object.
+              Explore how our curated audio gear, titanium timepieces, and handcrafted leather live together in quiet domestic harmony. Hover or tap the pins to discover and acquire each object.
             </p>
           </div>
 

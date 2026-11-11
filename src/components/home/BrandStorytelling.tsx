@@ -87,7 +87,7 @@ export default function BrandStorytelling() {
                 unoptimized
               />
               <div className="absolute bottom-3 left-3 bg-[#FAF8F5]/90 backdrop-blur-sm px-2.5 py-1 border border-[#D8D2C6] text-[9px] font-mono uppercase tracking-wider text-[#1A1918]">
-                Tuscan Leather
+                Full-Grain Leather
               </div>
             </div>
 

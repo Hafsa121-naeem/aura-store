@@ -10,7 +10,7 @@ export default function TestimonialsCarousel() {
       id: 1,
       name: 'Zainab Malik',
       location: 'Gulberg III, Lahore',
-      product: 'Verona Italian Kelly Handbag',
+      product: 'Verona Handcrafted Leather Handbag',
       rating: 5,
       date: 'Verified Client &bull; 3 days ago',
       comment:

@@ -36,7 +36,7 @@ export default function EditorialBannerSection() {
                 Editorial Anthology &bull; Volume IV
               </span>
               <span className="hidden sm:inline-block text-[10px] font-mono uppercase tracking-widest text-[#EDE8DF]/70">
-                Copenhagen Living Sanctuary
+                Architectural Living Sanctuary
               </span>
             </div>
 
@@ -50,7 +50,7 @@ export default function EditorialBannerSection() {
               </h2>
 
               <p className="text-xs sm:text-sm text-[#EDE8DF]/90 font-light leading-relaxed max-w-xl">
-                In an era of fleeting obsolescence, AURA selects objects designed to mature gracefully over time. Hand-finished Italian leather develops a unique patina; aerospace titanium maintains its structural purity; acoustic chambers deliver unadulterated fidelity.
+                In an era of fleeting obsolescence, AURA selects objects designed to mature gracefully over time. Hand-finished full-grain leather develops a unique patina; aerospace titanium maintains its structural purity; acoustic chambers deliver unadulterated fidelity.
               </p>
 
               {/* Three Pillars */}

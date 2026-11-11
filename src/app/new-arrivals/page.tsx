@@ -48,7 +48,7 @@ export default async function NewArrivalsPage() {
           </h1>
 
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-            Discover our newest studio releases: Verona Italian calfskin handbags, titanium smartwatches, MagSafe accessories, and botanical skincare.
+            Discover our newest studio releases: handcrafted calfskin handbags, titanium smartwatches, MagSafe accessories, and botanical skincare.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-slate-300">

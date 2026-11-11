@@ -3,8 +3,8 @@ import './globals.css';
 import { Providers } from './providers';
 
 export const metadata: Metadata = {
-  title: 'AURA STORE — A Life of Contrasts | Danish Architectural Luxury',
-  description: 'Curated objects, acoustic engineering, precision horology, and architectural essentials for the mindful living space. Cash on Delivery across Pakistan.',
+  title: 'AURA STORE — A Life of Contrasts | Architectural Luxury',
+  description: 'Curated objects, acoustic engineering, precision timepieces, and architectural essentials for the mindful living space. Cash on Delivery across Pakistan.',
 };
 
 export default function RootLayout({

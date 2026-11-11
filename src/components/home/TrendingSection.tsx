@@ -17,7 +17,7 @@ export default function TrendingSection({ initialProducts }: TrendingSectionProp
   const tabs = [
     { id: 'all', label: 'All Collections' },
     { id: 'c1-electronics', label: 'Acoustic Audio' },
-    { id: 'c2-watches', label: 'Horology' },
+    { id: 'c2-watches', label: 'Timepieces' },
     { id: 'c3-fashion', label: 'Artisan Leather' },
     { id: 'c4-beauty', label: 'Clean Botanicals' },
   ];

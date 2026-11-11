@@ -5,7 +5,7 @@ import { SMARTWATCH_SUBCATEGORIES } from '@/lib/data/smartwatch-products';
 
 export const metadata = {
   title: 'Smart Watches | AURA STORE',
-  description: 'Shop AMOLED smartwatches, curved sapphire displays, ECG tracking, Milanese metal bands, and fitness watches with nationwide Cash on Delivery in Pakistan.',
+  description: 'Shop AMOLED smartwatches, curved sapphire displays, ECG tracking, stainless steel mesh bands, and fitness watches with nationwide Cash on Delivery in Pakistan.',
 };
 
 export default async function SmartWatchesPage() {

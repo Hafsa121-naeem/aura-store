@@ -611,7 +611,7 @@ INSERT INTO public.products (
   'round-dial-watches',
   'Horizon Classic Round-Dial Leather Smartwatch',
   'horizon-classic-round-dial-leather-smartwatch',
-  'Timeless circular horology dial with 466x466 high-resolution AMOLED display, top-grain Italian leather strap, stainless steel casing, and SpO2 oxygen monitoring.',
+  'Timeless circular timepiece dial with 466x466 high-resolution AMOLED display, top-grain genuine leather strap, stainless steel casing, and SpO2 oxygen monitoring.',
   25500,
   21999,
   18,
@@ -695,9 +695,9 @@ INSERT INTO public.products (
   'c2-watches',
   'Metal Strap Watches',
   'metal-strap-watches',
-  'Monarch Stainless Steel Milanese Mesh Smartwatch',
+  'Monarch Stainless Steel Mesh Smartwatch',
   'monarch-stainless-steel-milanese-mesh-smartwatch',
-  'Magnetic adjustable Milanese stainless steel weave strap, ultra-thin 9.2mm alloy casing, crisp 1.43-inch retina display, and sleep cycle analysis.',
+  'Magnetic adjustable stainless steel weave strap, ultra-thin 9.2mm alloy casing, crisp 1.43-inch retina display, and sleep cycle analysis.',
   29000,
   24999,
   22,
@@ -955,7 +955,7 @@ INSERT INTO public.products (
   'watch-straps-bands',
   'Quick-Release Italian Saddle Leather Strap 22mm',
   'quick-release-italian-saddle-leather-strap-22mm',
-  'Handcrafted top-grain Tuscan cowhide leather strap with precision quick-release spring bars and brushed 316L stainless steel buckle.',
+  'Handcrafted top-grain cowhide leather strap with precision quick-release spring bars and brushed 316L stainless steel buckle.',
   5500,
   4499,
   50,
@@ -1039,7 +1039,7 @@ INSERT INTO public.products (
   'c3-fashion',
   'Trendy Handbags',
   'trendy-handbags',
-  'Verona Italian Calfskin Trapeze Handbag',
+  'Verona Handcrafted Calfskin Trapeze Handbag',
   'verona-italian-calfskin-handbag',
   'Sculpted architectural silhouette hand-stitched from full-grain Italian calfskin leather with polished gold-plated brass lock and detachable shoulder strap.',
   24999,
@@ -1571,7 +1571,7 @@ INSERT INTO public.products (
   'Sealed Retail Packaging with Authenticity Certificate',
   'TCS / Leopards Courier Express across Pakistan',
   '{}'::jsonb,
-  '[{"name":"30ml Dropper Bottle","hex":"#f59e0b","image_url":"https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=1000&q=80","price":5499,"sale_price":4499},{"name":"50ml Deluxe Flacon","hex":"#d97706","image_url":"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=1000&q=80","price":6999,"sale_price":5999}]'::jsonb
+  '[{"name":"30ml Dropper Bottle","hex":"#f59e0b","image_url":"https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=1000&q=80","price":5499,"sale_price":4499},{"name":"50ml Deluxe Bottle","hex":"#d97706","image_url":"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=1000&q=80","price":6999,"sale_price":5999}]'::jsonb
 ) ON CONFLICT (id) DO UPDATE SET
   name = EXCLUDED.name,
   slug = EXCLUDED.slug,
@@ -1657,7 +1657,7 @@ INSERT INTO public.products (
   'Sealed Retail Packaging with Authenticity Certificate',
   'TCS / Leopards Courier Express across Pakistan',
   '{}'::jsonb,
-  '[{"name":"Berry Noir","hex":"#831843","image_url":"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=1000&q=80","price":3200,"sale_price":2499},{"name":"Rosewood Coral","hex":"#be123c","image_url":"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1000&q=80","price":3600,"sale_price":2899}]'::jsonb
+  '[{"name":"Deep Berry","hex":"#831843","image_url":"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=1000&q=80","price":3200,"sale_price":2499},{"name":"Rosewood Coral","hex":"#be123c","image_url":"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1000&q=80","price":3600,"sale_price":2899}]'::jsonb
 ) ON CONFLICT (id) DO UPDATE SET
   name = EXCLUDED.name,
   slug = EXCLUDED.slug,
@@ -1985,7 +1985,7 @@ INSERT INTO public.products (
   'c4-beauty',
   'Fragrance & Personal Care',
   'fragrance-personal-care',
-  'Eau De Parfum Santal & Bergamot 100ml',
+  'Santal & Bergamot Artisan Perfume 100ml',
   'eau-de-parfum-santal-bergamot',
   'An elegant composition opening with crisp Calabrian bergamot and cardamon, settling into Australian sandalwood, cedarwood, and warm amber resin.',
   11500,
@@ -2028,7 +2028,7 @@ INSERT INTO public.products (
   'c4-beauty',
   'Fragrance & Personal Care',
   'fragrance-personal-care',
-  'Amber Noir Concentrated Artisan Perfume Oil 12ml',
+  'Midnight Amber Concentrated Artisan Perfume Oil 12ml',
   'amber-noir-concentrated-perfume-oil',
   'Alcohol-free 100% concentrated attar oil with golden rollerball applicator. Notes of dark Indonesian patchouli, smoked vanilla bean, and rich labdanum.',
   5800,
@@ -2243,7 +2243,7 @@ INSERT INTO public.products (
   'c5-home',
   'Bedroom Essentials',
   'bedroom-essentials',
-  'Washed French Linen Duvet Cover Set',
+  'Washed Natural Linen Duvet Cover Set',
   'washed-french-linen-duvet-cover-set',
   'Woven from 100% natural Normandy flax, pre-washed for effortless softness. Thermoregulating, breathable, and includes duvet cover plus 2 king pillow shams.',
   18500,
@@ -3401,7 +3401,7 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-sw-ms-01-1', 'sw-ms-01', 'https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=1000&q=80', 'Monarch Stainless Steel Milanese Mesh Smartwatch', true, 1)
+VALUES ('img-sw-ms-01-1', 'sw-ms-01', 'https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=1000&q=80', 'Monarch Stainless Steel Mesh Smartwatch', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,
@@ -3457,7 +3457,7 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-f-hb-01-1', 'f-hb-01', 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=1000&q=80', 'Verona Italian Calfskin Trapeze Handbag', true, 1)
+VALUES ('img-f-hb-01-1', 'f-hb-01', 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=1000&q=80', 'Verona Handcrafted Calfskin Trapeze Handbag', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,
@@ -3555,7 +3555,7 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-bt-mu-01-1', 'bt-mu-01', 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=1000&q=80', 'Velvet Matte Long-Wear Lip Tint Berry Noir', true, 1)
+VALUES ('img-bt-mu-01-1', 'bt-mu-01', 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=1000&q=80', 'Velvet Matte Long-Wear Lip Tint Deep Berry', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,
@@ -3569,7 +3569,7 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-bt-mu-02-1', 'bt-mu-02', 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=1000&q=80', 'Luminous Dew Liquid Highlighter Flacon', true, 1)
+VALUES ('img-bt-mu-02-1', 'bt-mu-02', 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=1000&q=80', 'Luminous Dew Liquid Highlighter Bottle', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,
@@ -3618,14 +3618,14 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-bt-fp-01-1', 'bt-fp-01', 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1000&q=80', 'Eau De Parfum Santal & Bergamot Glass Bottle', true, 1)
+VALUES ('img-bt-fp-01-1', 'bt-fp-01', 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1000&q=80', 'Santal & Bergamot Artisan Perfume Glass Bottle', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-bt-fp-02-1', 'bt-fp-02', 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=1000&q=80', 'Amber Noir Concentrated Artisan Perfume Oil Flacon', true, 1)
+VALUES ('img-bt-fp-02-1', 'bt-fp-02', 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=1000&q=80', 'Midnight Amber Concentrated Artisan Perfume Oil Bottle', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,
@@ -3660,7 +3660,7 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-hm-be-01-1', 'hm-be-01', 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1000&q=80', 'Washed French Linen Duvet Cover Set', true, 1)
+VALUES ('img-hm-be-01-1', 'hm-be-01', 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1000&q=80', 'Washed Natural Linen Duvet Cover Set', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,

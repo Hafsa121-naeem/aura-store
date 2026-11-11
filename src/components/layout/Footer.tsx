@@ -18,8 +18,8 @@ export default function Footer() {
 
   const departments = [
     { name: 'Acoustic Chamber (Electronics)', href: '/electronics' },
-    { name: 'Precision Horology (Smartwatches)', href: '/smart-watches' },
-    { name: 'Sartorial Wardrobe (Italian Leather)', href: '/fashion' },
+    { name: 'Precision Timepieces (Smartwatches)', href: '/smart-watches' },
+    { name: 'Luxury Fashion (Handcrafted Leather)', href: '/fashion' },
     { name: 'Botanical & Scent (Clean Skincare)', href: '/beauty' },
     { name: 'Living Space (Home & Ceramics)', href: '/home-living' },
     { name: 'Mobile Architecture (MagSafe Docks)', href: '/mobile-accessories' },
@@ -90,10 +90,10 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-xs text-[#8C867D] font-light leading-relaxed max-w-sm">
-              A bespoke convergence of Danish architectural restraint and sensory materiality. We curate hi-fi acoustics, precision horology, and artisan leather for the mindful living space.
+              A thoughtful harmony of modern architectural restraint and sensory materiality. We curate high-fidelity audio, precision timepieces, and artisan leather for the mindful living space.
             </p>
             <div className="pt-2 text-[11px] font-mono text-[#9E814D] uppercase tracking-wider">
-              Copenhagen Inspired &bull; Curated for Pakistan
+              Modern Architecture &bull; Curated for Pakistan
             </div>
           </div>
 
