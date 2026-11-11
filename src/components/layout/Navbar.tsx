@@ -288,8 +288,8 @@ export default function Navbar() {
               Objects
             </Link>
 
-            <a href="#scene" className="hover:text-[#1A1918] transition-colors text-[#806B43] font-medium flex items-center gap-1">
-              <span>Shop The Scene</span>
+            <a href="#composition" className="hover:text-[#1A1918] transition-colors text-[#806B43] font-medium flex items-center gap-1">
+              <span>The Curated Five</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#9E814D]" />
             </a>
 
@@ -589,11 +589,11 @@ export default function Navbar() {
                     All Objects
                   </Link>
                   <a
-                    href="#scene"
+                    href="#composition"
                     onClick={() => setMobileMenuOpen(false)}
                     className="block py-2 hairline-b text-[#806B43] font-medium"
                   >
-                    Shop The Scene
+                    The Curated Five
                   </a>
                   <Link
                     href="/wishlist"
