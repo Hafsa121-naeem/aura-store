@@ -11,7 +11,10 @@ export default function HeroShowcase() {
     <section className="relative w-full bg-[#F4EFE6] overflow-hidden select-none hairline-b">
       
       {/* 1. Full-Bleed Atmospheric Cinematic Hero Stage - True Full-Page Height on Desktop & Mobile */}
-      <div className="relative w-full min-h-[calc(100vh-5rem)] h-[calc(100vh-5rem)] sm:h-[calc(100vh-5rem)] lg:h-[calc(100vh-5rem)] flex items-center">
+      <div
+        style={{ minHeight: 'calc(100vh - 5rem)', height: 'calc(100vh - 5rem)' }}
+        className="relative w-full flex items-center overflow-hidden"
+      >
         
         {/* Background Atmospheric Photograph with Authentic Richness, Natural Contrast & Realistic Depth */}
         <motion.div
