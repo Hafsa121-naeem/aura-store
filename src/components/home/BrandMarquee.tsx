@@ -161,12 +161,12 @@ export default function BrandMarquee() {
   };
 
   return (
-    <section className="py-20 sm:py-24 bg-[#FAF8F5] hairline-b">
+    <section className="py-24 sm:py-32 bg-[#FAF8F5] hairline-b">
       <div className="max-w-[1540px] mx-auto px-6 sm:px-10">
         
         {/* 1. ferm LIVING Signature "Featured Products" Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between pb-8 sm:pb-10 hairline-b gap-6">
-          <div className="space-y-2">
+        <div className="flex flex-col md:flex-row md:items-end justify-between pb-10 sm:pb-12 hairline-b gap-6">
+          <div className="space-y-3">
             <span className="text-[11px] uppercase tracking-[0.28em] font-light text-[#8C867D] block">
               Curated Highlights &bull; Edition 01
             </span>
@@ -174,13 +174,16 @@ export default function BrandMarquee() {
               Featured Objects: <br />
               <span className="italic font-normal text-[#806B43]">Mindfully crafted for modern living</span>
             </h2>
+            <p className="text-xs sm:text-sm font-light text-[#5C5852] max-w-md leading-relaxed pt-1">
+              A curated selection of six flagship objects. Quality over quantity, verified with official warranty and nationwide Cash on Delivery.
+            </p>
           </div>
 
           {/* Filter Tags & Architectural Navigation Arrows */}
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-[#5C5852]">
               {[
-                { id: 'ALL', label: 'ALL OBJECTS' },
+                { id: 'ALL', label: 'ALL 6 OBJECTS' },
                 { id: 'NEW', label: 'NYHED / NEW' },
                 { id: 'RESPONSIBLE', label: 'RESPONSIBLE' },
                 { id: 'BESTSELLER', label: 'BESTSELLERS' },
@@ -189,7 +192,7 @@ export default function BrandMarquee() {
                   key={f.id}
                   type="button"
                   onClick={() => setActiveFilter(f.id as any)}
-                  className={`px-3 py-1.5 border transition-all ${
+                  className={`px-3.5 py-2 border transition-all ${
                     activeFilter === f.id
                       ? 'border-[#1A1918] bg-[#1A1918] text-[#FAF8F5]'
                       : 'border-[#D8D2C6] bg-transparent text-[#5C5852] hover:border-[#1A1918]'
@@ -205,7 +208,7 @@ export default function BrandMarquee() {
               <button
                 type="button"
                 onClick={() => scroll('left')}
-                className="w-9 h-9 border border-[#D8D2C6] bg-white hover:border-[#1A1918] text-[#1A1918] flex items-center justify-center transition-colors"
+                className="w-10 h-10 border border-[#D8D2C6] bg-white hover:border-[#1A1918] text-[#1A1918] flex items-center justify-center transition-colors shadow-sm"
                 aria-label="Previous Slide"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -213,7 +216,7 @@ export default function BrandMarquee() {
               <button
                 type="button"
                 onClick={() => scroll('right')}
-                className="w-9 h-9 border border-[#D8D2C6] bg-white hover:border-[#1A1918] text-[#1A1918] flex items-center justify-center transition-colors"
+                className="w-10 h-10 border border-[#D8D2C6] bg-white hover:border-[#1A1918] text-[#1A1918] flex items-center justify-center transition-colors shadow-sm"
                 aria-label="Next Slide"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -225,13 +228,13 @@ export default function BrandMarquee() {
         {/* 2. Large, Tall Architectural Portrait Product Carousel */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-6 overflow-x-auto pt-8 pb-4 scrollbar-none scroll-smooth select-none"
+          className="flex gap-8 overflow-x-auto pt-10 pb-6 scrollbar-none scroll-smooth select-none"
           style={{ scrollbarWidth: 'none' }}
         >
           {filtered.map((item) => (
             <div
               key={item.id}
-              className="group relative flex flex-col justify-between bg-[#F5F2EB] border border-[#D8D2C6] hover:border-[#1A1918] transition-all duration-300 w-[290px] sm:w-[340px] shrink-0"
+              className="group relative flex flex-col justify-between bg-[#F5F2EB] border border-[#D8D2C6] hover:border-[#1A1918] transition-all duration-300 w-[320px] sm:w-[380px] shrink-0 shadow-sm hover:shadow-xl"
             >
               {/* Product Image Frame with Dual Hover Crossfade */}
               <Link
@@ -356,19 +359,20 @@ export default function BrandMarquee() {
           ))}
         </div>
 
-        {/* 3. Understated Architectural Assurance Single-Line Banner */}
-        <div className="mt-12 pt-6 hairline-t flex flex-wrap items-center justify-between text-xs text-[#5C5852] font-light tracking-wider gap-4">
-          <div className="flex flex-wrap items-center gap-6">
-            <span>&bull; Complimentary express shipping over Rs. 5,000</span>
-            <span>&bull; Doorstep Cash on Delivery nationwide</span>
-            <span>&bull; 100% Certified authentic with official warranty</span>
+        {/* 3. Understated Architectural Assurance & Subtle "Explore Collection" Link */}
+        <div className="mt-14 pt-8 hairline-t flex flex-col md:flex-row items-center justify-between text-xs text-[#5C5852] font-light tracking-wider gap-6">
+          <div className="flex flex-wrap items-center gap-6 text-[11px] font-mono text-[#8C867D]">
+            <span>&bull; COMPLIMENTARY EXPRESS SHIPPING OVER RS. 5,000</span>
+            <span>&bull; DOORSTEP CASH ON DELIVERY NATIONWIDE</span>
+            <span>&bull; 100% CERTIFIED OFFICIAL WARRANTY</span>
           </div>
 
           <Link
             href="/products"
-            className="text-xs uppercase tracking-[0.24em] text-[#1A1918] hover:text-[#806B43] transition-colors underline underline-offset-8"
+            className="group inline-flex items-center gap-3 px-6 py-3 bg-[#1A1918] hover:bg-[#806B43] text-[#FAF8F5] text-xs uppercase tracking-[0.22em] font-light transition-all shadow-sm"
           >
-            Explore all 76 catalog objects &rarr;
+            <span>Explore Complete Collection (76 Objects)</span>
+            <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
           </Link>
         </div>
 

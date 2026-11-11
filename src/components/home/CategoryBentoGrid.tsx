@@ -15,7 +15,6 @@ export default function CategoryBentoGrid() {
       subtitle: 'Beryllium Drivers & Hi-Fi Wireless',
       count: '12 Objects',
       image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=1200&q=85',
-      span: 'lg:col-span-8 lg:row-span-2 min-h-[380px] sm:min-h-[460px]',
       tag: 'Acoustic Sculpture',
     },
     {
@@ -25,7 +24,6 @@ export default function CategoryBentoGrid() {
       subtitle: 'Aerospace Titanium & Sapphire',
       count: '12 Objects',
       image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=85',
-      span: 'lg:col-span-4 min-h-[260px]',
       tag: 'Instruments',
     },
     {
@@ -35,7 +33,6 @@ export default function CategoryBentoGrid() {
       subtitle: 'Full-Grain Italian Leather Totes',
       count: '12 Objects',
       image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=85',
-      span: 'lg:col-span-4 min-h-[260px]',
       tag: 'Artisan Leather',
     },
     {
@@ -45,7 +42,6 @@ export default function CategoryBentoGrid() {
       subtitle: 'Multi-Peptide Elixirs & Oils',
       count: '12 Objects',
       image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=800&q=85',
-      span: 'lg:col-span-4 min-h-[280px]',
       tag: 'Clean Botanicals',
     },
     {
@@ -55,7 +51,6 @@ export default function CategoryBentoGrid() {
       subtitle: 'Organic Linens & Matte Ceramics',
       count: '14 Objects',
       image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=85',
-      span: 'lg:col-span-4 min-h-[280px]',
       tag: 'Interior Elements',
     },
     {
@@ -65,13 +60,12 @@ export default function CategoryBentoGrid() {
       subtitle: 'MagSafe Docks & GaN Rapid Power',
       count: '14 Objects',
       image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=800&q=85',
-      span: 'lg:col-span-4 min-h-[280px]',
       tag: 'Machined Aluminum',
     },
   ];
 
   return (
-    <section id="spaces" className="py-20 sm:py-28 bg-[#F5F2EB] hairline-b">
+    <section id="spaces" className="py-24 sm:py-32 bg-[#F5F2EB] hairline-b">
       <div className="max-w-[1540px] mx-auto px-6 sm:px-10">
         
         {/* Section Header */}
@@ -84,7 +78,7 @@ export default function CategoryBentoGrid() {
               Spaces &amp; Curated Departments
             </h2>
             <p className="text-xs sm:text-sm text-[#5C5852] font-light max-w-xl leading-relaxed">
-              Every object is contextualized for mindful living. Sourced with official brand warranties and certified nationwide Cash on Delivery.
+              Six focused spaces contextualized for mindful living. Sourced with official brand warranties and certified nationwide Cash on Delivery.
             </p>
           </div>
 
@@ -92,18 +86,18 @@ export default function CategoryBentoGrid() {
             href="/products"
             className="text-xs uppercase tracking-[0.24em] font-light text-[#1A1918] hover:text-[#806B43] flex items-center gap-2 transition-colors self-start md:self-auto underline underline-offset-8"
           >
-            <span>Explore all 76 objects</span>
+            <span>Explore all departments</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        {/* Bento Grid with Ferm Living Hairline Frames */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 pt-10 sm:pt-14">
-          {categories.map((cat, idx) => (
+        {/* Compact, Clean 6-Category Grid (3 cols x 2 rows) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-10 sm:pt-12">
+          {categories.map((cat) => (
             <Link
               key={cat.id}
               href={`/${cat.slug}`}
-              className={`group relative overflow-hidden bg-[#EDE8DF] border border-[#D8D2C6] flex flex-col justify-between p-6 sm:p-8 transition-all duration-500 ${cat.span}`}
+              className="group relative h-[280px] sm:h-[300px] overflow-hidden bg-[#EDE8DF] border border-[#D8D2C6] hover:border-[#1A1918] flex flex-col justify-between p-6 sm:p-7 transition-all duration-500 shadow-sm hover:shadow-xl"
             >
               {/* Background Image with Slow Hover Scale */}
               <div className="absolute inset-0">

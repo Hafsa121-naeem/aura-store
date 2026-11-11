@@ -149,3 +149,154 @@ html {
 .animate-marquee-reverse:hover {
   animation-play-state: paused;
 }
+
+/* ==============================================================
+   SHAKURO / MIRKO ROMANELLI MULTI-LAYERED 3D KINETIC FIELD
+   ============================================================== */
+.perspective-stage {
+  perspective: 1600px;
+  perspective-origin: center center;
+  transform-style: preserve-3d;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+@keyframes stratum-drift-left {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes stratum-drift-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
+/* Foreground Stratum 3D Breathing (Forward push into foreground, Z: +100px to +180px) */
+@keyframes float-3d-foreground-1 {
+  0%, 100% {
+    transform: translate3d(0, 0, 115px) rotateZ(-1.6deg) scale(1.05);
+  }
+  35% {
+    transform: translate3d(14px, -26px, 175px) rotateZ(1.4deg) scale(1.14);
+  }
+  70% {
+    transform: translate3d(-12px, 18px, 85px) rotateZ(-0.8deg) scale(1.02);
+  }
+}
+
+@keyframes float-3d-foreground-2 {
+  0%, 100% {
+    transform: translate3d(0, 0, 95px) rotateZ(1.6deg) scale(1.03);
+  }
+  42% {
+    transform: translate3d(-16px, 24px, 165px) rotateZ(-1.2deg) scale(1.12);
+  }
+  78% {
+    transform: translate3d(12px, -18px, 75px) rotateZ(0.7deg) scale(0.99);
+  }
+}
+
+/* Midground Stratum 3D Breathing (Alternates between foreground and background, Z: -50px to +70px) */
+@keyframes float-3d-midground-1 {
+  0%, 100% {
+    transform: translate3d(0, 0, 20px) rotateZ(1.2deg) scale(0.96);
+  }
+  38% {
+    transform: translate3d(-20px, 26px, -50px) rotateZ(-1.5deg) scale(0.90);
+  }
+  80% {
+    transform: translate3d(16px, -20px, 70px) rotateZ(0.9deg) scale(1.02);
+  }
+}
+
+@keyframes float-3d-midground-2 {
+  0%, 100% {
+    transform: translate3d(0, 0, -10px) rotateZ(-1.4deg) scale(0.94);
+  }
+  32% {
+    transform: translate3d(18px, -22px, 55px) rotateZ(1.1deg) scale(1.01);
+  }
+  74% {
+    transform: translate3d(-15px, 24px, -55px) rotateZ(-0.9deg) scale(0.89);
+  }
+}
+
+/* Atmospheric Deep Stratum (Recedes deep into background, Z: -140px to -60px, lower opacity) */
+@keyframes float-3d-deep-1 {
+  0%, 100% {
+    transform: translate3d(0, 0, -120px) rotateZ(-2.2deg) scale(0.84);
+    opacity: 0.72;
+  }
+  50% {
+    transform: translate3d(22px, -30px, -65px) rotateZ(1.8deg) scale(0.90);
+    opacity: 0.88;
+  }
+}
+
+@keyframes float-3d-deep-2 {
+  0%, 100% {
+    transform: translate3d(0, 0, -145px) rotateZ(2deg) scale(0.81);
+    opacity: 0.68;
+  }
+  55% {
+    transform: translate3d(-18px, 28px, -80px) rotateZ(-1.6deg) scale(0.87);
+    opacity: 0.84;
+  }
+}
+
+/* Asymmetric Free-Floating Nodes (Diagonal & Volumetric Swirl) */
+@keyframes orbital-node-1 {
+  0%, 100% {
+    transform: translate3d(-25px, -18px, 90px) rotateZ(-2.2deg) scale(1.02);
+  }
+  33% {
+    transform: translate3d(35px, 28px, 160px) rotateZ(2.4deg) scale(1.12);
+  }
+  66% {
+    transform: translate3d(-18px, 42px, -30px) rotateZ(-1.2deg) scale(0.94);
+  }
+}
+
+@keyframes orbital-node-2 {
+  0%, 100% {
+    transform: translate3d(30px, 22px, -25px) rotateZ(1.8deg) scale(0.95);
+  }
+  50% {
+    transform: translate3d(-40px, -32px, 145px) rotateZ(-2.4deg) scale(1.09);
+  }
+}
+
+.animate-stratum-left {
+  display: flex;
+  width: max-content;
+  animation: stratum-drift-left 42s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.animate-stratum-right {
+  display: flex;
+  width: max-content;
+  animation: stratum-drift-right 52s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.animate-stratum-deep {
+  display: flex;
+  width: max-content;
+  animation: stratum-drift-left 68s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.kinetic-paused {
+  animation-play-state: paused !important;
+}
