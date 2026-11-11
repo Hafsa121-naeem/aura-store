@@ -60,7 +60,7 @@ export default function AnimatedPhotoStream() {
       title: 'Cordless Ceramic Table Lamp',
       category: 'Living Space',
       price: 9499,
-      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=85',
+      image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=1000&q=80',
       slug: 'cordless-rechargeable-mushroom-table-lamp',
       specs: 'Matte Reduction Fired • Dimmable Flax Warm Ambiance',
     },
@@ -70,7 +70,7 @@ export default function AnimatedPhotoStream() {
       title: 'Luminance Vitamin C Radiance Elixir',
       category: 'Botanical & Scent',
       price: 7899,
-      image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=800&q=85',
+      image: 'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=1000&q=80',
       slug: 'luminance-vitamin-c-radiance-elixir',
       specs: 'Organic Rosehip • Active Biomimetic Radiance Complex',
     },
@@ -269,7 +269,7 @@ export default function AnimatedPhotoStream() {
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 <Link href={`/products/${supportingObjects[2].slug}`} className="block">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#EDE8DF]">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
                     <Image
                       src={supportingObjects[2].image}
                       alt={supportingObjects[2].title}
@@ -440,7 +440,7 @@ export default function AnimatedPhotoStream() {
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 <Link href={`/products/${supportingObjects[3].slug}`} className="block">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#EDE8DF]">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
                     <Image
                       src={supportingObjects[3].image}
                       alt={supportingObjects[3].title}
@@ -521,7 +521,7 @@ export default function AnimatedPhotoStream() {
                   className="bg-[#FAF8F5] border border-[#D8D2C6] p-4 shadow-sm"
                 >
                   <Link href={`/products/${item.slug}`} className="block">
-                    <div className="relative aspect-square w-full overflow-hidden bg-[#EDE8DF]">
+                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
                       <Image
                         src={item.image}
                         alt={item.title}
