@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'motion/react';
-import { ArrowRight, Sparkles, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 
 export default function HeroShowcase() {
   return (
@@ -50,14 +50,6 @@ export default function HeroShowcase() {
             <div className="inline-flex items-center gap-2.5 px-3 py-1 bg-black/40 backdrop-blur-md border border-white/15 text-[10px] font-mono uppercase tracking-[0.28em] text-[#E8D4B0]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#E8D4B0] animate-pulse" />
               <span>AURA Store &bull; Autumn / Winter 2026</span>
-            </div>
-
-            <div className="hidden sm:flex items-center gap-3 text-[10px] font-mono uppercase tracking-widest text-[#FAF8F5]/70">
-              <span>Acoustic Audio</span>
-              <span>&bull;</span>
-              <span>Titanium Timepieces</span>
-              <span>&bull;</span>
-              <span>Artisan Leather</span>
             </div>
           </motion.div>
 
@@ -114,26 +106,6 @@ export default function HeroShowcase() {
               </motion.div>
             </motion.div>
           </div>
-
-          {/* Bottom Understated Reassurance Bar */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.9 }}
-            className="flex flex-wrap items-center justify-between text-[11px] font-mono text-[#E0D8CB]/70 uppercase tracking-widest pt-4 border-t border-white/10"
-          >
-            <div className="flex flex-wrap items-center gap-5 sm:gap-8">
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#E8D4B0]" />
-                Nationwide Cash on Delivery
-              </span>
-              <span>&bull; Doorstep Inspection Included</span>
-              <span>&bull; Official 12-Month Warranty</span>
-            </div>
-            <div className="hidden md:block text-[#E8D4B0] font-medium">
-              All Prices in PKR (Rs.)
-            </div>
-          </motion.div>
 
         </div>
       </div>

@@ -86,7 +86,7 @@ export const MOBILE_PRODUCTS: Product[] = [
       {
         id: 'img-mbcs-02-1',
         product_id: 'mb-cs-02',
-        image_url: 'https://images.unsplash.com/photo-1574665767794-06d9d43513cc?w=1000&q=80',
+        image_url: 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=1000&q=80',
         alt_text: 'Full-Grain Leather Magnetic Phone Case',
         is_primary: true,
         display_order: 1,
@@ -152,7 +152,7 @@ export const MOBILE_PRODUCTS: Product[] = [
       {
         id: 'img-mbcg-02-1',
         product_id: 'mb-cg-02',
-        image_url: 'https://images.unsplash.com/photo-1622445262464-84b14e3235b3?w=1000&q=80',
+        image_url: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=1000&q=80',
         alt_text: '30W Compact Travel Fast Charger',
         is_primary: true,
         display_order: 1,
@@ -436,7 +436,7 @@ export const MOBILE_PRODUCTS: Product[] = [
       {
         id: 'img-mbhs-01-1',
         product_id: 'mb-hs-01',
-        image_url: 'https://images.unsplash.com/photo-1708228495018-795321f2d65d?w=1000&q=80',
+        image_url: 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=1000&q=80',
         alt_text: 'Elevate CNC Solid Aluminum 360 Rotating Desktop Phone Stand',
         is_primary: true,
         display_order: 1,

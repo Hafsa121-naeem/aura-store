@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { getCategories, getProducts } from '@/lib/services/api';
 import ProductGrid from '@/components/products/ProductGrid';
@@ -247,17 +247,6 @@ async function ProductsContent({ searchParams }: ProductsPageProps) {
   );
 }
 
-export default function ProductsPage(props: ProductsPageProps) {
-  return (
-    <Suspense
-      fallback={
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600 mx-auto" />
-          <p className="text-xs text-slate-700 mt-4 font-semibold">Loading catalog collections...</p>
-        </div>
-      }
-    >
-      <ProductsContent {...props} />
-    </Suspense>
-  );
+export default async function ProductsPage(props: ProductsPageProps) {
+  return <ProductsContent {...props} />;
 }

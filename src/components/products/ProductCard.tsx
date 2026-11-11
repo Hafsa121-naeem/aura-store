@@ -63,11 +63,16 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
     setActivePreviewImage(activeColor?.image_url || primaryImg);
   }, [currentProduct, activeColor, primaryImage]);
 
-  const effectivePrice = (activeColor?.price ?? currentProduct.sale_price) ?? currentProduct.price;
-  const originalPrice = (activeColor?.sale_price ? activeColor.price : currentProduct.price) ?? currentProduct.price;
-  const hasDiscount = Boolean(currentProduct.sale_price && currentProduct.sale_price < currentProduct.price);
+  const currentVariantPrice = activeColor?.price ?? currentProduct.price;
+  const currentVariantSalePrice =
+    activeColor?.sale_price !== undefined ? activeColor.sale_price : currentProduct.sale_price;
+  const effectivePrice = currentVariantSalePrice ?? currentVariantPrice;
+  const originalPrice = currentVariantPrice;
+  const hasDiscount = Boolean(
+    currentVariantSalePrice && currentVariantSalePrice < currentVariantPrice
+  );
   const discountPercent = hasDiscount
-    ? Math.round(((currentProduct.price - (currentProduct.sale_price as number)) / currentProduct.price) * 100)
+    ? Math.round(((originalPrice - effectivePrice) / originalPrice) * 100)
     : 0;
 
   const handleColorSelect = (variant: ProductColorVariant, e: React.MouseEvent) => {
@@ -87,7 +92,9 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
       1,
       activeColor?.name,
       undefined,
-      activeColor?.image_url || activePreviewImage
+      activeColor?.image_url || activePreviewImage,
+      activeColor?.price,
+      activeColor?.sale_price
     );
     setIsAdded(true);
     setTimeout(() => {

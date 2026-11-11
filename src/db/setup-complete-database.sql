@@ -374,7 +374,7 @@ VALUES
   ('c3-fashion', 'Fashion & Accessories', 'fashion-accessories', 'Handcrafted Italian leather bags, polarized acetate eyewear, sculptural statement jewelry, and automatic watches.', 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80', 3),
   ('c4-beauty', 'Beauty & Skincare', 'beauty-skincare', 'Clinically formulated botanical serums, ultrasound facial sculpting devices, barrier repair creams, and mineral SPF.', 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&q=80', 4),
   ('c5-home', 'Home & Living', 'home-living', 'Solid American walnut workspace risers, ambient touch lamps, sculpted stoneware diffusers, and artisanal coffee gear.', 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80', 5),
-  ('c6-mobile', 'Mobile & Tech Accessories', 'mobile-accessories', 'Fast MagSafe charging docks, aerospace aramid fiber phone cases, 100W braided Kevlar cables, and battery banks.', 'https://images.unsplash.com/photo-1622445262464-84b14e3235b3?w=800&q=80', 6)
+  ('c6-mobile', 'Mobile & Tech Accessories', 'mobile-accessories', 'Fast MagSafe charging docks, aerospace aramid fiber phone cases, 100W braided Kevlar cables, and battery banks.', 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=800&q=80', 6)
 ON CONFLICT (id) DO UPDATE SET
   name = EXCLUDED.name,
   slug = EXCLUDED.slug,
@@ -3828,7 +3828,7 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-sw-st-01-1', 'sw-st-01', 'https://images.unsplash.com/photo-1594576722512-582bcd08fc61?w=1000&q=80', 'Quick-Release Italian Saddle Leather Strap', true, 1)
+VALUES ('img-sw-st-01-1', 'sw-st-01', 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1000&q=80', 'Quick-Release Italian Saddle Leather Strap', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,
@@ -4122,7 +4122,7 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-mb-cs-02-1', 'mb-cs-02', 'https://images.unsplash.com/photo-1574665767794-06d9d43513cc?w=1000&q=80', 'Full-Grain Leather Magnetic Phone Case', true, 1)
+VALUES ('img-mb-cs-02-1', 'mb-cs-02', 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=1000&q=80', 'Full-Grain Leather Magnetic Phone Case', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,
@@ -4136,7 +4136,7 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-mb-cg-02-1', 'mb-cg-02', 'https://images.unsplash.com/photo-1622445262464-84b14e3235b3?w=1000&q=80', '30W Compact Travel Fast Charger', true, 1)
+VALUES ('img-mb-cg-02-1', 'mb-cg-02', 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=1000&q=80', '30W Compact Travel Fast Charger', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,
@@ -4192,7 +4192,7 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-mb-hs-01-1', 'mb-hs-01', 'https://images.unsplash.com/photo-1708228495018-795321f2d65d?w=1000&q=80', 'Elevate CNC Solid Aluminum 360 Rotating Desktop Phone Stand', true, 1)
+VALUES ('img-mb-hs-01-1', 'mb-hs-01', 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=1000&q=80', 'Elevate CNC Solid Aluminum 360 Rotating Desktop Phone Stand', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,

@@ -13,6 +13,7 @@ interface FocalObject {
   title: string;
   category: string;
   price: number;
+  originalPrice?: number;
   image: string;
   slug: string;
   specs: string;
@@ -28,6 +29,7 @@ export default function AnimatedPhotoStream() {
     title: 'Horizon Pro ANC Hybrid Headphones',
     category: 'Acoustic Chamber',
     price: 22499,
+    originalPrice: 26999,
     image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=1200&q=85',
     slug: 'horizon-pro-anc-hybrid-wireless-headphones',
     specs: '40mm Milled Beryllium • 42dB Hybrid Noise Cancellation',
@@ -39,7 +41,8 @@ export default function AnimatedPhotoStream() {
       tag: 'TITANIUM TIMEPIECE',
       title: 'Apex Titanium Sapphire Smartwatch',
       category: 'Precision Instruments',
-      price: 16999,
+      price: 32999,
+      originalPrice: 38999,
       image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=85',
       slug: 'apex-titanium-sapphire-amoled-smartwatch',
       specs: 'Aerospace Grade-5 Titanium • Curved Sapphire Crystal',
@@ -50,6 +53,7 @@ export default function AnimatedPhotoStream() {
       title: 'Verona Handcrafted Calfskin Handbag',
       category: 'Luxury Fashion',
       price: 19999,
+      originalPrice: 24999,
       image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=85',
       slug: 'verona-italian-calfskin-handbag',
       specs: 'Full-Grain Calfskin • Hand-Polished Palladium Brass',
@@ -59,7 +63,8 @@ export default function AnimatedPhotoStream() {
       tag: 'HAND-THROWN STONEWARE',
       title: 'Cordless Ceramic Table Lamp',
       category: 'Living Space',
-      price: 9499,
+      price: 6999,
+      originalPrice: 8500,
       image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=1000&q=80',
       slug: 'cordless-rechargeable-mushroom-table-lamp',
       specs: 'Matte Reduction Fired • Dimmable Flax Warm Ambiance',
@@ -69,7 +74,8 @@ export default function AnimatedPhotoStream() {
       tag: 'COLD-PRESSED PEPTIDES',
       title: 'Luminance Vitamin C Radiance Serum',
       category: 'Botanical & Scent',
-      price: 7899,
+      price: 4499,
+      originalPrice: 5499,
       image: 'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=1000&q=80',
       slug: 'luminance-vitamin-c-radiance-elixir',
       specs: 'Organic Rosehip • Active Biomimetic Radiance Complex',

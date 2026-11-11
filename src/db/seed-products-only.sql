@@ -3443,7 +3443,7 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-sw-st-01-1', 'sw-st-01', 'https://images.unsplash.com/photo-1594576722512-582bcd08fc61?w=1000&q=80', 'Quick-Release Italian Saddle Leather Strap', true, 1)
+VALUES ('img-sw-st-01-1', 'sw-st-01', 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1000&q=80', 'Quick-Release Italian Saddle Leather Strap', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,
@@ -3737,7 +3737,7 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-mb-cs-02-1', 'mb-cs-02', 'https://images.unsplash.com/photo-1574665767794-06d9d43513cc?w=1000&q=80', 'Full-Grain Leather Magnetic Phone Case', true, 1)
+VALUES ('img-mb-cs-02-1', 'mb-cs-02', 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=1000&q=80', 'Full-Grain Leather Magnetic Phone Case', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,
@@ -3751,7 +3751,7 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-mb-cg-02-1', 'mb-cg-02', 'https://images.unsplash.com/photo-1622445262464-84b14e3235b3?w=1000&q=80', '30W Compact Travel Fast Charger', true, 1)
+VALUES ('img-mb-cg-02-1', 'mb-cg-02', 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=1000&q=80', '30W Compact Travel Fast Charger', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,
@@ -3807,7 +3807,7 @@ ON CONFLICT (id) DO UPDATE SET
   is_primary = EXCLUDED.is_primary,
   display_order = EXCLUDED.display_order;
 INSERT INTO public.product_images (id, product_id, image_url, alt_text, is_primary, display_order)
-VALUES ('img-mb-hs-01-1', 'mb-hs-01', 'https://images.unsplash.com/photo-1708228495018-795321f2d65d?w=1000&q=80', 'Elevate CNC Solid Aluminum 360 Rotating Desktop Phone Stand', true, 1)
+VALUES ('img-mb-hs-01-1', 'mb-hs-01', 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=1000&q=80', 'Elevate CNC Solid Aluminum 360 Rotating Desktop Phone Stand', true, 1)
 ON CONFLICT (id) DO UPDATE SET
   image_url = EXCLUDED.image_url,
   alt_text = EXCLUDED.alt_text,

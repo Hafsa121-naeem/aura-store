@@ -64,11 +64,16 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
 
   if (!isOpen || !product) return null;
 
-  const effectivePrice = (selectedColor?.price ?? product.sale_price) ?? product.price;
-  const originalPrice = (selectedColor?.sale_price ? selectedColor.price : product.price) ?? product.price;
-  const hasDiscount = Boolean(product.sale_price && product.sale_price < product.price);
+  const currentVariantPrice = selectedColor?.price ?? product.price;
+  const currentVariantSalePrice =
+    selectedColor?.sale_price !== undefined ? selectedColor.sale_price : product.sale_price;
+  const effectivePrice = currentVariantSalePrice ?? currentVariantPrice;
+  const originalPrice = currentVariantPrice;
+  const hasDiscount = Boolean(
+    currentVariantSalePrice && currentVariantSalePrice < currentVariantPrice
+  );
   const discountPercent = hasDiscount
-    ? Math.round(((product.price - (product.sale_price as number)) / product.price) * 100)
+    ? Math.round(((originalPrice - effectivePrice) / originalPrice) * 100)
     : 0;
 
   const handleColorChange = (variant: ProductColorVariant) => {
@@ -84,7 +89,9 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
       quantity,
       selectedColor?.name,
       undefined,
-      activeImage
+      activeImage,
+      selectedColor?.price,
+      selectedColor?.sale_price
     );
     setIsAdded(true);
     setTimeout(() => {

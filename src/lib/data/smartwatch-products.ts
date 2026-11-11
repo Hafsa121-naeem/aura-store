@@ -407,7 +407,7 @@ export const SMARTWATCH_PRODUCTS: Product[] = [
       {
         id: 'img-swst-01-1',
         product_id: 'sw-st-01',
-        image_url: 'https://images.unsplash.com/photo-1594576722512-582bcd08fc61?w=1000&q=80',
+        image_url: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1000&q=80',
         alt_text: 'Quick-Release Saddle Leather Strap',
         is_primary: true,
         display_order: 1,
