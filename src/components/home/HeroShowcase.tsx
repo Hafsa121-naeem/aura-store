@@ -30,10 +30,10 @@ export default function HeroShowcase() {
             unoptimized
           />
           {/* Desktop Left-to-Right Champagne Vignette (Leaves subject on right 100% vivid with zero haze) */}
-          <div className="hidden sm:block absolute inset-y-0 left-0 sm:w-[60%] lg:w-[48%] bg-gradient-to-r from-[#F4EFE6]/95 via-[#F4EFE6]/65 to-transparent pointer-events-none" />
+          <div className="hidden sm:block absolute inset-y-0 left-0 sm:w-[72%] lg:w-[60%] bg-gradient-to-r from-[#F4EFE6]/98 via-[#F4EFE6]/85 sm:via-[#F4EFE6]/65 to-transparent pointer-events-none" />
           
           {/* Mobile Bottom Champagne Vignette (Protects lower text while keeping face and eyes completely clear in top half) */}
-          <div className="sm:hidden absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-[#F4EFE6]/95 via-[#F4EFE6]/55 to-transparent pointer-events-none" />
+          <div className="sm:hidden absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#F4EFE6]/98 via-[#F4EFE6]/75 to-transparent pointer-events-none" />
 
           {/* Subtle Warm Champagne Glow */}
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#C5A880]/15 rounded-full blur-3xl pointer-events-none" />
@@ -43,52 +43,54 @@ export default function HeroShowcase() {
         <div className="relative z-10 w-full max-w-[1540px] mx-auto px-6 sm:px-10 pt-16 pb-8 sm:py-20 flex flex-col justify-end sm:justify-center h-full">
 
           {/* Central Editorial Brand Introduction */}
-          <div className="max-w-2xl space-y-5 sm:space-y-6">
+          <div className="max-w-2xl space-y-6 sm:space-y-7">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-3 sm:space-y-4"
+              className="space-y-4"
             >
-              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.32em] font-medium text-[#7D633E]">
-                <Sparkles className="w-3 h-3 text-[#7D633E]" />
+              {/* Prominent Editorial Kicker Pill */}
+              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 bg-[#FAF7F2]/90 backdrop-blur-md border border-[#8A6D3B]/35 text-[11px] font-mono uppercase tracking-[0.28em] text-[#5A411B] font-semibold rounded-full shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-[#8A6D3B]" />
                 <span>New Collection &bull; The Mindful Domestic Space</span>
               </div>
               
+              {/* High-Impact Luxury Headline */}
               <motion.h1
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="text-3xl sm:text-6xl lg:text-7xl font-editorial font-light text-[#1A1918] leading-[1.08] tracking-tight"
+                className="text-4xl sm:text-6xl lg:text-7xl font-editorial font-normal text-[#1A1918] leading-[1.08] tracking-tight"
               >
                 A life of contrasts: <br />
-                <span className="italic font-normal text-[#8A6D3B]">
+                <span className="italic font-medium text-[#5C4018] drop-shadow-[0_1px_2px_rgba(255,255,255,0.7)]">
                   Quiet luxury for modern living.
                 </span>
               </motion.h1>
             </motion.div>
 
-            {/* Premium CTA Buttons */}
+            {/* High-Contrast Luxury CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-wrap items-center gap-4 sm:gap-5 pt-2 sm:pt-3"
+              className="flex flex-wrap items-center gap-4 sm:gap-5 pt-3"
             >
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Link
                   href="/products"
-                  className="px-7 sm:px-8 py-3 sm:py-3.5 bg-[#1A1918] hover:bg-[#8A6D3B] text-[#FAF8F5] text-xs uppercase tracking-[0.24em] font-medium transition-colors shadow-lg flex items-center gap-2.5 group"
+                  className="px-8 sm:px-9 py-3.5 sm:py-4 bg-[#1A1918] hover:bg-[#5C4018] text-[#FAF8F5] text-xs uppercase tracking-[0.26em] font-semibold transition-all shadow-xl hover:shadow-2xl flex items-center gap-3 group ring-1 ring-[#1A1918]"
                 >
                   <span>Explore Collection</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
                 </Link>
               </motion.div>
 
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <a
                   href="#composition"
-                  className="px-5 sm:px-6 py-3 sm:py-3.5 border border-[#1A1918]/30 hover:border-[#8A6D3B] text-[#1A1918] hover:text-[#8A6D3B] bg-[#F4EFE6]/75 hover:bg-[#FAF7F2] text-xs uppercase tracking-[0.22em] font-medium transition-colors backdrop-blur-sm shadow-xs"
+                  className="px-7 sm:px-8 py-3.5 sm:py-4 border-2 border-[#1A1918] hover:border-[#5C4018] text-[#1A1918] hover:text-[#5C4018] bg-[#FAF7F2]/90 hover:bg-white text-xs uppercase tracking-[0.24em] font-semibold transition-all backdrop-blur-md shadow-sm"
                 >
                   View Exhibition
                 </a>
