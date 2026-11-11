@@ -144,33 +144,33 @@ export default function Navbar() {
   return (
     <>
       {/* 1. ferm LIVING Style Quiet Announcement Strip */}
-      <div className="hairline-b bg-[#FAF8F5] py-2 px-4 sm:px-8 text-[11px] text-[#5C5852] font-light tracking-[0.16em] uppercase flex items-center justify-between">
-        <div className="hidden sm:flex items-center gap-2.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#9E814D]" />
-          <span>Complimentary express delivery on orders over Rs. 5,000</span>
+      <div className="hairline-b bg-[#F5F0E8] py-2.5 px-4 sm:px-8 text-[11.5px] text-[#1A1918] font-medium tracking-[0.16em] uppercase flex items-center justify-between border-b border-[#D8D2C6]">
+        <div className="hidden sm:flex items-center gap-2.5 text-[#1A1918]">
+          <span className="w-2 h-2 rounded-full bg-[#806B43] animate-pulse" />
+          <span className="font-semibold text-[#1A1918]">Complimentary express delivery on orders over Rs. 5,000</span>
         </div>
 
-        <div className="text-center flex-1 font-medium tracking-[0.2em] text-[#1A1918]">
+        <div className="text-center flex-1 font-semibold tracking-[0.2em] text-[#1A1918]">
           AURA STORE &bull; Cash on Delivery Nationwide &bull; 7-Day Returns
         </div>
 
-        <div className="hidden md:flex items-center gap-4 text-[11px] tracking-wider">
+        <div className="hidden md:flex items-center gap-4 text-[11.5px] tracking-wider text-[#1A1918]">
           <Link
             href="/admin/products"
-            className="flex items-center gap-1.5 text-[#806B43] hover:text-[#1A1918] transition-colors font-medium"
+            className="flex items-center gap-1.5 text-[#735A2F] hover:text-[#1A1918] transition-colors font-bold"
           >
-            <Shield className="w-3 h-3 text-[#9E814D]" />
+            <Shield className="w-3.5 h-3.5 text-[#806B43]" />
             <span>Admin Portal</span>
           </Link>
-          <span>&bull;</span>
-          <Link href="/account/orders" className="hover:text-[#1A1918] transition-colors">
+          <span className="text-[#8C867D]">&bull;</span>
+          <Link href="/account/orders" className="hover:text-[#806B43] font-semibold transition-colors">
             Track Order
           </Link>
         </div>
       </div>
 
       {/* 2. ferm LIVING Architectural Sticky Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-[#F5F2EB]/95 backdrop-blur-md hairline-b transition-all">
+      <header className="sticky top-0 z-40 bg-[#F5F2EB]/98 backdrop-blur-md hairline-b transition-all">
         <div className="max-w-[1540px] mx-auto px-6 sm:px-10 h-20 flex items-center justify-between">
           
           {/* Mobile Menu Button (Left on mobile) */}
@@ -184,13 +184,13 @@ export default function Navbar() {
           </button>
 
           {/* Left: Minimalist Category Navigation (ferm LIVING style) */}
-          <nav className="hidden lg:flex items-center gap-7 xl:gap-8 text-xs font-light tracking-[0.22em] uppercase text-[#3D3A35]">
+          <nav className="hidden lg:flex items-center gap-7 xl:gap-8 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#1A1918]">
             <Link
               href="/"
               className={`transition-colors py-2 ${
                 pathname === '/'
-                  ? 'text-[#1A1918] font-medium border-b-2 border-[#806B43]'
-                  : 'hover:text-[#1A1918]'
+                  ? 'text-[#1A1918] font-bold border-b-2 border-[#806B43]'
+                  : 'hover:text-[#806B43] text-[#1A1918]'
               }`}
             >
               Home
@@ -207,14 +207,14 @@ export default function Navbar() {
                 onClick={() => setMegaMenuOpen(!megaMenuOpen)}
                 className={`flex items-center gap-1.5 py-2 transition-colors ${
                   megaMenuOpen || pathname.startsWith('/products')
-                    ? 'text-[#1A1918] font-medium'
-                    : 'hover:text-[#1A1918]'
+                    ? 'text-[#1A1918] font-bold'
+                    : 'hover:text-[#806B43] text-[#1A1918]'
                 }`}
               >
                 <span>Spaces</span>
                 <ChevronDown
-                  className={`w-3 h-3 transition-transform duration-200 ${
-                    megaMenuOpen ? 'rotate-180 text-[#806B43]' : 'text-[#8C867D]'
+                  className={`w-3.5 h-3.5 transition-transform duration-200 stroke-[2.5] ${
+                    megaMenuOpen ? 'rotate-180 text-[#806B43]' : 'text-[#1A1918]'
                   }`}
                 />
               </button>
@@ -295,16 +295,16 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            <Link href="/products" className="hover:text-[#1A1918] transition-colors">
+            <Link href="/products" className="hover:text-[#806B43] text-[#1A1918] font-semibold transition-colors">
               Objects
             </Link>
 
-            <a href="#composition" className="hover:text-[#1A1918] transition-colors text-[#806B43] font-medium flex items-center gap-1">
+            <a href="#composition" className="hover:text-[#1A1918] transition-colors text-[#806B43] font-bold flex items-center gap-1.5">
               <span>The Curated Five</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#9E814D]" />
+              <span className="w-2 h-2 rounded-full bg-[#806B43] animate-pulse" />
             </a>
 
-            <a href="#stories" className="hover:text-[#1A1918] transition-colors">
+            <a href="#stories" className="hover:text-[#806B43] text-[#1A1918] font-semibold transition-colors">
               Stories
             </a>
           </nav>
@@ -317,16 +317,16 @@ export default function Navbar() {
           </Link>
 
           {/* Right: Search, Saved & Bag Utility */}
-          <div className="flex items-center gap-4 sm:gap-6 text-xs font-light tracking-[0.18em] uppercase text-[#3D3A35]">
+          <div className="flex items-center gap-4 sm:gap-6 text-[12.5px] font-semibold tracking-[0.18em] uppercase text-[#1A1918]">
             {/* Search Pill */}
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              className="hidden sm:flex items-center gap-2 hover:text-[#1A1918] transition-colors"
+              className="hidden sm:flex items-center gap-2 hover:text-[#806B43] transition-colors"
               aria-label="Search Catalog"
             >
-              <span>Search</span>
-              <span className="text-[10px] text-[#8C867D] font-mono tracking-normal">[⌘K]</span>
+              <span className="font-semibold text-[#1A1918]">Search</span>
+              <span className="text-[10px] text-[#5C5852] font-mono tracking-normal bg-[#EAE2D5]/70 px-1.5 py-0.5 rounded-xs border border-[#D8D2C6] font-normal">[⌘K]</span>
             </button>
 
             {/* Mobile Search Icon */}
