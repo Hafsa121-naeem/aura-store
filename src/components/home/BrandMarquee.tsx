@@ -1,225 +1,387 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowUpRight } from 'lucide-react';
+import { motion } from 'motion/react';
+import { ChevronLeft, ChevronRight, ShoppingBag, Eye, Check, Heart, Sparkles } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
 import { formatPrice } from '@/lib/utils';
+import QuickViewModal from '@/components/products/QuickViewModal';
 
 export default function BrandMarquee() {
-  const visualReel = [
+  const { addItem, setIsCartOpen } = useCart();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeFilter, setActiveFilter] = useState<'ALL' | 'NEW' | 'RESPONSIBLE' | 'BESTSELLER'>('ALL');
+  const [addedId, setAddedId] = useState<string | null>(null);
+  const [quickViewProduct, setQuickViewProduct] = useState<any | null>(null);
+
+  const featuredObjects = [
     {
       id: 'el-ha-01',
-      name: 'Horizon Pro ANC Headphones',
+      name: 'Horizon Pro ANC Hybrid Headphones',
       category: 'Acoustic Chamber',
-      price: 22499,
-      image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600&q=80',
+      subcategory: 'Over-Ear Acoustics',
+      price: 26999,
+      salePrice: 22499,
+      image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=800&q=85',
+      hoverImage: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=85',
       slug: 'horizon-pro-anc-hybrid-wireless-headphones',
-      tag: 'BERYLLIUM 40MM',
+      tag: 'RESPONSIBLE',
+      rating: 4.9,
+      colors: ['#1F2022', '#D8D2C6', '#806B43'],
+      isNew: true,
+      description: 'Custom 40mm beryllium drivers, memory foam protein leather, and 42dB hybrid noise cancellation.',
     },
     {
       id: 'sw-ap-01',
-      name: 'Apex Ultra Titanium Watch',
+      name: 'Apex Ultra Titanium Smartwatch',
       category: 'Precision Horology',
-      price: 16999,
-      image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80',
+      subcategory: 'Titanium AMOLED',
+      price: 21999,
+      salePrice: 16999,
+      image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=85',
+      hoverImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&q=85',
       slug: 'apex-ultra-titanium-sapphire-amoled-smartwatch',
-      tag: 'AEROSPACE TITANIUM',
+      tag: 'NYHED',
+      rating: 4.8,
+      colors: ['#3A3B3C', '#E5E4E2', '#C5A059'],
+      isNew: true,
+      description: 'Aerospace grade titanium case with curved 1.96-inch sapphire AMOLED display and medical ECG sensor matrix.',
     },
     {
       id: 'f-hb-01',
       name: 'Verona Italian Kelly Handbag',
       category: 'Sartorial Wardrobe',
-      price: 19999,
-      image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80',
+      subcategory: 'Artisan Leather',
+      price: 24999,
+      salePrice: 19999,
+      image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=85',
+      hoverImage: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=85',
       slug: 'verona-italian-kelly-handbag',
-      tag: 'TUSCAN LEATHER',
+      tag: 'BESTSELLER',
+      rating: 5.0,
+      colors: ['#B8392A', '#1A1918', '#8A6D3B'],
+      isNew: false,
+      description: 'Handcrafted full-grain Italian calfskin with solid gold-plated hardware and protective travel dustbag.',
+    },
+    {
+      id: 'h-la-01',
+      name: 'Nordic Minimalist Ceramic Lamp',
+      category: 'Living Space',
+      subcategory: 'Interior Elements',
+      price: 12499,
+      salePrice: 9499,
+      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=85',
+      hoverImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=85',
+      slug: 'minimalist-ceramic-table-lamp',
+      tag: 'RESPONSIBLE',
+      rating: 4.9,
+      colors: ['#EFECE6', '#9E814D', '#2B2927'],
+      isNew: true,
+      description: 'Hand-thrown matte ceramic base with woven natural flax shade and warm dimmable LED ambiance.',
     },
     {
       id: 'b-se-01',
       name: 'Botanical Multi-Peptide Elixir',
       category: 'Botanical & Scent',
-      price: 7899,
-      image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&q=80',
+      subcategory: 'Clean Skincare',
+      price: 9999,
+      salePrice: 7899,
+      image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=800&q=85',
+      hoverImage: 'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=800&q=85',
       slug: 'botanical-multi-peptide-youth-serum',
-      tag: 'COLD PRESSED',
-    },
-    {
-      id: 'h-la-01',
-      name: 'Nordic Ceramic Table Lamp',
-      category: 'Living Space',
-      price: 9499,
-      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80',
-      slug: 'minimalist-ceramic-table-lamp',
-      tag: 'HAND THROWN',
+      tag: 'NYHED',
+      rating: 4.9,
+      colors: ['#E2B777', '#806B43'],
+      isNew: true,
+      description: 'Concentrated peptide complex formulated with cold-pressed rosehip and hyaluronic acid for cellular renewal.',
     },
     {
       id: 'm-ch-01',
-      name: 'MagSafe Wireless Charging Dock',
+      name: 'MagSafe Dual Aluminum Power Dock',
       category: 'Mobile Architecture',
-      price: 8999,
-      image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&q=80',
+      subcategory: 'Machined Power',
+      price: 11499,
+      salePrice: 8999,
+      image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=800&q=85',
+      hoverImage: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800&q=85',
       slug: 'magsafe-magnetic-wireless-charging-stand',
-      tag: 'ALUMINUM DOCK',
-    },
-    {
-      id: 'el-eb-01',
-      name: 'Spatial Pro Wireless Earbuds',
-      category: 'Acoustic Chamber',
-      price: 14999,
-      image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&q=80',
-      slug: 'spatial-pro-active-noise-cancelling-earbuds',
-      tag: 'SPATIAL AUDIO',
-    },
-    {
-      id: 'sw-ch-01',
-      name: 'Chrono Minimalist Watch',
-      category: 'Precision Horology',
-      price: 18499,
-      image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&q=80',
-      slug: 'chrono-minimalist-sapphire-dress-watch',
-      tag: 'SAPPHIRE CRYSTAL',
-    },
-    {
-      id: 'h-df-01',
-      name: 'Cold-Air Ultrasonic Diffuser',
-      category: 'Living Space',
-      price: 6499,
-      image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600&q=80',
-      slug: 'cold-air-ultrasonic-essential-oil-diffuser',
-      tag: 'AROMATHERAPY',
-    },
-    {
-      id: 'f-wl-01',
-      name: 'Tuscan Leather Bifold Wallet',
-      category: 'Sartorial Wardrobe',
-      price: 5499,
-      image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&q=80',
-      slug: 'tuscan-leather-bifold-card-wallet',
-      tag: 'FULL GRAIN',
+      tag: 'BESTSELLER',
+      rating: 4.8,
+      colors: ['#E5E4E2', '#1A1918'],
+      isNew: false,
+      description: 'Solid CNC milled aerospace aluminum charging dock with 15W MagSafe alignment and weighted anti-slip base.',
     },
   ];
 
-  const trustStatements = [
-    'Complimentary express shipping over Rs. 5,000',
-    'Doorstep Cash on Delivery (COD) Nationwide',
-    '100% Verified Authentic Stock with Brand Warranty',
-    '7-Day Hassle-Free Doorstep Replacement',
-    '24/7 Dedicated Concierge Support in Pakistan',
-    'Carefully Curated Global Luxury & Lifestyle',
-  ];
+  const filtered = featuredObjects.filter((item) => {
+    if (activeFilter === 'ALL') return true;
+    if (activeFilter === 'NEW') return item.isNew;
+    if (activeFilter === 'RESPONSIBLE') return item.tag === 'RESPONSIBLE';
+    if (activeFilter === 'BESTSELLER') return item.tag === 'BESTSELLER';
+    return true;
+  });
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const offset = direction === 'left' ? -380 : 380;
+      scrollContainerRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+  };
+
+  const handleQuickAdd = (item: typeof featuredObjects[0], e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem(
+      {
+        id: item.id,
+        name: item.name,
+        slug: item.slug,
+        price: item.price,
+        sale_price: item.salePrice,
+        category_id: item.category.toLowerCase().replace(/\s+/g, '-'),
+        stock: 25,
+        rating: item.rating,
+        review_count: 50,
+        status: 'published',
+        featured: true,
+        images: [{ id: '1', product_id: item.id, image_url: item.image, is_primary: true }],
+      } as any,
+      1,
+      undefined,
+      undefined,
+      item.image
+    );
+    setAddedId(item.id);
+    setTimeout(() => {
+      setAddedId(null);
+      setIsCartOpen(true);
+    }, 500);
+  };
 
   return (
-    <div className="w-full bg-[#FAF8F5] hairline-b overflow-hidden select-none">
-      
-      {/* 1. Animated Visual Product Stream (Animated Pictures Marquee) */}
-      <div className="py-6 sm:py-8 overflow-hidden group">
-        <div className="flex w-max animate-marquee space-x-6 sm:space-x-8 px-4 group-hover:[animation-play-state:paused]">
-          
-          {/* First Reel */}
-          {visualReel.map((item, idx) => (
-            <Link
-              key={`reel1-${item.id}-${idx}`}
-              href={`/products/${item.slug}`}
-              className="group/card flex items-center gap-4 p-3 bg-[#F5F2EB] hover:bg-[#EDE8DF] border border-[#D8D2C6]/80 hover:border-[#1A1918] transition-all duration-300 w-[280px] sm:w-[320px] shrink-0"
+    <section className="py-20 sm:py-24 bg-[#FAF8F5] hairline-b">
+      <div className="max-w-[1540px] mx-auto px-6 sm:px-10">
+        
+        {/* 1. ferm LIVING Signature "Featured Products" Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between pb-8 sm:pb-10 hairline-b gap-6">
+          <div className="space-y-2">
+            <span className="text-[11px] uppercase tracking-[0.28em] font-light text-[#8C867D] block">
+              Curated Highlights &bull; Edition 01
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-editorial font-light text-[#1A1918] leading-[1.08]">
+              Featured Objects: <br />
+              <span className="italic font-normal text-[#806B43]">Mindfully crafted for modern living</span>
+            </h2>
+          </div>
+
+          {/* Filter Tags & Architectural Navigation Arrows */}
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-[#5C5852]">
+              {[
+                { id: 'ALL', label: 'ALL OBJECTS' },
+                { id: 'NEW', label: 'NYHED / NEW' },
+                { id: 'RESPONSIBLE', label: 'RESPONSIBLE' },
+                { id: 'BESTSELLER', label: 'BESTSELLERS' },
+              ].map((f) => (
+                <button
+                  key={f.id}
+                  type="button"
+                  onClick={() => setActiveFilter(f.id as any)}
+                  className={`px-3 py-1.5 border transition-all ${
+                    activeFilter === f.id
+                      ? 'border-[#1A1918] bg-[#1A1918] text-[#FAF8F5]'
+                      : 'border-[#D8D2C6] bg-transparent text-[#5C5852] hover:border-[#1A1918]'
+                  }`}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Carousel Arrows */}
+            <div className="flex items-center gap-2 pl-2">
+              <button
+                type="button"
+                onClick={() => scroll('left')}
+                className="w-9 h-9 border border-[#D8D2C6] bg-white hover:border-[#1A1918] text-[#1A1918] flex items-center justify-center transition-colors"
+                aria-label="Previous Slide"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scroll('right')}
+                className="w-9 h-9 border border-[#D8D2C6] bg-white hover:border-[#1A1918] text-[#1A1918] flex items-center justify-center transition-colors"
+                aria-label="Next Slide"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. Large, Tall Architectural Portrait Product Carousel */}
+        <div
+          ref={scrollContainerRef}
+          className="flex gap-6 overflow-x-auto pt-8 pb-4 scrollbar-none scroll-smooth select-none"
+          style={{ scrollbarWidth: 'none' }}
+        >
+          {filtered.map((item) => (
+            <div
+              key={item.id}
+              className="group relative flex flex-col justify-between bg-[#F5F2EB] border border-[#D8D2C6] hover:border-[#1A1918] transition-all duration-300 w-[290px] sm:w-[340px] shrink-0"
             >
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-[#EDE8DF] border border-[#D8D2C6]/60 shrink-0 overflow-hidden">
+              {/* Product Image Frame with Dual Hover Crossfade */}
+              <Link
+                href={`/products/${item.slug}`}
+                className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF] block"
+              >
+                {/* Primary Image */}
                 <Image
                   src={item.image}
                   alt={item.name}
                   fill
-                  sizes="80px"
-                  className="object-cover group-hover/card:scale-108 transition-transform duration-700"
+                  sizes="340px"
+                  className="object-cover group-hover:scale-104 transition-transform duration-700 ease-out"
                   unoptimized
                 />
-              </div>
 
-              <div className="flex-1 min-w-0 space-y-1">
-                <span className="text-[9px] uppercase tracking-[0.2em] font-mono text-[#806B43] block truncate">
-                  {item.tag}
-                </span>
-                <h4 className="text-xs font-editorial text-[#1A1918] group-hover/card:text-[#806B43] transition-colors truncate font-normal">
-                  {item.name}
-                </h4>
-                <div className="flex items-center justify-between pt-1">
-                  <span className="text-xs font-light text-[#1A1918]">
-                    {formatPrice(item.price)}
-                  </span>
-                  <span className="text-[10px] text-[#8C867D] group-hover/card:text-[#1A1918] flex items-center gap-0.5 uppercase tracking-wider font-mono">
-                    <span>Inspect</span>
-                    <ArrowUpRight className="w-3 h-3 group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 transition-transform" />
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
-
-          {/* Second Duplicate Reel for seamless infinite continuous scroll */}
-          {visualReel.map((item, idx) => (
-            <Link
-              key={`reel2-${item.id}-${idx}`}
-              href={`/products/${item.slug}`}
-              className="group/card flex items-center gap-4 p-3 bg-[#F5F2EB] hover:bg-[#EDE8DF] border border-[#D8D2C6]/80 hover:border-[#1A1918] transition-all duration-300 w-[280px] sm:w-[320px] shrink-0"
-            >
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-[#EDE8DF] border border-[#D8D2C6]/60 shrink-0 overflow-hidden">
+                {/* Secondary Lifestyle Hover Image */}
                 <Image
-                  src={item.image}
-                  alt={item.name}
+                  src={item.hoverImage}
+                  alt={`${item.name} lifestyle`}
                   fill
-                  sizes="80px"
-                  className="object-cover group-hover/card:scale-108 transition-transform duration-700"
+                  sizes="340px"
+                  className="object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out"
                   unoptimized
                 />
-              </div>
 
-              <div className="flex-1 min-w-0 space-y-1">
-                <span className="text-[9px] uppercase tracking-[0.2em] font-mono text-[#806B43] block truncate">
-                  {item.tag}
-                </span>
-                <h4 className="text-xs font-editorial text-[#1A1918] group-hover/card:text-[#806B43] transition-colors truncate font-normal">
-                  {item.name}
-                </h4>
-                <div className="flex items-center justify-between pt-1">
-                  <span className="text-xs font-light text-[#1A1918]">
-                    {formatPrice(item.price)}
+                {/* Status Badge */}
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="bg-[#FAF8F5]/90 backdrop-blur-sm px-2.5 py-1 text-[9px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
+                    {item.tag}
                   </span>
-                  <span className="text-[10px] text-[#8C867D] group-hover/card:text-[#1A1918] flex items-center gap-0.5 uppercase tracking-wider font-mono">
-                    <span>Inspect</span>
-                    <ArrowUpRight className="w-3 h-3 group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 transition-transform" />
+                </div>
+
+                {/* Floating Quick Action Buttons */}
+                <div className="absolute top-3 right-3 flex flex-col gap-1.5 z-10">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setQuickViewProduct({
+                        ...item,
+                        sale_price: item.salePrice,
+                        images: [{ id: '1', product_id: item.id, image_url: item.image, is_primary: true }],
+                      });
+                    }}
+                    className="w-8 h-8 bg-[#FAF8F5]/90 backdrop-blur-sm border border-[#D8D2C6] hover:bg-[#1A1918] hover:text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
+                    title="Quick Preview"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                {/* Quick Add To Bag Bar on Hover */}
+                <div className="absolute bottom-3 inset-x-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <button
+                    type="button"
+                    onClick={(e) => handleQuickAdd(item, e)}
+                    disabled={addedId === item.id}
+                    className="w-full py-2.5 bg-[#1A1918] hover:bg-[#806B43] text-[#FAF8F5] text-[10px] uppercase tracking-[0.2em] font-light flex items-center justify-center gap-1.5 transition-colors"
+                  >
+                    {addedId === item.id ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Added to Bag</span>
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingBag className="w-3.5 h-3.5" />
+                        <span>Add to Bag</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </Link>
+
+              {/* Product Details Block */}
+              <div className="p-5 flex-1 flex flex-col justify-between space-y-3 hairline-t">
+                <div>
+                  <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-[#8C867D] font-light">
+                    <span>{item.category}</span>
+                    <span className="font-mono text-[#5C5852]">{item.subcategory}</span>
+                  </div>
+
+                  <Link href={`/products/${item.slug}`} className="block mt-1">
+                    <h3 className="font-editorial text-lg text-[#1A1918] group-hover:text-[#806B43] transition-colors line-clamp-1 font-normal">
+                      {item.name}
+                    </h3>
+                  </Link>
+                </div>
+
+                {/* Color Swatches */}
+                <div className="flex items-center gap-1.5 pt-1">
+                  {item.colors.map((color, i) => (
+                    <span
+                      key={i}
+                      className="w-3.5 h-3.5 rounded-full border border-[#D8D2C6]"
+                      style={{ backgroundColor: color }}
+                    />
+                  ))}
+                  <span className="text-[10px] text-[#8C867D] font-mono ml-1">
+                    {item.colors.length} Finishes
+                  </span>
+                </div>
+
+                {/* Price Strip */}
+                <div className="pt-3 hairline-t flex items-baseline justify-between">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-base font-light text-[#1A1918]">
+                      {formatPrice(item.salePrice)}
+                    </span>
+                    <span className="text-xs text-[#8C867D] line-through">
+                      {formatPrice(item.price)}
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-mono uppercase text-[#806B43]">
+                    In Stock &bull; COD
                   </span>
                 </div>
               </div>
-            </Link>
-          ))}
 
-        </div>
-      </div>
-
-      {/* 2. Delicate Architectural Assurance Micro-Ticker */}
-      <div className="hairline-t bg-[#FAF8F5] py-2.5 overflow-hidden">
-        <div className="flex w-max animate-marquee space-x-12">
-          {trustStatements.map((text, idx) => (
-            <div
-              key={`trust1-${idx}`}
-              className="flex items-center gap-6 text-[#5C5852] text-[11px] font-light uppercase tracking-[0.22em]"
-            >
-              <span>{text}</span>
-              <span className="text-[#9E814D]">&bull;</span>
-            </div>
-          ))}
-
-          {trustStatements.map((text, idx) => (
-            <div
-              key={`trust2-${idx}`}
-              className="flex items-center gap-6 text-[#5C5852] text-[11px] font-light uppercase tracking-[0.22em]"
-            >
-              <span>{text}</span>
-              <span className="text-[#9E814D]">&bull;</span>
             </div>
           ))}
         </div>
+
+        {/* 3. Understated Architectural Assurance Single-Line Banner */}
+        <div className="mt-12 pt-6 hairline-t flex flex-wrap items-center justify-between text-xs text-[#5C5852] font-light tracking-wider gap-4">
+          <div className="flex flex-wrap items-center gap-6">
+            <span>&bull; Complimentary express shipping over Rs. 5,000</span>
+            <span>&bull; Doorstep Cash on Delivery nationwide</span>
+            <span>&bull; 100% Certified authentic with official warranty</span>
+          </div>
+
+          <Link
+            href="/products"
+            className="text-xs uppercase tracking-[0.24em] text-[#1A1918] hover:text-[#806B43] transition-colors underline underline-offset-8"
+          >
+            Explore all 76 catalog objects &rarr;
+          </Link>
+        </div>
+
       </div>
 
-    </div>
+      {/* Quick View Modal */}
+      {quickViewProduct && (
+        <QuickViewModal
+          product={quickViewProduct}
+          isOpen={!!quickViewProduct}
+          onClose={() => setQuickViewProduct(null)}
+        />
+      )}
+    </section>
   );
 }
