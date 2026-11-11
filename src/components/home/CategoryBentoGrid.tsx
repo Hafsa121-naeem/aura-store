@@ -65,17 +65,18 @@ export default function CategoryBentoGrid() {
   ];
 
   return (
-    <section id="spaces" className="py-24 sm:py-32 bg-[#F5F2EB] hairline-b">
+    <section id="categories" className="py-24 sm:py-32 bg-[#F5F2EB] hairline-b">
       <div className="max-w-[1540px] mx-auto px-6 sm:px-10">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between pb-8 sm:pb-12 hairline-b gap-6">
           <div className="space-y-3">
             <span className="text-[11px] uppercase tracking-[0.28em] font-light text-[#8C867D] block">
-              Architectural Environments &bull; Section 03
+              Department Directory &bull; Section 02
             </span>
             <h2 className="text-3xl sm:text-5xl font-editorial font-light text-[#1A1918] leading-[1.08]">
-              Spaces &amp; Curated Departments
+              Shop by Category: <br />
+              <span className="italic font-normal text-[#806B43]">Spaces &amp; Tactile Environments</span>
             </h2>
             <p className="text-xs sm:text-sm text-[#5C5852] font-light max-w-xl leading-relaxed">
               Six focused spaces contextualized for mindful living. Sourced with official brand warranties and certified nationwide Cash on Delivery.
@@ -86,7 +87,7 @@ export default function CategoryBentoGrid() {
             href="/products"
             className="text-xs uppercase tracking-[0.24em] font-light text-[#1A1918] hover:text-[#806B43] flex items-center gap-2 transition-colors self-start md:self-auto underline underline-offset-8"
           >
-            <span>Explore all departments</span>
+            <span>Explore All 76 Objects</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>

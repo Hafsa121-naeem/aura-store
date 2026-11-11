@@ -107,6 +107,37 @@ html {
   }
 }
 
+/* Subtle, Slow Luxury Floating Animation (Controlled & Minimal) */
+@keyframes luxury-float {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-7px) scale(1.015);
+  }
+}
+
+@keyframes luxury-float-counter {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(6px) scale(0.99);
+  }
+}
+
+.animate-luxury-float {
+  animation: luxury-float 9s ease-in-out infinite;
+}
+
+.animate-luxury-float-slow {
+  animation: luxury-float 12s ease-in-out infinite;
+}
+
+.animate-luxury-counter {
+  animation: luxury-float-counter 10.5s ease-in-out infinite;
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0%);

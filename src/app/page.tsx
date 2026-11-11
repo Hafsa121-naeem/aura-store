@@ -1,40 +1,32 @@
 import React from 'react';
 import HeroShowcase from '@/components/home/HeroShowcase';
-import BrandMarquee from '@/components/home/BrandMarquee';
 import AnimatedPhotoStream from '@/components/home/AnimatedPhotoStream';
-import ShopTheScene from '@/components/home/ShopTheScene';
 import CategoryBentoGrid from '@/components/home/CategoryBentoGrid';
-import Interactive3DShowcase from '@/components/home/Interactive3DShowcase';
+import BrandMarquee from '@/components/home/BrandMarquee';
+import EditorialBannerSection from '@/components/home/EditorialBannerSection';
 import BrandStorytelling from '@/components/home/BrandStorytelling';
-import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
 
 export default function HomePage() {
   return (
     <div className="bg-[#F5F2EB] text-[#1A1918] min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-[#E0D8CB] selection:text-[#1A1918]">
       
-      {/* 1. ferm LIVING Full-Bleed Atmospheric Cinematic Hero with 3D Tilt & Interactive Hotspot Pin */}
+      {/* 1. Hero: Premium Brand Introduction, Architectural Headline & Clear CTAs */}
       <HeroShowcase />
 
-      {/* 2. Main Featured Objects: Exactly 6 Carefully Selected Luxury Pieces in an Editorial Carousel */}
-      <BrandMarquee />
-
-      {/* 3. Mirko Romanelli / Shakuro: Sophisticated Multi-Layered 3D Kinetic Animated Gallery */}
+      {/* 2. The ONE Refined Animated Visual Composition: 1 Focal Anchor + 4 Supporting Objects in Slow Subtle Float */}
       <AnimatedPhotoStream />
 
-      {/* 4. ferm LIVING Signature Feature: Shop The Scene (Copenhagen Study Interactive Hotspot Diptych) */}
-      <ShopTheScene />
-
-      {/* 5. Spaces & Curated Environments: Compact 6-Category Architectural Gallery */}
+      {/* 3. Shop by Category: Compact, Sculptural 6-Category Architectural Directory */}
       <CategoryBentoGrid />
 
-      {/* 6. Framer-Inspired Interactive 3D Kinetic Tilt & Materiality Pedestal */}
-      <Interactive3DShowcase />
+      {/* 4. Featured Products: Exactly 4 Carefully Selected Luxury Objects in a Calm, Static Grid (No Excessive Motion) */}
+      <BrandMarquee />
 
-      {/* 7. Magazine Editorial Storytelling: Materiality & Craftsmanship Diptych */}
+      {/* 5. Objects / Editorial Collection: Single Atmospheric Architectural Lifestyle Banner with Narrative */}
+      <EditorialBannerSection />
+
+      {/* 6. Brand Experience: Philosophy, Materiality, Nationwide Protocol & Craftsmanship Manifesto */}
       <BrandStorytelling />
-
-      {/* 8. Verified Discerning Client Dialogue Carousel */}
-      <TestimonialsCarousel />
 
     </div>
   );
