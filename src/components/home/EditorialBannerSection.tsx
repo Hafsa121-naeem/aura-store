@@ -50,7 +50,7 @@ export default function EditorialBannerSection() {
               </h2>
 
               <p className="text-xs sm:text-sm text-[#EDE8DF]/90 font-light leading-relaxed max-w-xl">
-                In an era of fleeting obsolescence, AURA selects objects designed to mature gracefully over time. Hand-finished full-grain leather develops a unique patina; aerospace titanium maintains its structural purity; acoustic chambers deliver unadulterated fidelity.
+                Thoughtfully curated pieces designed to bring quiet luxury to your daily routine. From crystal-clear acoustic sound to aerospace titanium and handcrafted leather, every object is made to inspire and built to last.
               </p>
 
               {/* Three Pillars */}
