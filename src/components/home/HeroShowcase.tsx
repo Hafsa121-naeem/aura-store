@@ -10,8 +10,8 @@ export default function HeroShowcase() {
   return (
     <section className="relative w-full bg-[#F4EFE6] overflow-hidden select-none hairline-b">
       
-      {/* 1. Full-Bleed Atmospheric Cinematic Hero Stage */}
-      <div className="relative w-full h-[78vh] sm:h-[84vh] min-h-[560px] max-h-[820px] flex items-center">
+      {/* 1. Full-Bleed Atmospheric Cinematic Hero Stage - True Full-Page Height on Desktop & Mobile */}
+      <div className="relative w-full min-h-[calc(100vh-5rem)] h-[calc(100vh-5rem)] sm:h-[calc(100vh-5rem)] lg:h-[calc(100vh-5rem)] flex items-center">
         
         {/* Background Atmospheric Photograph with Authentic Richness, Natural Contrast & Realistic Depth */}
         <motion.div
@@ -26,11 +26,11 @@ export default function HeroShowcase() {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[70%_top] sm:object-center brightness-[0.98] contrast-[1.05] saturate-[1.05]"
+            className="object-cover object-[70%_top] sm:object-[68%_32%] lg:object-[68%_32%] brightness-[0.98] contrast-[1.05] saturate-[1.05]"
             unoptimized
           />
           {/* Desktop Left-to-Right Champagne Vignette (Leaves subject on right 100% vivid with zero haze) */}
-          <div className="hidden sm:block absolute inset-y-0 left-0 sm:w-[72%] lg:w-[60%] bg-gradient-to-r from-[#F4EFE6]/98 via-[#F4EFE6]/85 sm:via-[#F4EFE6]/65 to-transparent pointer-events-none" />
+          <div className="hidden sm:block absolute inset-y-0 left-0 sm:w-[68%] lg:w-[56%] bg-gradient-to-r from-[#F4EFE6]/98 via-[#F4EFE6]/85 sm:via-[#F4EFE6]/60 to-transparent pointer-events-none" />
           
           {/* Mobile Bottom Champagne Vignette (Protects lower text while keeping face and eyes completely clear in top half) */}
           <div className="sm:hidden absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#F4EFE6]/98 via-[#F4EFE6]/75 to-transparent pointer-events-none" />
@@ -40,7 +40,7 @@ export default function HeroShowcase() {
         </motion.div>
 
         {/* Hero Editorial Content */}
-        <div className="relative z-10 w-full max-w-[1540px] mx-auto px-6 sm:px-10 pt-16 pb-8 sm:py-20 flex flex-col justify-end sm:justify-center h-full">
+        <div className="relative z-10 w-full max-w-[1540px] mx-auto px-6 sm:px-10 pt-16 pb-12 sm:py-20 lg:py-24 flex flex-col justify-end sm:justify-center h-full">
 
           {/* Central Editorial Brand Introduction */}
           <div className="max-w-2xl space-y-6 sm:space-y-7">
