@@ -100,7 +100,7 @@ export default function AnimatedPhotoStream() {
   ];
 
   return (
-    <section className="py-24 sm:py-32 bg-[#F5F2EB] hairline-b relative overflow-hidden select-none">
+    <section id="composition" className="py-24 sm:py-32 bg-[#F5F2EB] hairline-b relative overflow-hidden select-none">
       
       {/* Editorial Header */}
       <div className="max-w-[1540px] mx-auto px-6 sm:px-10 pb-12 sm:pb-16 flex flex-col sm:flex-row sm:items-end justify-between gap-6 hairline-b">

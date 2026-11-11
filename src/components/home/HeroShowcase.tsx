@@ -85,15 +85,6 @@ export default function HeroShowcase() {
                   Quiet luxury for modern living.
                 </span>
               </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="text-sm sm:text-base text-[#EDE8DF]/85 font-light max-w-xl leading-relaxed"
-              >
-                Sculptural electronics, grade-5 titanium horology, and handcrafted Italian leather designed to harmonize with domestic architecture.
-              </motion.p>
             </motion.div>
 
             {/* Premium CTA Buttons */}
@@ -115,10 +106,10 @@ export default function HeroShowcase() {
 
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <a
-                  href="#categories"
+                  href="#composition"
                   className="px-6 py-3.5 border border-white/25 hover:border-[#E8D4B0] text-white hover:text-[#E8D4B0] text-xs uppercase tracking-[0.22em] font-light transition-colors backdrop-blur-sm"
                 >
-                  Shop By Department
+                  View Exhibition
                 </a>
               </motion.div>
             </motion.div>

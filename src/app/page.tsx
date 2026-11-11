@@ -1,7 +1,6 @@
 import React from 'react';
 import HeroShowcase from '@/components/home/HeroShowcase';
 import AnimatedPhotoStream from '@/components/home/AnimatedPhotoStream';
-import CategoryBentoGrid from '@/components/home/CategoryBentoGrid';
 import BrandMarquee from '@/components/home/BrandMarquee';
 import ShopTheScene from '@/components/home/ShopTheScene';
 import Interactive3DShowcase from '@/components/home/Interactive3DShowcase';
@@ -18,22 +17,19 @@ export default function HomePage() {
       {/* 2. 3D Floating Objects — Interactive Experience: Curated 5 Flagships in Spring Tilt Depth */}
       <AnimatedPhotoStream />
 
-      {/* 3. Departments: Sculptural Directory of All Six Categories with Distinct Imagery */}
-      <CategoryBentoGrid />
-
-      {/* 4. Featured Collection: Merged Curated Grid of 4 Objects (Zero Redundant Galleries) */}
+      {/* 3. Featured Collection: Merged Curated Grid of 4 Objects (Zero Redundant Galleries) */}
       <BrandMarquee />
 
-      {/* 5. Shop The Scene: Editorial Lifestyle & Interior Rooms with Interactive Hotspot Popovers */}
+      {/* 4. Shop The Scene: Editorial Lifestyle & Interior Rooms with Interactive Hotspot Popovers */}
       <ShopTheScene />
 
-      {/* 6. Multi-Angle Product Inspection: Architectural Precision & Acoustic Benchmarks */}
+      {/* 5. Multi-Angle Product Inspection: Architectural Precision & Acoustic Benchmarks */}
       <Interactive3DShowcase />
 
-      {/* 7. Editorial Lifestyle Banner: The Architecture of Daily Rituals */}
+      {/* 6. Editorial Lifestyle Banner: The Architecture of Daily Rituals */}
       <EditorialBannerSection />
 
-      {/* 8. Brand Experience & Manifesto: Material Honesty, Nationwide COD & Certified Care */}
+      {/* 7. Brand Experience & Manifesto: Material Honesty, Nationwide COD & Certified Care */}
       <BrandStorytelling />
 
     </div>
