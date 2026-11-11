@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState, useRef, useCallback } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
-import { ArrowUpRight, Sparkles, Layers, Box } from 'lucide-react';
+import { motion, useReducedMotion } from 'motion/react';
+import { ArrowUpRight } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
 
 interface FocalObject {
@@ -19,32 +19,9 @@ interface FocalObject {
 }
 
 export default function AnimatedPhotoStream() {
-  const [activeId, setActiveId] = useState<string | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
-  // Framer Motion spring-accelerated 3D tilt physics (responsive to mouse coordinates)
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { damping: 20, stiffness: 100, mass: 0.6 };
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-12, 12]), springConfig);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    mouseX.set(x);
-    mouseY.set(y);
-  }, [mouseX, mouseY]);
-
-  const handleMouseLeave = useCallback(() => {
-    mouseX.set(0);
-    mouseY.set(0);
-  }, [mouseX, mouseY]);
-
-  // Five carefully chosen luxury objects: 1 Main Focal Anchor + 4 Supporting Objects
+  // Exactly 5 carefully chosen luxury objects: 1 Main Focal Anchor + 4 Supporting Objects
   const focalAnchor: FocalObject = {
     id: 'focal-01',
     tag: 'FLAGSHIP SCULPTURE',
@@ -99,6 +76,81 @@ export default function AnimatedPhotoStream() {
     },
   ];
 
+  // 1. Continuous, automatic floating animation definitions (Unique rhythm, duration & direction for each of the 5 objects)
+  const floatFocal = shouldReduceMotion
+    ? { y: 0, rotateZ: 0, rotateX: 0, rotateY: 0 }
+    : {
+        y: [0, -22, -6, 18, 0],
+        rotateZ: [0, 1.2, -0.6, -1.2, 0],
+        rotateX: [0, 2.5, 0, -2, 0],
+        rotateY: [0, -2, 1.5, 0, 0],
+        transition: {
+          duration: 7.2,
+          repeat: Infinity,
+          ease: 'easeInOut' as const,
+        },
+      };
+
+  const floatLeftTop = shouldReduceMotion
+    ? { y: 0, rotateZ: 0, rotateX: 0, rotateY: 0 }
+    : {
+        y: [0, 18, -3, -20, 0],
+        rotateZ: [0, -2.4, 0.6, 2, 0],
+        rotateX: [1, -2, 1, 2.5, 1],
+        rotateY: [4, 1.5, 3.5, 5, 4],
+        transition: {
+          duration: 6.2,
+          repeat: Infinity,
+          ease: 'easeInOut' as const,
+          delay: 0.3,
+        },
+      };
+
+  const floatRightTop = shouldReduceMotion
+    ? { y: 0, rotateZ: 0, rotateX: 0, rotateY: 0 }
+    : {
+        y: [0, -18, 2, 20, 0],
+        rotateZ: [0, 2.2, -0.6, -1.8, 0],
+        rotateX: [-1, 2, -1, -2.5, -1],
+        rotateY: [-4, -1.5, -3.5, -5, -4],
+        transition: {
+          duration: 6.8,
+          repeat: Infinity,
+          ease: 'easeInOut' as const,
+          delay: 0.7,
+        },
+      };
+
+  const floatLeftBottom = shouldReduceMotion
+    ? { y: 0, rotateZ: 0, rotateX: 0, rotateY: 0 }
+    : {
+        y: [0, -15, 3, 16, 0],
+        rotateZ: [0, -1.8, 1.2, -1.4, 0],
+        rotateX: [0, -1.5, 2, 0, 0],
+        rotateY: [2, 4, 1, 3, 2],
+        transition: {
+          duration: 5.8,
+          repeat: Infinity,
+          ease: 'easeInOut' as const,
+          delay: 1.1,
+        },
+      };
+
+  const floatRightBottom = shouldReduceMotion
+    ? { y: 0, rotateZ: 0, rotateX: 0, rotateY: 0 }
+    : {
+        y: [0, 16, -3, -16, 0],
+        rotateZ: [0, 1.8, -1.2, 1.4, 0],
+        rotateX: [0, 1.5, -2, 0, 0],
+        rotateY: [-2, -4, -1, -3, -2],
+        transition: {
+          duration: 6.4,
+          repeat: Infinity,
+          ease: 'easeInOut' as const,
+          delay: 1.5,
+        },
+      };
+
   return (
     <section id="composition" className="py-24 sm:py-32 bg-[#F5F2EB] hairline-b relative overflow-hidden select-none">
       
@@ -120,7 +172,7 @@ export default function AnimatedPhotoStream() {
           <h2 className="text-3xl sm:text-5xl font-editorial font-light text-[#1A1918] leading-[1.08]">
             Sculptural Form: <br />
             <span className="italic font-normal text-[#806B43]">
-              In Stillness &amp; Subtle Motion
+              In Stillness &amp; Continuous Motion
             </span>
           </h2>
         </motion.div>
@@ -132,28 +184,21 @@ export default function AnimatedPhotoStream() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-xs font-light text-[#5C5852] max-w-sm leading-relaxed sm:text-right"
         >
-          <p>An art-directed composition of five flagship objects, calibrated for serene domestic harmony.</p>
+          <p>An art-directed composition of five flagship objects, floating in serene domestic harmony.</p>
           <span className="text-[10px] font-mono text-[#8C867D] uppercase tracking-wider block mt-1">
             Nationwide Cash on Delivery &bull; Doorstep Inspection Included
           </span>
         </motion.div>
       </div>
 
-      {/* 3D KINETIC COMPOSITION (Apple-style balanced editorial tableau with dynamic 3D floating physics) */}
+      {/* 3D KINETIC COMPOSITION — Continuous Automatic Floating (No click needed, works immediately on load) */}
       <div
-        ref={containerRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
         className="max-w-[1540px] mx-auto px-6 sm:px-10 pt-12 sm:pt-16"
         style={{ perspective: 1600 }}
       >
-        <motion.div
-          style={{
-            rotateX,
-            rotateY,
-            transformStyle: 'preserve-3d',
-          }}
-          className="relative transition-transform duration-200 ease-out"
+        <div
+          style={{ transformStyle: 'preserve-3d' }}
+          className="relative"
         >
 
           {/* Desktop & Tablet Art-Directed Floating Tableau */}
@@ -162,250 +207,283 @@ export default function AnimatedPhotoStream() {
             {/* Left Wing (Supporting 01: Watch + Supporting 03: Lamp) */}
             <div className="col-span-3 space-y-10 flex flex-col justify-center">
               
-              {/* Supporting 01: Titanium Smartwatch (3D Left Float) */}
-              <div className="animate-3d-left">
-                <div
-                  onMouseEnter={() => setActiveId(supportingObjects[0].id)}
-                  onMouseLeave={() => setActiveId(null)}
-                  className="group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4.5 transition-all duration-500 hover:border-[#1A1918] hover:scale-102"
-                >
-                  <Link href={`/products/${supportingObjects[0].slug}`} className="block">
-                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
-                      <Image
-                        src={supportingObjects[0].image}
-                        alt={supportingObjects[0].title}
-                        fill
-                        sizes="280px"
-                        className="object-cover group-hover:scale-106 transition-transform duration-700"
-                        unoptimized
-                      />
-                      <div className="absolute top-2.5 left-2.5 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
-                        {supportingObjects[0].tag}
-                      </div>
+              {/* Supporting 01: Titanium Smartwatch (Automatic Continuous Float 6.2s) */}
+              <motion.div
+                animate={floatLeftTop}
+                whileHover={{
+                  scale: 1.04,
+                  y: -24,
+                  rotateX: 4,
+                  rotateY: 2,
+                  zIndex: 30,
+                  transition: { duration: 0.35, ease: 'easeOut' },
+                }}
+                className="group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4.5 transition-colors duration-500 hover:border-[#1A1918] shadow-md hover:shadow-2xl cursor-pointer"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <Link href={`/products/${supportingObjects[0].slug}`} className="block">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
+                    <Image
+                      src={supportingObjects[0].image}
+                      alt={supportingObjects[0].title}
+                      fill
+                      sizes="280px"
+                      className="object-cover group-hover:scale-106 transition-transform duration-700"
+                      unoptimized
+                    />
+                    <div className="absolute top-2.5 left-2.5 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
+                      {supportingObjects[0].tag}
                     </div>
-                    <div className="pt-3.5 space-y-1">
-                      <span className="text-[9px] font-mono uppercase tracking-widest text-[#8C867D] block">
-                        {supportingObjects[0].category}
+                  </div>
+                  <div className="pt-3.5 space-y-1">
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-[#8C867D] block">
+                      {supportingObjects[0].category}
+                    </span>
+                    <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1 group-hover:text-[#806B43] transition-colors">
+                      {supportingObjects[0].title}
+                    </h3>
+                    <div className="pt-1.5 hairline-t flex items-baseline justify-between">
+                      <span className="text-sm font-light text-[#1A1918]">
+                        {formatPrice(supportingObjects[0].price)}
                       </span>
-                      <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1 group-hover:text-[#806B43] transition-colors">
-                        {supportingObjects[0].title}
-                      </h3>
-                      <div className="pt-1.5 hairline-t flex items-baseline justify-between">
-                        <span className="text-sm font-light text-[#1A1918]">
-                          {formatPrice(supportingObjects[0].price)}
-                        </span>
-                        <span className="text-[9px] font-mono uppercase text-[#806B43] flex items-center gap-0.5">
-                          Inspect <ArrowUpRight className="w-2.5 h-2.5" />
-                        </span>
-                      </div>
+                      <span className="text-[9px] font-mono uppercase text-[#806B43] flex items-center gap-0.5">
+                        Inspect <ArrowUpRight className="w-2.5 h-2.5" />
+                      </span>
                     </div>
-                  </Link>
-                </div>
-              </div>
+                  </div>
+                </Link>
+              </motion.div>
 
-              {/* Supporting 03: Ceramic Lamp (3D Counter Float) */}
-              <div className="animate-3d-counter">
-                <div
-                  onMouseEnter={() => setActiveId(supportingObjects[2].id)}
-                  onMouseLeave={() => setActiveId(null)}
-                  className="group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4.5 transition-all duration-500 hover:border-[#1A1918] hover:scale-102"
-                >
-                  <Link href={`/products/${supportingObjects[2].slug}`} className="block">
-                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#EDE8DF]">
-                      <Image
-                        src={supportingObjects[2].image}
-                        alt={supportingObjects[2].title}
-                        fill
-                        sizes="280px"
-                        className="object-cover group-hover:scale-106 transition-transform duration-700"
-                        unoptimized
-                      />
-                      <div className="absolute top-2.5 left-2.5 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
-                        {supportingObjects[2].tag}
-                      </div>
+              {/* Supporting 03: Ceramic Lamp (Automatic Continuous Float 5.8s) */}
+              <motion.div
+                animate={floatLeftBottom}
+                whileHover={{
+                  scale: 1.04,
+                  y: -24,
+                  rotateX: 4,
+                  rotateY: 2,
+                  zIndex: 30,
+                  transition: { duration: 0.35, ease: 'easeOut' },
+                }}
+                className="group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4.5 transition-colors duration-500 hover:border-[#1A1918] shadow-md hover:shadow-2xl cursor-pointer"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <Link href={`/products/${supportingObjects[2].slug}`} className="block">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#EDE8DF]">
+                    <Image
+                      src={supportingObjects[2].image}
+                      alt={supportingObjects[2].title}
+                      fill
+                      sizes="280px"
+                      className="object-cover group-hover:scale-106 transition-transform duration-700"
+                      unoptimized
+                    />
+                    <div className="absolute top-2.5 left-2.5 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
+                      {supportingObjects[2].tag}
                     </div>
-                    <div className="pt-3.5 space-y-1">
-                      <span className="text-[9px] font-mono uppercase tracking-widest text-[#8C867D] block">
-                        {supportingObjects[2].category}
+                  </div>
+                  <div className="pt-3.5 space-y-1">
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-[#8C867D] block">
+                      {supportingObjects[2].category}
+                    </span>
+                    <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1 group-hover:text-[#806B43] transition-colors">
+                      {supportingObjects[2].title}
+                    </h3>
+                    <div className="pt-1.5 hairline-t flex items-baseline justify-between">
+                      <span className="text-sm font-light text-[#1A1918]">
+                        {formatPrice(supportingObjects[2].price)}
                       </span>
-                      <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1 group-hover:text-[#806B43] transition-colors">
-                        {supportingObjects[2].title}
-                      </h3>
-                      <div className="pt-1.5 hairline-t flex items-baseline justify-between">
-                        <span className="text-sm font-light text-[#1A1918]">
-                          {formatPrice(supportingObjects[2].price)}
-                        </span>
-                        <span className="text-[9px] font-mono uppercase text-[#806B43] flex items-center gap-0.5">
-                          Inspect <ArrowUpRight className="w-2.5 h-2.5" />
-                        </span>
-                      </div>
+                      <span className="text-[9px] font-mono uppercase text-[#806B43] flex items-center gap-0.5">
+                        Inspect <ArrowUpRight className="w-2.5 h-2.5" />
+                      </span>
                     </div>
-                  </Link>
-                </div>
-              </div>
+                  </div>
+                </Link>
+              </motion.div>
 
             </div>
 
-            {/* Center Anchor (The Main Focal Feature: Horizon Pro ANC Headphones - 3D Focal Float) */}
+            {/* Center Anchor: Horizon Pro ANC Headphones (Automatic Continuous Float 7.2s) */}
             <div className="col-span-6 flex justify-center">
-              <div className="animate-3d-focal w-full max-w-[440px]">
-                <div
-                  onMouseEnter={() => setActiveId(focalAnchor.id)}
-                  onMouseLeave={() => setActiveId(null)}
-                  className="group relative bg-[#FAF8F5] border border-[#1A1918]/25 hover:border-[#1A1918] p-6 sm:p-8 transition-all duration-700 hover:scale-103"
-                >
-                  <Link href={`/products/${focalAnchor.slug}`} className="block">
+              <motion.div
+                animate={floatFocal}
+                whileHover={{
+                  scale: 1.045,
+                  y: -28,
+                  rotateX: 5,
+                  rotateY: -3,
+                  zIndex: 40,
+                  transition: { duration: 0.35, ease: 'easeOut' },
+                }}
+                className="group relative bg-[#FAF8F5] border border-[#1A1918]/25 hover:border-[#1A1918] p-6 sm:p-8 transition-colors duration-700 w-full max-w-[440px] shadow-xl hover:shadow-[0_45px_90px_-15px_rgba(26,25,24,0.3)] cursor-pointer"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <Link href={`/products/${focalAnchor.slug}`} className="block">
+                  
+                  {/* Top Placard */}
+                  <div className="flex items-center justify-between pb-3 hairline-b text-[9px] font-mono uppercase tracking-wider text-[#8C867D]">
+                    <span className="text-[#806B43] font-semibold">{focalAnchor.tag}</span>
+                    <span>EDITION 01 &bull; 40MM BERYLLIUM</span>
+                  </div>
+
+                  {/* High-Resolution Focal Image */}
+                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF] mt-3">
+                    <Image
+                      src={focalAnchor.image}
+                      alt={focalAnchor.title}
+                      fill
+                      sizes="480px"
+                      className="object-cover group-hover:scale-106 transition-transform duration-1000 ease-out"
+                      priority
+                      unoptimized
+                    />
                     
-                    {/* Top Placard */}
-                    <div className="flex items-center justify-between pb-3 hairline-b text-[9px] font-mono uppercase tracking-wider text-[#8C867D]">
-                      <span className="text-[#806B43] font-semibold">{focalAnchor.tag}</span>
-                      <span>EDITION 01 &bull; 40MM BERYLLIUM</span>
+                    {/* Corner Focal Badge */}
+                    <div className="absolute bottom-3 left-3 bg-[#1A1918]/90 text-[#FAF8F5] px-3 py-1 text-[9px] font-mono uppercase tracking-widest backdrop-blur-sm">
+                      3D FOCAL PIECE
                     </div>
+                  </div>
 
-                    {/* High-Resolution Focal Image */}
-                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF] mt-3">
-                      <Image
-                        src={focalAnchor.image}
-                        alt={focalAnchor.title}
-                        fill
-                        sizes="480px"
-                        className="object-cover group-hover:scale-106 transition-transform duration-1000 ease-out"
-                        priority
-                        unoptimized
-                      />
-                      
-                      {/* Corner Focal Badge */}
-                      <div className="absolute bottom-3 left-3 bg-[#1A1918]/90 text-[#FAF8F5] px-3 py-1 text-[9px] font-mono uppercase tracking-widest backdrop-blur-sm">
-                        3D FOCAL PIECE
-                      </div>
-                    </div>
+                  {/* Bottom Placard */}
+                  <div className="pt-5 space-y-2">
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-[#806B43] block">
+                      {focalAnchor.category}
+                    </span>
+                    <h3 className="font-editorial text-2xl sm:text-3xl text-[#1A1918] group-hover:text-[#806B43] transition-colors leading-tight">
+                      {focalAnchor.title}
+                    </h3>
+                    <p className="text-xs text-[#5C5852] font-light line-clamp-1">
+                      {focalAnchor.specs}
+                    </p>
 
-                    {/* Bottom Placard */}
-                    <div className="pt-5 space-y-2">
-                      <span className="text-[9px] font-mono uppercase tracking-widest text-[#806B43] block">
-                        {focalAnchor.category}
-                      </span>
-                      <h3 className="font-editorial text-2xl sm:text-3xl text-[#1A1918] group-hover:text-[#806B43] transition-colors leading-tight">
-                        {focalAnchor.title}
-                      </h3>
-                      <p className="text-xs text-[#5C5852] font-light line-clamp-1">
-                        {focalAnchor.specs}
-                      </p>
-
-                      <div className="pt-3 hairline-t flex items-baseline justify-between">
-                        <div>
-                          <span className="text-xl font-light text-[#1A1918]">
-                            {formatPrice(focalAnchor.price)}
-                          </span>
-                          <span className="text-xs text-[#8C867D] line-through ml-2">
-                            {formatPrice(26999)}
-                          </span>
-                        </div>
-                        <span className="text-xs font-mono uppercase text-[#806B43] flex items-center gap-1 group-hover:translate-x-1.5 transition-transform">
-                          Explore Object &rarr;
+                    <div className="pt-3 hairline-t flex items-baseline justify-between">
+                      <div>
+                        <span className="text-xl font-light text-[#1A1918]">
+                          {formatPrice(focalAnchor.price)}
+                        </span>
+                        <span className="text-xs text-[#8C867D] line-through ml-2">
+                          {formatPrice(26999)}
                         </span>
                       </div>
+                      <span className="text-xs font-mono uppercase text-[#806B43] flex items-center gap-1 group-hover:translate-x-1.5 transition-transform">
+                        Explore Object &rarr;
+                      </span>
                     </div>
+                  </div>
 
-                  </Link>
-                </div>
-              </div>
+                </Link>
+              </motion.div>
             </div>
 
             {/* Right Wing (Supporting 02: Leather Bag + Supporting 04: Serum) */}
             <div className="col-span-3 space-y-10 flex flex-col justify-center">
               
-              {/* Supporting 02: Italian Leather Bag (3D Right Float) */}
-              <div className="animate-3d-right">
-                <div
-                  onMouseEnter={() => setActiveId(supportingObjects[1].id)}
-                  onMouseLeave={() => setActiveId(null)}
-                  className="group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4.5 transition-all duration-500 hover:border-[#1A1918] hover:scale-102"
-                >
-                  <Link href={`/products/${supportingObjects[1].slug}`} className="block">
-                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
-                      <Image
-                        src={supportingObjects[1].image}
-                        alt={supportingObjects[1].title}
-                        fill
-                        sizes="280px"
-                        className="object-cover group-hover:scale-106 transition-transform duration-700"
-                        unoptimized
-                      />
-                      <div className="absolute top-2.5 left-2.5 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
-                        {supportingObjects[1].tag}
-                      </div>
+              {/* Supporting 02: Italian Leather Bag (Automatic Continuous Float 6.8s) */}
+              <motion.div
+                animate={floatRightTop}
+                whileHover={{
+                  scale: 1.04,
+                  y: -24,
+                  rotateX: 4,
+                  rotateY: -2,
+                  zIndex: 30,
+                  transition: { duration: 0.35, ease: 'easeOut' },
+                }}
+                className="group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4.5 transition-colors duration-500 hover:border-[#1A1918] shadow-md hover:shadow-2xl cursor-pointer"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <Link href={`/products/${supportingObjects[1].slug}`} className="block">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
+                    <Image
+                      src={supportingObjects[1].image}
+                      alt={supportingObjects[1].title}
+                      fill
+                      sizes="280px"
+                      className="object-cover group-hover:scale-106 transition-transform duration-700"
+                      unoptimized
+                    />
+                    <div className="absolute top-2.5 left-2.5 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
+                      {supportingObjects[1].tag}
                     </div>
-                    <div className="pt-3.5 space-y-1">
-                      <span className="text-[9px] font-mono uppercase tracking-widest text-[#8C867D] block">
-                        {supportingObjects[1].category}
+                  </div>
+                  <div className="pt-3.5 space-y-1">
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-[#8C867D] block">
+                      {supportingObjects[1].category}
+                    </span>
+                    <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1 group-hover:text-[#806B43] transition-colors">
+                      {supportingObjects[1].title}
+                    </h3>
+                    <div className="pt-1.5 hairline-t flex items-baseline justify-between">
+                      <span className="text-sm font-light text-[#1A1918]">
+                        {formatPrice(supportingObjects[1].price)}
                       </span>
-                      <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1 group-hover:text-[#806B43] transition-colors">
-                        {supportingObjects[1].title}
-                      </h3>
-                      <div className="pt-1.5 hairline-t flex items-baseline justify-between">
-                        <span className="text-sm font-light text-[#1A1918]">
-                          {formatPrice(supportingObjects[1].price)}
-                        </span>
-                        <span className="text-[9px] font-mono uppercase text-[#806B43] flex items-center gap-0.5">
-                          Inspect <ArrowUpRight className="w-2.5 h-2.5" />
-                        </span>
-                      </div>
+                      <span className="text-[9px] font-mono uppercase text-[#806B43] flex items-center gap-0.5">
+                        Inspect <ArrowUpRight className="w-2.5 h-2.5" />
+                      </span>
                     </div>
-                  </Link>
-                </div>
-              </div>
+                  </div>
+                </Link>
+              </motion.div>
 
-              {/* Supporting 04: Multi-Peptide Serum (3D Counter Float) */}
-              <div className="animate-3d-counter">
-                <div
-                  onMouseEnter={() => setActiveId(supportingObjects[3].id)}
-                  onMouseLeave={() => setActiveId(null)}
-                  className="group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4.5 transition-all duration-500 hover:border-[#1A1918] hover:scale-102"
-                >
-                  <Link href={`/products/${supportingObjects[3].slug}`} className="block">
-                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#EDE8DF]">
-                      <Image
-                        src={supportingObjects[3].image}
-                        alt={supportingObjects[3].title}
-                        fill
-                        sizes="280px"
-                        className="object-cover group-hover:scale-106 transition-transform duration-700"
-                        unoptimized
-                      />
-                      <div className="absolute top-2.5 left-2.5 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
-                        {supportingObjects[3].tag}
-                      </div>
+              {/* Supporting 04: Multi-Peptide Serum (Automatic Continuous Float 6.4s) */}
+              <motion.div
+                animate={floatRightBottom}
+                whileHover={{
+                  scale: 1.04,
+                  y: -24,
+                  rotateX: 4,
+                  rotateY: -2,
+                  zIndex: 30,
+                  transition: { duration: 0.35, ease: 'easeOut' },
+                }}
+                className="group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4.5 transition-colors duration-500 hover:border-[#1A1918] shadow-md hover:shadow-2xl cursor-pointer"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <Link href={`/products/${supportingObjects[3].slug}`} className="block">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#EDE8DF]">
+                    <Image
+                      src={supportingObjects[3].image}
+                      alt={supportingObjects[3].title}
+                      fill
+                      sizes="280px"
+                      className="object-cover group-hover:scale-106 transition-transform duration-700"
+                      unoptimized
+                    />
+                    <div className="absolute top-2.5 left-2.5 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
+                      {supportingObjects[3].tag}
                     </div>
-                    <div className="pt-3.5 space-y-1">
-                      <span className="text-[9px] font-mono uppercase tracking-widest text-[#8C867D] block">
-                        {supportingObjects[3].category}
+                  </div>
+                  <div className="pt-3.5 space-y-1">
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-[#8C867D] block">
+                      {supportingObjects[3].category}
+                    </span>
+                    <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1 group-hover:text-[#806B43] transition-colors">
+                      {supportingObjects[3].title}
+                    </h3>
+                    <div className="pt-1.5 hairline-t flex items-baseline justify-between">
+                      <span className="text-sm font-light text-[#1A1918]">
+                        {formatPrice(supportingObjects[3].price)}
                       </span>
-                      <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1 group-hover:text-[#806B43] transition-colors">
-                        {supportingObjects[3].title}
-                      </h3>
-                      <div className="pt-1.5 hairline-t flex items-baseline justify-between">
-                        <span className="text-sm font-light text-[#1A1918]">
-                          {formatPrice(supportingObjects[3].price)}
-                        </span>
-                        <span className="text-[9px] font-mono uppercase text-[#806B43] flex items-center gap-0.5">
-                          Inspect <ArrowUpRight className="w-2.5 h-2.5" />
-                        </span>
-                      </div>
+                      <span className="text-[9px] font-mono uppercase text-[#806B43] flex items-center gap-0.5">
+                        Inspect <ArrowUpRight className="w-2.5 h-2.5" />
+                      </span>
                     </div>
-                  </Link>
-                </div>
-              </div>
+                  </div>
+                </Link>
+              </motion.div>
 
             </div>
 
           </div>
 
-          {/* Mobile & Tablet Refined Editorial Layout with Subtle 3D Depth */}
+          {/* Mobile & Tablet Refined Editorial Layout with Same Automatic Continuous 3D Floating */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-6">
             
             {/* Focal Feature Card */}
-            <div className="sm:col-span-2 bg-[#FAF8F5] border border-[#D8D2C6] p-6 shadow-md animate-3d-focal">
+            <motion.div
+              animate={floatFocal}
+              className="sm:col-span-2 bg-[#FAF8F5] border border-[#D8D2C6] p-6 shadow-md"
+            >
               <Link href={`/products/${focalAnchor.slug}`} className="block">
                 <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
                   <Image
@@ -431,42 +509,44 @@ export default function AnimatedPhotoStream() {
                   </div>
                 </div>
               </Link>
-            </div>
+            </motion.div>
 
-            {/* 4 Supporting Items */}
-            {supportingObjects.map((item, idx) => (
-              <div
-                key={item.id}
-                className={`bg-[#FAF8F5] border border-[#D8D2C6] p-4 shadow-sm ${
-                  idx % 2 === 0 ? 'animate-3d-left' : 'animate-3d-right'
-                }`}
-              >
-                <Link href={`/products/${item.slug}`} className="block">
-                  <div className="relative aspect-square w-full overflow-hidden bg-[#EDE8DF]">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      sizes="300px"
-                      className="object-cover"
-                      unoptimized
-                    />
-                  </div>
-                  <div className="pt-3 space-y-1">
-                    <span className="text-[9px] font-mono uppercase text-[#8C867D] block">{item.category}</span>
-                    <h4 className="font-editorial text-base text-[#1A1918] line-clamp-1">{item.title}</h4>
-                    <div className="pt-1.5 hairline-t flex justify-between items-baseline">
-                      <span className="text-sm font-light text-[#1A1918]">{formatPrice(item.price)}</span>
-                      <span className="text-[9px] font-mono uppercase text-[#806B43]">Inspect &rarr;</span>
+            {/* 4 Supporting Items with Individual Automatic Floats */}
+            {supportingObjects.map((item, idx) => {
+              const floatPreset = [floatLeftTop, floatRightTop, floatLeftBottom, floatRightBottom][idx];
+              return (
+                <motion.div
+                  key={item.id}
+                  animate={floatPreset}
+                  className="bg-[#FAF8F5] border border-[#D8D2C6] p-4 shadow-sm"
+                >
+                  <Link href={`/products/${item.slug}`} className="block">
+                    <div className="relative aspect-square w-full overflow-hidden bg-[#EDE8DF]">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        sizes="300px"
+                        className="object-cover"
+                        unoptimized
+                      />
                     </div>
-                  </div>
-                </Link>
-              </div>
-            ))}
+                    <div className="pt-3 space-y-1">
+                      <span className="text-[9px] font-mono uppercase text-[#8C867D] block">{item.category}</span>
+                      <h4 className="font-editorial text-base text-[#1A1918] line-clamp-1">{item.title}</h4>
+                      <div className="pt-1.5 hairline-t flex justify-between items-baseline">
+                        <span className="text-sm font-light text-[#1A1918]">{formatPrice(item.price)}</span>
+                        <span className="text-[9px] font-mono uppercase text-[#806B43]">Inspect &rarr;</span>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
 
           </div>
 
-        </motion.div>
+        </div>
       </div>
 
     </section>
