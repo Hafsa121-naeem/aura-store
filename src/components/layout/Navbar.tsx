@@ -184,7 +184,18 @@ export default function Navbar() {
           </button>
 
           {/* Left: Minimalist Category Navigation (ferm LIVING style) */}
-          <nav className="hidden lg:flex items-center gap-8 text-xs font-light tracking-[0.22em] uppercase text-[#3D3A35]">
+          <nav className="hidden lg:flex items-center gap-7 xl:gap-8 text-xs font-light tracking-[0.22em] uppercase text-[#3D3A35]">
+            <Link
+              href="/"
+              className={`transition-colors py-2 ${
+                pathname === '/'
+                  ? 'text-[#1A1918] font-medium border-b-2 border-[#806B43]'
+                  : 'hover:text-[#1A1918]'
+              }`}
+            >
+              Home
+            </Link>
+
             {/* Spaces Dropdown */}
             <div
               className="relative"
@@ -582,11 +593,20 @@ export default function Navbar() {
 
                 <div className="space-y-4 text-xs uppercase tracking-[0.22em] font-light text-[#1A1918]">
                   <Link
+                    href="/"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block py-2 hairline-b ${
+                      pathname === '/' ? 'text-[#806B43] font-medium' : 'hover:text-[#806B43]'
+                    }`}
+                  >
+                    Home
+                  </Link>
+                  <Link
                     href="/products"
                     onClick={() => setMobileMenuOpen(false)}
                     className="block py-2 hairline-b hover:text-[#806B43]"
                   >
-                    All Objects
+                    All Objects (Catalog)
                   </Link>
                   <a
                     href="#composition"
