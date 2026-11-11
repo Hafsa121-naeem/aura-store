@@ -8,12 +8,12 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 export default function HeroShowcase() {
   return (
-    <section className="relative w-full bg-[#FAF8F5] overflow-hidden select-none hairline-b">
+    <section className="relative w-full bg-[#F4EFE6] overflow-hidden select-none hairline-b">
       
       {/* 1. Full-Bleed Atmospheric Cinematic Hero Stage */}
       <div className="relative w-full h-[78vh] sm:h-[84vh] min-h-[560px] max-h-[820px] flex items-center">
         
-        {/* Background Atmospheric Photograph with Smooth Cinematic Reveal & Parallax Depth */}
+        {/* Background Atmospheric Photograph with Balanced Warmth, Rich Contrast & Realistic Depth */}
         <motion.div
           initial={{ scale: 1.08, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -26,15 +26,15 @@ export default function HeroShowcase() {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center brightness-[1.02] contrast-[1.02] saturate-[1.03]"
+            className="object-cover object-center brightness-[0.97] contrast-[1.06] saturate-[1.06]"
             unoptimized
           />
-          {/* Soft Light Luxury Atmosphere & Editorial Vignette Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5]/92 via-[#FAF8F5]/70 sm:via-[#FAF8F5]/35 to-transparent/10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#FAF8F5]/80 via-transparent to-transparent pointer-events-none" />
+          {/* Warm Champagne & Ivory Editorial Vignettes (Preserves Natural Subject Contrast & Zero Washed-out Fog) */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F4EFE6]/92 via-[#F4EFE6]/65 sm:via-[#F4EFE6]/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#F4EFE6]/35 via-transparent to-transparent pointer-events-none" />
           
-          {/* Subtle Warm Light Glow */}
-          <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#806B43]/10 rounded-full blur-3xl pointer-events-none" />
+          {/* Subtle Warm Champagne Glow */}
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#C5A880]/15 rounded-full blur-3xl pointer-events-none" />
         </motion.div>
 
         {/* Hero Editorial Content */}
@@ -48,8 +48,8 @@ export default function HeroShowcase() {
               transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="space-y-4"
             >
-              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.32em] font-medium text-[#806B43]">
-                <Sparkles className="w-3 h-3 text-[#806B43]" />
+              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.32em] font-medium text-[#7D633E]">
+                <Sparkles className="w-3 h-3 text-[#7D633E]" />
                 <span>New Collection &bull; The Mindful Domestic Space</span>
               </div>
               
@@ -60,7 +60,7 @@ export default function HeroShowcase() {
                 className="text-4xl sm:text-6xl lg:text-7xl font-editorial font-light text-[#1A1918] leading-[1.06] tracking-tight"
               >
                 A life of contrasts: <br />
-                <span className="italic font-normal text-[#806B43]">
+                <span className="italic font-normal text-[#8A6D3B]">
                   Quiet luxury for modern living.
                 </span>
               </motion.h1>
@@ -76,7 +76,7 @@ export default function HeroShowcase() {
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Link
                   href="/products"
-                  className="px-8 py-3.5 bg-[#1A1918] hover:bg-[#806B43] text-[#FAF8F5] text-xs uppercase tracking-[0.24em] font-medium transition-colors shadow-lg flex items-center gap-2.5 group"
+                  className="px-8 py-3.5 bg-[#1A1918] hover:bg-[#8A6D3B] text-[#FAF8F5] text-xs uppercase tracking-[0.24em] font-medium transition-colors shadow-lg flex items-center gap-2.5 group"
                 >
                   <span>Explore Collection</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -86,7 +86,7 @@ export default function HeroShowcase() {
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <a
                   href="#composition"
-                  className="px-6 py-3.5 border border-[#1A1918]/25 hover:border-[#806B43] text-[#1A1918] hover:text-[#806B43] bg-white/50 hover:bg-white text-xs uppercase tracking-[0.22em] font-medium transition-colors backdrop-blur-sm"
+                  className="px-6 py-3.5 border border-[#1A1918]/30 hover:border-[#8A6D3B] text-[#1A1918] hover:text-[#8A6D3B] bg-[#F4EFE6]/60 hover:bg-[#FAF7F2] text-xs uppercase tracking-[0.22em] font-medium transition-colors backdrop-blur-sm"
                 >
                   View Exhibition
                 </a>
