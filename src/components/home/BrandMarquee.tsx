@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingBag, Eye, Check, ArrowRight } from 'lucide-react';
+import { motion } from 'motion/react';
+import { ShoppingBag, Eye, Check, ArrowRight, Sparkles } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { formatPrice } from '@/lib/utils';
 import QuickViewModal from '@/components/products/QuickViewModal';
@@ -25,7 +26,7 @@ export default function BrandMarquee() {
       image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=800&q=85',
       hoverImage: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=85',
       slug: 'horizon-pro-anc-hybrid-wireless-headphones',
-      tag: 'RESPONSIBLE',
+      tag: 'FLAGSHIP',
       colors: ['#1F2022', '#D8D2C6', '#806B43'],
       description: 'Custom 40mm beryllium drivers, memory foam protein leather, and 42dB hybrid noise cancellation.',
     },
@@ -39,7 +40,7 @@ export default function BrandMarquee() {
       image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=85',
       hoverImage: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&q=85',
       slug: 'apex-titanium-sapphire-amoled-smartwatch',
-      tag: 'NYHED / NEW',
+      tag: 'NEW ARRIVAL',
       colors: ['#3A3B3C', '#E5E4E2', '#C5A059'],
       description: 'Aerospace grade titanium case with curved 1.96-inch sapphire AMOLED display and ECG sensor matrix.',
     },
@@ -67,7 +68,7 @@ export default function BrandMarquee() {
       image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=85',
       hoverImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=85',
       slug: 'cordless-rechargeable-mushroom-table-lamp',
-      tag: 'RESPONSIBLE',
+      tag: 'CURATED',
       colors: ['#EFECE6', '#9E814D', '#2B2927'],
       description: 'Hand-thrown matte ceramic base with woven natural flax shade and warm dimmable LED ambiance.',
     },
@@ -109,12 +110,21 @@ export default function BrandMarquee() {
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between pb-10 sm:pb-12 hairline-b gap-6">
-          <div className="space-y-3">
-            <span className="text-[11px] uppercase tracking-[0.28em] font-light text-[#8C867D] block">
-              Curated Highlights &bull; Edition 01
-            </span>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-3"
+          >
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-3.5 h-3.5 text-[#806B43]" />
+              <span className="text-[11px] uppercase tracking-[0.28em] font-light text-[#8C867D]">
+                Curated Highlights &bull; Edition 01
+              </span>
+            </div>
             <h2 className="text-3xl sm:text-5xl font-editorial font-light text-[#1A1918] leading-[1.08]">
-              Featured Objects: <br />
+              Featured Collection: <br />
               <span className="italic font-normal text-[#806B43]">
                 Four pieces crafted for longevity
               </span>
@@ -122,23 +132,35 @@ export default function BrandMarquee() {
             <p className="text-xs sm:text-sm font-light text-[#5C5852] max-w-md leading-relaxed pt-1">
               Quality over quantity. Each piece verified with official 12-month brand warranty and nationwide Cash on Delivery.
             </p>
-          </div>
+          </motion.div>
 
-          <Link
-            href="/products"
-            className="text-xs uppercase tracking-[0.24em] font-light text-[#1A1918] hover:text-[#806B43] flex items-center gap-2 transition-colors self-start md:self-auto underline underline-offset-8"
+          <motion.div
+            initial={{ opacity: 0, x: 16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8 }}
           >
-            <span>Explore All 76 Objects</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+            <Link
+              href="/products"
+              className="text-xs uppercase tracking-[0.24em] font-light text-[#1A1918] hover:text-[#806B43] flex items-center gap-2 transition-colors self-start md:self-auto underline underline-offset-8"
+            >
+              <span>Explore All 76 Objects</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </motion.div>
         </div>
 
-        {/* The 4 Featured Products (Clean, static, 4-column balanced grid) */}
+        {/* The 4 Featured Products (Clean, static, 4-column balanced grid with staggered entrance) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 pt-10 sm:pt-14">
-          {featuredFour.map((item) => (
-            <div
+          {featuredFour.map((item, idx) => (
+            <motion.div
               key={item.id}
-              className="group relative flex flex-col justify-between bg-[#F5F2EB] border border-[#D8D2C6] hover:border-[#1A1918] transition-all duration-300 shadow-sm hover:shadow-xl"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, delay: idx * 0.12 }}
+              whileHover={{ y: -6 }}
+              className="group relative flex flex-col justify-between bg-[#F5F2EB] border border-[#D8D2C6] hover:border-[#1A1918] transition-all duration-300 shadow-sm hover:shadow-2xl"
             >
               {/* Product Image Frame with Dual Hover Crossfade */}
               <Link
@@ -151,7 +173,7 @@ export default function BrandMarquee() {
                   alt={item.name}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
-                  className="object-cover group-hover:scale-104 transition-transform duration-700 ease-out"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   unoptimized
                 />
 
@@ -184,7 +206,7 @@ export default function BrandMarquee() {
                         images: [{ id: '1', product_id: item.id, image_url: item.image, is_primary: true }],
                       });
                     }}
-                    className="w-8 h-8 bg-[#FAF8F5]/90 border border-[#D8D2C6] hover:bg-[#1A1918] hover:text-white flex items-center justify-center transition-all shadow-sm"
+                    className="w-8 h-8 bg-[#FAF8F5]/95 border border-[#D8D2C6] hover:bg-[#1A1918] hover:text-white flex items-center justify-center transition-all shadow-sm"
                     title="Quick Preview"
                   >
                     <Eye className="w-3.5 h-3.5" />
@@ -259,7 +281,7 @@ export default function BrandMarquee() {
                 </div>
               </div>
 
-            </div>
+            </motion.div>
           ))}
         </div>
 

@@ -164,7 +164,7 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
             )}
             {currentProduct.is_new && (
               <span className="bg-[#EDE8DF] text-[#1A1918] border border-[#D8D2C6] text-[9px] font-mono px-2 py-0.5 uppercase tracking-wider">
-                NYHED
+                NEW ARRIVAL
               </span>
             )}
             {currentProduct.featured && (

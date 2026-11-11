@@ -3,7 +3,8 @@
 import React, { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+import { ArrowUpRight, Sparkles, Layers } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
 
 interface FocalObject {
@@ -19,26 +20,33 @@ interface FocalObject {
 
 export default function AnimatedPhotoStream() {
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Very subtle, smooth mouse perspective response (controlled & minimal)
+  // Framer Motion spring-accelerated 3D tilt physics (smooth & luxurious)
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 25, stiffness: 120, mass: 0.8 };
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), springConfig);
+  const lightX = useTransform(mouseX, [-0.5, 0.5], ['30%', '70%']);
+  const lightY = useTransform(mouseY, [-0.5, 0.5], ['20%', '80%']);
+
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({
-      x: Number((x * 4).toFixed(2)),
-      y: Number((-y * 3).toFixed(2)),
-    });
-  }, []);
+    mouseX.set(x);
+    mouseY.set(y);
+  }, [mouseX, mouseY]);
 
   const handleMouseLeave = useCallback(() => {
-    setTilt({ x: 0, y: 0 });
-  }, []);
+    mouseX.set(0);
+    mouseY.set(0);
+  }, [mouseX, mouseY]);
 
-  // Exactly 5 carefully chosen luxury objects: 1 Main Focal Anchor + 4 Supporting Objects
+  // Five carefully chosen luxury objects: 1 Main Focal Anchor + 4 Supporting Objects
   const focalAnchor: FocalObject = {
     id: 'focal-01',
     tag: 'FLAGSHIP SCULPTURE',
@@ -98,7 +106,13 @@ export default function AnimatedPhotoStream() {
       
       {/* Editorial Header */}
       <div className="max-w-[1540px] mx-auto px-6 sm:px-10 pb-12 sm:pb-16 flex flex-col sm:flex-row sm:items-end justify-between gap-6 hairline-b">
-        <div className="space-y-3">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8 }}
+          className="space-y-3"
+        >
           <div className="flex items-center gap-2.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#806B43]" />
             <span className="text-[11px] uppercase tracking-[0.28em] font-mono text-[#8C867D]">
@@ -111,29 +125,37 @@ export default function AnimatedPhotoStream() {
               In Stillness &amp; Subtle Motion
             </span>
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="text-xs font-light text-[#5C5852] max-w-sm leading-relaxed sm:text-right">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-xs font-light text-[#5C5852] max-w-sm leading-relaxed sm:text-right"
+        >
           <p>An art-directed composition of five flagship objects, calibrated for serene domestic harmony.</p>
           <span className="text-[10px] font-mono text-[#8C867D] uppercase tracking-wider block mt-1">
-            Cash on Delivery Nationwide &bull; Doorstep Inspection Included
+            Nationwide Cash on Delivery &bull; Doorstep Inspection Included
           </span>
-        </div>
+        </motion.div>
       </div>
 
-      {/* THE ONE REFINED 3D KINETIC COMPOSITION (Apple-style balanced editorial tableau) */}
+      {/* 3D KINETIC COMPOSITION (Apple-style balanced editorial tableau with spring tilt) */}
       <div
         ref={containerRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         className="max-w-[1540px] mx-auto px-6 sm:px-10 pt-12 sm:pt-16"
-        style={{ perspective: '1600px' }}
+        style={{ perspective: 1800 }}
       >
-        <div
-          className="relative transition-transform duration-700 ease-out preserve-3d"
+        <motion.div
           style={{
-            transform: `rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,
+            rotateX,
+            rotateY,
+            transformStyle: 'preserve-3d',
           }}
+          className="relative transition-transform duration-300 ease-out"
         >
 
           {/* Desktop & Tablet Art-Directed Floating Tableau */}
@@ -143,11 +165,13 @@ export default function AnimatedPhotoStream() {
             <div className="col-span-3 space-y-8 flex flex-col justify-center">
               
               {/* Supporting 01: Titanium Smartwatch */}
-              <div
+              <motion.div
                 onMouseEnter={() => setActiveId(supportingObjects[0].id)}
                 onMouseLeave={() => setActiveId(null)}
-                className="animate-luxury-float group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4 shadow-sm hover:shadow-xl hover:border-[#1A1918] transition-all duration-500"
-                style={{ transform: 'translateZ(15px)' }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.4 }}
+                className="animate-luxury-float group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4 shadow-sm hover:shadow-2xl hover:border-[#1A1918] transition-all duration-500"
+                style={{ transform: 'translateZ(20px)' }}
               >
                 <Link href={`/products/${supportingObjects[0].slug}`} className="block">
                   <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
@@ -156,7 +180,7 @@ export default function AnimatedPhotoStream() {
                       alt={supportingObjects[0].title}
                       fill
                       sizes="280px"
-                      className="object-cover group-hover:scale-104 transition-transform duration-700"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
                       unoptimized
                     />
                     <div className="absolute top-2 left-2 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
@@ -167,7 +191,7 @@ export default function AnimatedPhotoStream() {
                     <span className="text-[9px] font-mono uppercase tracking-widest text-[#8C867D] block">
                       {supportingObjects[0].category}
                     </span>
-                    <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1">
+                    <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1 group-hover:text-[#806B43] transition-colors">
                       {supportingObjects[0].title}
                     </h3>
                     <div className="pt-1.5 hairline-t flex items-baseline justify-between">
@@ -180,13 +204,15 @@ export default function AnimatedPhotoStream() {
                     </div>
                   </div>
                 </Link>
-              </div>
+              </motion.div>
 
               {/* Supporting 03: Ceramic Lamp */}
-              <div
+              <motion.div
                 onMouseEnter={() => setActiveId(supportingObjects[2].id)}
                 onMouseLeave={() => setActiveId(null)}
-                className="animate-luxury-counter group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4 shadow-sm hover:shadow-xl hover:border-[#1A1918] transition-all duration-500"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.4 }}
+                className="animate-luxury-counter group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4 shadow-sm hover:shadow-2xl hover:border-[#1A1918] transition-all duration-500"
                 style={{ transform: 'translateZ(-10px)' }}
               >
                 <Link href={`/products/${supportingObjects[2].slug}`} className="block">
@@ -196,15 +222,18 @@ export default function AnimatedPhotoStream() {
                       alt={supportingObjects[2].title}
                       fill
                       sizes="280px"
-                      className="object-cover group-hover:scale-104 transition-transform duration-700"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
                       unoptimized
                     />
+                    <div className="absolute top-2 left-2 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
+                      {supportingObjects[2].tag}
+                    </div>
                   </div>
                   <div className="pt-3 space-y-1">
                     <span className="text-[9px] font-mono uppercase tracking-widest text-[#8C867D] block">
                       {supportingObjects[2].category}
                     </span>
-                    <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1">
+                    <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1 group-hover:text-[#806B43] transition-colors">
                       {supportingObjects[2].title}
                     </h3>
                     <div className="pt-1.5 hairline-t flex items-baseline justify-between">
@@ -217,17 +246,19 @@ export default function AnimatedPhotoStream() {
                     </div>
                   </div>
                 </Link>
-              </div>
+              </motion.div>
 
             </div>
 
             {/* Center Anchor (The Main Focal Feature: Horizon Pro ANC Headphones) */}
             <div className="col-span-6 flex justify-center">
-              <div
+              <motion.div
                 onMouseEnter={() => setActiveId(focalAnchor.id)}
                 onMouseLeave={() => setActiveId(null)}
-                className="animate-luxury-float-slow group relative bg-[#FAF8F5] border border-[#1A1918]/20 hover:border-[#1A1918] p-6 sm:p-8 shadow-2xl transition-all duration-700 w-full max-w-[440px]"
-                style={{ transform: 'translateZ(40px)' }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.5 }}
+                className="animate-luxury-float-slow group relative bg-[#FAF8F5] border border-[#1A1918]/25 hover:border-[#1A1918] p-6 sm:p-8 shadow-2xl transition-all duration-700 w-full max-w-[440px]"
+                style={{ transform: 'translateZ(45px)' }}
               >
                 <Link href={`/products/${focalAnchor.slug}`} className="block">
                   
@@ -244,55 +275,59 @@ export default function AnimatedPhotoStream() {
                       alt={focalAnchor.title}
                       fill
                       sizes="480px"
-                      className="object-cover group-hover:scale-104 transition-transform duration-1000 ease-out"
+                      className="object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
                       priority
                       unoptimized
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    {/* Corner Focal Badge */}
+                    <div className="absolute bottom-3 left-3 bg-[#1A1918]/90 text-[#FAF8F5] px-3 py-1 text-[9px] font-mono uppercase tracking-widest backdrop-blur-sm">
+                      FOCAL PIECE
+                    </div>
                   </div>
 
-                  {/* Focal Editorial Specifications */}
+                  {/* Bottom Placard */}
                   <div className="pt-5 space-y-2">
-                    <span className="text-[10px] font-mono uppercase tracking-[0.24em] text-[#806B43] block">
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-[#806B43] block">
                       {focalAnchor.category}
                     </span>
-                    <h3 className="font-editorial text-2xl sm:text-3xl text-[#1A1918] leading-tight">
+                    <h3 className="font-editorial text-2xl sm:text-3xl text-[#1A1918] group-hover:text-[#806B43] transition-colors leading-tight">
                       {focalAnchor.title}
                     </h3>
-                    <p className="text-xs text-[#5C5852] font-light leading-relaxed">
+                    <p className="text-xs text-[#5C5852] font-light line-clamp-1">
                       {focalAnchor.specs}
                     </p>
 
-                    <div className="pt-4 hairline-t flex items-baseline justify-between mt-3">
+                    <div className="pt-3 hairline-t flex items-baseline justify-between">
                       <div>
-                        <span className="text-[8px] font-mono uppercase text-[#8C867D] block">
-                          SPECIMEN VALUE (PKR)
-                        </span>
                         <span className="text-xl font-light text-[#1A1918]">
                           {formatPrice(focalAnchor.price)}
                         </span>
+                        <span className="text-xs text-[#8C867D] line-through ml-2">
+                          {formatPrice(26999)}
+                        </span>
                       </div>
-
-                      <span className="px-4 py-2 bg-[#1A1918] group-hover:bg-[#806B43] text-[#FAF8F5] text-xs uppercase tracking-widest font-light flex items-center gap-1.5 transition-colors shadow-sm">
-                        <span>Acquire Specimen</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      <span className="text-xs font-mono uppercase text-[#806B43] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                        Explore Object &rarr;
                       </span>
                     </div>
                   </div>
 
                 </Link>
-              </div>
+              </motion.div>
             </div>
 
-            {/* Right Wing (Supporting 02: Kelly Bag + Supporting 04: Serum) */}
+            {/* Right Wing (Supporting 02: Leather Bag + Supporting 04: Serum) */}
             <div className="col-span-3 space-y-8 flex flex-col justify-center">
               
-              {/* Supporting 02: Kelly Handbag */}
-              <div
+              {/* Supporting 02: Italian Leather Bag */}
+              <motion.div
                 onMouseEnter={() => setActiveId(supportingObjects[1].id)}
                 onMouseLeave={() => setActiveId(null)}
-                className="animate-luxury-float group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4 shadow-sm hover:shadow-xl hover:border-[#1A1918] transition-all duration-500"
-                style={{ transform: 'translateZ(20px)' }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.4 }}
+                className="animate-luxury-float group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4 shadow-sm hover:shadow-2xl hover:border-[#1A1918] transition-all duration-500"
+                style={{ transform: 'translateZ(15px)' }}
               >
                 <Link href={`/products/${supportingObjects[1].slug}`} className="block">
                   <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
@@ -301,7 +336,7 @@ export default function AnimatedPhotoStream() {
                       alt={supportingObjects[1].title}
                       fill
                       sizes="280px"
-                      className="object-cover group-hover:scale-104 transition-transform duration-700"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
                       unoptimized
                     />
                     <div className="absolute top-2 left-2 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
@@ -312,7 +347,7 @@ export default function AnimatedPhotoStream() {
                     <span className="text-[9px] font-mono uppercase tracking-widest text-[#8C867D] block">
                       {supportingObjects[1].category}
                     </span>
-                    <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1">
+                    <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1 group-hover:text-[#806B43] transition-colors">
                       {supportingObjects[1].title}
                     </h3>
                     <div className="pt-1.5 hairline-t flex items-baseline justify-between">
@@ -325,13 +360,15 @@ export default function AnimatedPhotoStream() {
                     </div>
                   </div>
                 </Link>
-              </div>
+              </motion.div>
 
               {/* Supporting 04: Multi-Peptide Serum */}
-              <div
+              <motion.div
                 onMouseEnter={() => setActiveId(supportingObjects[3].id)}
                 onMouseLeave={() => setActiveId(null)}
-                className="animate-luxury-counter group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4 shadow-sm hover:shadow-xl hover:border-[#1A1918] transition-all duration-500"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.4 }}
+                className="animate-luxury-counter group relative bg-[#FAF8F5] border border-[#D8D2C6] p-4 shadow-sm hover:shadow-2xl hover:border-[#1A1918] transition-all duration-500"
                 style={{ transform: 'translateZ(-5px)' }}
               >
                 <Link href={`/products/${supportingObjects[3].slug}`} className="block">
@@ -341,15 +378,18 @@ export default function AnimatedPhotoStream() {
                       alt={supportingObjects[3].title}
                       fill
                       sizes="280px"
-                      className="object-cover group-hover:scale-104 transition-transform duration-700"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
                       unoptimized
                     />
+                    <div className="absolute top-2 left-2 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
+                      {supportingObjects[3].tag}
+                    </div>
                   </div>
                   <div className="pt-3 space-y-1">
                     <span className="text-[9px] font-mono uppercase tracking-widest text-[#8C867D] block">
                       {supportingObjects[3].category}
                     </span>
-                    <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1">
+                    <h3 className="font-editorial text-base text-[#1A1918] line-clamp-1 group-hover:text-[#806B43] transition-colors">
                       {supportingObjects[3].title}
                     </h3>
                     <div className="pt-1.5 hairline-t flex items-baseline justify-between">
@@ -362,7 +402,7 @@ export default function AnimatedPhotoStream() {
                     </div>
                   </div>
                 </Link>
-              </div>
+              </motion.div>
 
             </div>
 
@@ -428,7 +468,7 @@ export default function AnimatedPhotoStream() {
 
           </div>
 
-        </div>
+        </motion.div>
       </div>
 
     </section>
