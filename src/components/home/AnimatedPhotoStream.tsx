@@ -249,9 +249,16 @@ export default function AnimatedPhotoStream() {
                       {supportingObjects[0].title}
                     </h3>
                     <div className="pt-1.5 hairline-t flex items-baseline justify-between">
-                      <span className="text-sm font-light text-[#1A1918]">
-                        {formatPrice(supportingObjects[0].price)}
-                      </span>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-sm font-light text-[#1A1918]">
+                          {formatPrice(supportingObjects[0].price)}
+                        </span>
+                        {supportingObjects[0].originalPrice && (
+                          <span className="text-[10px] text-[#8C867D] line-through">
+                            {formatPrice(supportingObjects[0].originalPrice)}
+                          </span>
+                        )}
+                      </div>
                       <span className="text-[9px] font-mono uppercase text-[#806B43] flex items-center gap-0.5">
                         Inspect <ArrowUpRight className="w-2.5 h-2.5" />
                       </span>
@@ -296,9 +303,16 @@ export default function AnimatedPhotoStream() {
                       {supportingObjects[2].title}
                     </h3>
                     <div className="pt-1.5 hairline-t flex items-baseline justify-between">
-                      <span className="text-sm font-light text-[#1A1918]">
-                        {formatPrice(supportingObjects[2].price)}
-                      </span>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-sm font-light text-[#1A1918]">
+                          {formatPrice(supportingObjects[2].price)}
+                        </span>
+                        {supportingObjects[2].originalPrice && (
+                          <span className="text-[10px] text-[#8C867D] line-through">
+                            {formatPrice(supportingObjects[2].originalPrice)}
+                          </span>
+                        )}
+                      </div>
                       <span className="text-[9px] font-mono uppercase text-[#806B43] flex items-center gap-0.5">
                         Inspect <ArrowUpRight className="w-2.5 h-2.5" />
                       </span>
@@ -367,9 +381,11 @@ export default function AnimatedPhotoStream() {
                         <span className="text-xl font-light text-[#1A1918]">
                           {formatPrice(focalAnchor.price)}
                         </span>
-                        <span className="text-xs text-[#8C867D] line-through ml-2">
-                          {formatPrice(26999)}
-                        </span>
+                        {focalAnchor.originalPrice && (
+                          <span className="text-xs text-[#8C867D] line-through ml-2">
+                            {formatPrice(focalAnchor.originalPrice)}
+                          </span>
+                        )}
                       </div>
                       <span className="text-xs font-mono uppercase text-[#806B43] flex items-center gap-1 group-hover:translate-x-1.5 transition-transform">
                         Explore Object &rarr;
@@ -420,9 +436,16 @@ export default function AnimatedPhotoStream() {
                       {supportingObjects[1].title}
                     </h3>
                     <div className="pt-1.5 hairline-t flex items-baseline justify-between">
-                      <span className="text-sm font-light text-[#1A1918]">
-                        {formatPrice(supportingObjects[1].price)}
-                      </span>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-sm font-light text-[#1A1918]">
+                          {formatPrice(supportingObjects[1].price)}
+                        </span>
+                        {supportingObjects[1].originalPrice && (
+                          <span className="text-[10px] text-[#8C867D] line-through">
+                            {formatPrice(supportingObjects[1].originalPrice)}
+                          </span>
+                        )}
+                      </div>
                       <span className="text-[9px] font-mono uppercase text-[#806B43] flex items-center gap-0.5">
                         Inspect <ArrowUpRight className="w-2.5 h-2.5" />
                       </span>
@@ -467,9 +490,16 @@ export default function AnimatedPhotoStream() {
                       {supportingObjects[3].title}
                     </h3>
                     <div className="pt-1.5 hairline-t flex items-baseline justify-between">
-                      <span className="text-sm font-light text-[#1A1918]">
-                        {formatPrice(supportingObjects[3].price)}
-                      </span>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-sm font-light text-[#1A1918]">
+                          {formatPrice(supportingObjects[3].price)}
+                        </span>
+                        {supportingObjects[3].originalPrice && (
+                          <span className="text-[10px] text-[#8C867D] line-through">
+                            {formatPrice(supportingObjects[3].originalPrice)}
+                          </span>
+                        )}
+                      </div>
                       <span className="text-[9px] font-mono uppercase text-[#806B43] flex items-center gap-0.5">
                         Inspect <ArrowUpRight className="w-2.5 h-2.5" />
                       </span>
@@ -510,7 +540,12 @@ export default function AnimatedPhotoStream() {
                   </span>
                   <h3 className="font-editorial text-2xl text-[#1A1918]">{focalAnchor.title}</h3>
                   <div className="pt-2 hairline-t flex justify-between items-baseline">
-                    <span className="text-lg font-light text-[#1A1918]">{formatPrice(focalAnchor.price)}</span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-lg font-light text-[#1A1918]">{formatPrice(focalAnchor.price)}</span>
+                      {focalAnchor.originalPrice && (
+                        <span className="text-xs text-[#8C867D] line-through">{formatPrice(focalAnchor.originalPrice)}</span>
+                      )}
+                    </div>
                     <span className="text-xs uppercase font-mono text-[#806B43]">Inspect &rarr;</span>
                   </div>
                 </div>
@@ -541,7 +576,12 @@ export default function AnimatedPhotoStream() {
                       <span className="text-[9px] font-mono uppercase text-[#8C867D] block">{item.category}</span>
                       <h4 className="font-editorial text-base text-[#1A1918] line-clamp-1">{item.title}</h4>
                       <div className="pt-1.5 hairline-t flex justify-between items-baseline">
-                        <span className="text-sm font-light text-[#1A1918]">{formatPrice(item.price)}</span>
+                        <div className="flex items-baseline gap-1.5">
+                          <span className="text-sm font-light text-[#1A1918]">{formatPrice(item.price)}</span>
+                          {item.originalPrice && (
+                            <span className="text-[10px] text-[#8C867D] line-through">{formatPrice(item.originalPrice)}</span>
+                          )}
+                        </div>
                         <span className="text-[9px] font-mono uppercase text-[#806B43]">Inspect &rarr;</span>
                       </div>
                     </div>
