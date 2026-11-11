@@ -76,16 +76,16 @@ export default function AnimatedPhotoStream() {
     },
   ];
 
-  // 1. Continuous, automatic floating animation definitions (Unique rhythm, duration & direction for each of the 5 objects)
+  // 1. Continuous, automatic floating animation definitions (Enhanced noticeable movement with smooth, elegant cadence)
   const floatFocal = shouldReduceMotion
     ? { y: 0, rotateZ: 0, rotateX: 0, rotateY: 0 }
     : {
-        y: [0, -22, -6, 18, 0],
-        rotateZ: [0, 1.2, -0.6, -1.2, 0],
-        rotateX: [0, 2.5, 0, -2, 0],
-        rotateY: [0, -2, 1.5, 0, 0],
+        y: [0, -36, -10, 30, 0],
+        rotateZ: [0, 1.8, -0.8, -1.6, 0],
+        rotateX: [0, 3.5, 0, -2.8, 0],
+        rotateY: [0, -2.8, 2.0, 0, 0],
         transition: {
-          duration: 7.2,
+          duration: 4.8,
           repeat: Infinity,
           ease: 'easeInOut' as const,
         },
@@ -94,60 +94,60 @@ export default function AnimatedPhotoStream() {
   const floatLeftTop = shouldReduceMotion
     ? { y: 0, rotateZ: 0, rotateX: 0, rotateY: 0 }
     : {
-        y: [0, 18, -3, -20, 0],
-        rotateZ: [0, -2.4, 0.6, 2, 0],
-        rotateX: [1, -2, 1, 2.5, 1],
-        rotateY: [4, 1.5, 3.5, 5, 4],
+        y: [0, 32, -6, -34, 0],
+        rotateZ: [0, -3.2, 0.8, 2.6, 0],
+        rotateX: [1.5, -3.0, 1.5, 3.6, 1.5],
+        rotateY: [5, 2.0, 4.2, 6.2, 5],
         transition: {
-          duration: 6.2,
+          duration: 4.2,
           repeat: Infinity,
           ease: 'easeInOut' as const,
-          delay: 0.3,
+          delay: 0.2,
         },
       };
 
   const floatRightTop = shouldReduceMotion
     ? { y: 0, rotateZ: 0, rotateX: 0, rotateY: 0 }
     : {
-        y: [0, -18, 2, 20, 0],
-        rotateZ: [0, 2.2, -0.6, -1.8, 0],
-        rotateX: [-1, 2, -1, -2.5, -1],
-        rotateY: [-4, -1.5, -3.5, -5, -4],
+        y: [0, -32, 5, 34, 0],
+        rotateZ: [0, 3.0, -0.8, -2.4, 0],
+        rotateX: [-1.5, 3.0, -1.5, -3.6, -1.5],
+        rotateY: [-5, -2.0, -4.2, -6.2, -5],
         transition: {
-          duration: 6.8,
+          duration: 4.5,
           repeat: Infinity,
           ease: 'easeInOut' as const,
-          delay: 0.7,
+          delay: 0.4,
         },
       };
 
   const floatLeftBottom = shouldReduceMotion
     ? { y: 0, rotateZ: 0, rotateX: 0, rotateY: 0 }
     : {
-        y: [0, -15, 3, 16, 0],
-        rotateZ: [0, -1.8, 1.2, -1.4, 0],
-        rotateX: [0, -1.5, 2, 0, 0],
-        rotateY: [2, 4, 1, 3, 2],
+        y: [0, -28, 6, 30, 0],
+        rotateZ: [0, -2.5, 1.6, -2.0, 0],
+        rotateX: [0, -2.2, 2.8, 0, 0],
+        rotateY: [3, 5.2, 1.5, 4.2, 3],
         transition: {
-          duration: 5.8,
+          duration: 3.9,
           repeat: Infinity,
           ease: 'easeInOut' as const,
-          delay: 1.1,
+          delay: 0.6,
         },
       };
 
   const floatRightBottom = shouldReduceMotion
     ? { y: 0, rotateZ: 0, rotateX: 0, rotateY: 0 }
     : {
-        y: [0, 16, -3, -16, 0],
-        rotateZ: [0, 1.8, -1.2, 1.4, 0],
-        rotateX: [0, 1.5, -2, 0, 0],
-        rotateY: [-2, -4, -1, -3, -2],
+        y: [0, 30, -6, -28, 0],
+        rotateZ: [0, 2.5, -1.6, 2.0, 0],
+        rotateX: [0, 2.2, -2.8, 0, 0],
+        rotateY: [-3, -5.2, -1.5, -4.2, -3],
         transition: {
-          duration: 6.4,
+          duration: 4.3,
           repeat: Infinity,
           ease: 'easeInOut' as const,
-          delay: 1.5,
+          delay: 0.8,
         },
       };
 
