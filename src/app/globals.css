@@ -185,8 +185,6 @@ html {
   transform-style: preserve-3d;
   will-change: transform, box-shadow;
 }
-  will-change: transform, box-shadow;
-}
 
 /* Backward compatibility */
 .animate-luxury-float {
