@@ -24,58 +24,116 @@ export default function HeroShowcase() {
       ref={sectionRef}
       className="relative w-full min-h-[92vh] sm:min-h-screen bg-[#F4EFE6] overflow-hidden select-none hairline-b flex items-center"
     >
-      {/* 1. Full-Bleed Atmospheric Background Stage - Attached directly to section to guarantee 100% full height & width coverage */}
+      {/* 1. Full-Bleed Atmospheric Background Stage */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
         {/* Scroll parallax layer */}
         <motion.div
           style={{ y: shouldReduceMotion ? 0 : backgroundY }}
           className="absolute inset-0 w-full h-full"
         >
-          {/* Noticeable, luxurious continuous slow zoom (scale: 1.05 -> 1.18, 10s cycle) centered at [70%_50%] */}
+          {/* Cinematic Horizontal Camera Pan Layer (Gentle Left-to-Right Pan & Return) */}
           <motion.div
-            initial={shouldReduceMotion ? { scale: 1, opacity: 1 } : { scale: 1.05, opacity: 0 }}
             animate={
               shouldReduceMotion
-                ? { scale: 1, opacity: 1 }
+                ? { x: '0%' }
                 : {
-                    scale: [1.05, 1.18],
-                    opacity: 1,
+                    x: ['-2.5%', '2.5%'],
                   }
             }
             transition={
               shouldReduceMotion
                 ? { duration: 0.3 }
                 : {
-                    opacity: { duration: 1.2, ease: 'easeOut' },
-                    scale: {
-                      duration: 10,
-                      repeat: Infinity,
-                      repeatType: 'reverse',
-                      ease: 'easeInOut',
-                    },
+                    duration: 12,
+                    repeat: Infinity,
+                    repeatType: 'reverse',
+                    ease: 'easeInOut',
                   }
             }
-            className="absolute inset-0 w-full h-full origin-[70%_50%]"
+            className="absolute -inset-x-8 sm:-inset-x-12 inset-y-0 w-[calc(100%+4rem)] sm:w-[calc(100%+6rem)] h-full"
           >
-            <Image
-              src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=2000&q=85&auto=format&fit=crop"
-              alt="AURA Luxury Living & Architectural Design"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-[70%_50%] sm:object-[68%_55%] lg:object-[68%_55%] brightness-[0.98] contrast-[1.05] saturate-[1.05]"
-              unoptimized
-            />
-            {/* Desktop Left-to-Right Champagne Vignette (Leaves subject on right 100% vivid with zero haze) */}
-            <div className="hidden sm:block absolute inset-y-0 left-0 sm:w-[68%] lg:w-[56%] bg-gradient-to-r from-[#F4EFE6]/98 via-[#F4EFE6]/85 sm:via-[#F4EFE6]/60 to-transparent pointer-events-none" />
-            
-            {/* Mobile Bottom Champagne Vignette (Protects lower text while keeping face and eyes completely clear in top half) */}
-            <div className="sm:hidden absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#F4EFE6]/98 via-[#F4EFE6]/75 to-transparent pointer-events-none" />
+            {/* Noticeable, luxurious continuous slow zoom (scale: 1.05 -> 1.18, 10s cycle) centered at [70%_50%] */}
+            <motion.div
+              initial={shouldReduceMotion ? { scale: 1, opacity: 1 } : { scale: 1.05, opacity: 0 }}
+              animate={
+                shouldReduceMotion
+                  ? { scale: 1, opacity: 1 }
+                  : {
+                      scale: [1.05, 1.18],
+                      opacity: 1,
+                    }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0.3 }
+                  : {
+                      opacity: { duration: 1.2, ease: 'easeOut' },
+                      scale: {
+                        duration: 10,
+                        repeat: Infinity,
+                        repeatType: 'reverse',
+                        ease: 'easeInOut',
+                      },
+                    }
+              }
+              className="absolute inset-0 w-full h-full origin-[70%_50%]"
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=2000&q=85&auto=format&fit=crop"
+                alt="AURA Luxury Living & Architectural Design"
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover object-[70%_50%] sm:object-[68%_55%] lg:object-[68%_55%] brightness-[0.98] contrast-[1.05] saturate-[1.05]"
+                unoptimized
+              />
+              {/* Desktop Left-to-Right Champagne Vignette (Leaves subject on right 100% vivid with zero haze) */}
+              <div className="hidden sm:block absolute inset-y-0 left-0 sm:w-[68%] lg:w-[56%] bg-gradient-to-r from-[#F4EFE6]/98 via-[#F4EFE6]/85 sm:via-[#F4EFE6]/60 to-transparent pointer-events-none" />
+              
+              {/* Mobile Bottom Champagne Vignette (Protects lower text while keeping face and eyes completely clear in top half) */}
+              <div className="sm:hidden absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#F4EFE6]/98 via-[#F4EFE6]/75 to-transparent pointer-events-none" />
 
-            {/* Subtle Warm Champagne Glow */}
-            <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#C5A880]/15 rounded-full blur-3xl pointer-events-none" />
+              {/* Subtle Warm Champagne Glow */}
+              <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#C5A880]/15 rounded-full blur-3xl pointer-events-none" />
+            </motion.div>
           </motion.div>
         </motion.div>
+
+        {/* 2. Moving Pointed Champagne Spotlight Beam - Sweeps Horizontally across the photograph */}
+        <motion.div
+          animate={
+            shouldReduceMotion
+              ? { opacity: 0 }
+              : {
+                  opacity: [0.65, 0.95, 0.65],
+                  x: ['-20vw', '95vw'],
+                }
+          }
+          transition={
+            shouldReduceMotion
+              ? { duration: 0.3 }
+              : {
+                  x: {
+                    duration: 8,
+                    repeat: Infinity,
+                    repeatType: 'reverse',
+                    ease: 'easeInOut',
+                  },
+                  opacity: {
+                    duration: 4,
+                    repeat: Infinity,
+                    repeatType: 'reverse',
+                    ease: 'easeInOut',
+                  },
+                }
+          }
+          className="absolute -top-[30%] -bottom-[30%] w-[260px] sm:w-[380px] lg:w-[460px] pointer-events-none -rotate-12 mix-blend-screen"
+          style={{
+            background:
+              'radial-gradient(ellipse 46% 62% at 50% 50%, rgba(255, 252, 245, 0.62) 0%, rgba(250, 240, 220, 0.36) 30%, rgba(235, 215, 180, 0.14) 55%, transparent 78%)',
+            filter: 'blur(14px)',
+          }}
+        />
       </div>
 
       {/* Hero Editorial Content */}
