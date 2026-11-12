@@ -15,9 +15,12 @@ export default function HeroShowcase() {
         
         {/* Background Atmospheric Photograph with Authentic Richness, Natural Contrast & Realistic Depth */}
         <motion.div
-          initial={{ scale: 1.15, opacity: 0 }}
-          animate={{ scale: 1.08, opacity: 1 }}
-          transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ scale: 1.2, opacity: 0, y: 30 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          transition={{
+            duration: 2.2,
+            ease: [0.22, 1, 0.36, 1]
+          }}
           className="absolute inset-0 sm:scale-110 lg:scale-118 origin-[70%_35%]"
         >
           <Image
