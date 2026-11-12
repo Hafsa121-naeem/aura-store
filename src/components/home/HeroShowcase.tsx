@@ -10,14 +10,14 @@ export default function HeroShowcase() {
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
-  // 2. Scroll-based parallax: vertical movement as user scrolls through the hero section
+  // Scroll-based parallax: smooth vertical movement as user scrolls through the hero section
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
   });
 
-  // Smooth, subtle vertical parallax drift without exposing layout edges
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '12%']);
+  // Balanced vertical parallax drift bounded safely within the scaled image bleed
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [-12, 28]);
 
   return (
     <section
@@ -27,56 +27,59 @@ export default function HeroShowcase() {
       {/* 1. Full-Bleed Atmospheric Cinematic Hero Stage - True Full-Screen Height on Desktop & Mobile */}
       <div className="relative w-full min-h-[92vh] sm:min-h-screen flex items-center overflow-hidden">
         
-        {/* Parallax Wrapper: Extends slightly to guarantee zero empty space during scroll parallax */}
-        <motion.div
-          style={{ y: shouldReduceMotion ? '0%' : backgroundY }}
-          className="absolute -top-8 -bottom-12 inset-x-0 sm:-top-12 sm:-bottom-16 sm:scale-110 lg:scale-118 origin-[70%_35%] pointer-events-none"
-        >
-          {/* Continuous Slow Zoom Breathing Wrapper: Gentle 1.00 -> 1.08 zoom across 14s with repeat: Infinity & repeatType: "reverse" */}
+        {/* Full-coverage background wrapper filling 100% width and height */}
+        <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+          {/* Scroll parallax layer */}
           <motion.div
-            initial={shouldReduceMotion ? { scale: 1, opacity: 1 } : { scale: 1.0, opacity: 0 }}
-            animate={
-              shouldReduceMotion
-                ? { scale: 1, opacity: 1 }
-                : {
-                    scale: [1.0, 1.08],
-                    opacity: 1,
-                  }
-            }
-            transition={
-              shouldReduceMotion
-                ? { duration: 0.3 }
-                : {
-                    opacity: { duration: 1.2, ease: 'easeOut' },
-                    scale: {
-                      duration: 14,
-                      repeat: Infinity,
-                      repeatType: 'reverse',
-                      ease: 'easeInOut',
-                    },
-                  }
-            }
-            className="relative w-full h-full origin-[70%_35%]"
+            style={{ y: shouldReduceMotion ? 0 : backgroundY }}
+            className="absolute inset-0 w-full h-full"
           >
-            <Image
-              src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=2000&q=85&auto=format&fit=crop"
-              alt="AURA Luxury Living & Architectural Design"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-[70%_top] sm:object-[68%_32%] lg:object-[68%_32%] brightness-[0.98] contrast-[1.05] saturate-[1.05]"
-              unoptimized
-            />
-            {/* Desktop Left-to-Right Champagne Vignette (Leaves subject on right 100% vivid with zero haze) */}
-            <div className="hidden sm:block absolute inset-y-0 left-0 sm:w-[68%] lg:w-[56%] bg-gradient-to-r from-[#F4EFE6]/98 via-[#F4EFE6]/85 sm:via-[#F4EFE6]/60 to-transparent pointer-events-none" />
-            
-            {/* Mobile Bottom Champagne Vignette (Protects lower text while keeping face and eyes completely clear in top half) */}
-            <div className="sm:hidden absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#F4EFE6]/98 via-[#F4EFE6]/75 to-transparent pointer-events-none" />
+            {/* Noticeable, luxurious continuous slow zoom (scale: 1.05 -> 1.18, 10s cycle) */}
+            <motion.div
+              initial={shouldReduceMotion ? { scale: 1, opacity: 1 } : { scale: 1.05, opacity: 0 }}
+              animate={
+                shouldReduceMotion
+                  ? { scale: 1, opacity: 1 }
+                  : {
+                      scale: [1.05, 1.18],
+                      opacity: 1,
+                    }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0.3 }
+                  : {
+                      opacity: { duration: 1.2, ease: 'easeOut' },
+                      scale: {
+                        duration: 10,
+                        repeat: Infinity,
+                        repeatType: 'reverse',
+                        ease: 'easeInOut',
+                      },
+                    }
+              }
+              className="absolute inset-0 w-full h-full origin-[70%_35%]"
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=2000&q=85&auto=format&fit=crop"
+                alt="AURA Luxury Living & Architectural Design"
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover object-[70%_top] sm:object-[68%_32%] lg:object-[68%_32%] brightness-[0.98] contrast-[1.05] saturate-[1.05]"
+                unoptimized
+              />
+              {/* Desktop Left-to-Right Champagne Vignette (Leaves subject on right 100% vivid with zero haze) */}
+              <div className="hidden sm:block absolute inset-y-0 left-0 sm:w-[68%] lg:w-[56%] bg-gradient-to-r from-[#F4EFE6]/98 via-[#F4EFE6]/85 sm:via-[#F4EFE6]/60 to-transparent pointer-events-none" />
+              
+              {/* Mobile Bottom Champagne Vignette (Protects lower text while keeping face and eyes completely clear in top half) */}
+              <div className="sm:hidden absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#F4EFE6]/98 via-[#F4EFE6]/75 to-transparent pointer-events-none" />
 
-            {/* Subtle Warm Champagne Glow */}
-            <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#C5A880]/15 rounded-full blur-3xl pointer-events-none" />
+              {/* Subtle Warm Champagne Glow */}
+              <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#C5A880]/15 rounded-full blur-3xl pointer-events-none" />
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Hero Editorial Content */}
         <div className="relative z-10 w-full max-w-[1540px] mx-auto px-6 sm:px-10 py-16 sm:py-24 lg:py-32 flex flex-col justify-end sm:justify-center h-full">
