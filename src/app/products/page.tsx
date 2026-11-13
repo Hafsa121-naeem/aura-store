@@ -73,9 +73,9 @@ async function ProductsContent({ searchParams }: ProductsPageProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
         {/* Left Column: Filter Sidebar */}
-        <aside className="lg:col-span-1 space-y-6">
+        <aside className="lg:col-span-1 lg:sticky lg:top-24 lg:self-start space-y-6 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto pr-1">
           {/* Categories Filter Box */}
           <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
             <div className="flex items-center gap-2 text-xs font-bold text-slate-900 uppercase tracking-wider pb-2 border-b border-slate-100">
