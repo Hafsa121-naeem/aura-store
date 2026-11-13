@@ -16,7 +16,7 @@ import {
 
 export default async function AdminDashboardPage() {
   const [products, orders, categories] = await Promise.all([
-    getProducts({ limit: 100 }),
+    getProducts({ limit: 200, status: 'all' }),
     getAllOrders(),
     getCategories(),
   ]);

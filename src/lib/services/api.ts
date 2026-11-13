@@ -133,7 +133,7 @@ export async function getProducts(options: {
           images:product_images(*)
         `);
 
-      if (status) {
+      if (status && status !== 'all') {
         query = query.eq('status', status);
       }
 
@@ -208,7 +208,7 @@ export async function getProducts(options: {
   // Fallback memory filtering
   let results = [...FALLBACK_PRODUCTS];
 
-  if (status) {
+  if (status && status !== 'all') {
     results = results.filter((p) => p.status === status);
   }
 
@@ -322,7 +322,10 @@ const SLUG_ALIASES: Record<string, string> = {
   'horizon-pro-anc-hybrid-wireless-headphones': 'horizon-pro-anc-hybrid-wireless-headphones',
 };
 
-export async function getProductBySlug(rawSlug: string): Promise<Product | null> {
+export async function getProductBySlug(
+  rawSlug: string,
+  options?: { allowDraft?: boolean }
+): Promise<Product | null> {
   const slug = SLUG_ALIASES[rawSlug.toLowerCase().trim()] || rawSlug.trim();
 
   // Check client-side overrides first for instantaneous update
@@ -331,8 +334,13 @@ export async function getProductBySlug(rawSlug: string): Promise<Product | null>
       const stored = localStorage.getItem('aura_products_override');
       if (stored) {
         const overrides = JSON.parse(stored);
-        if (overrides[slug]) return overrides[slug];
-        if (overrides[rawSlug]) return overrides[rawSlug];
+        const item = overrides[slug] || overrides[rawSlug];
+        if (item) {
+          if (!options?.allowDraft && item.status !== 'published') {
+            return null;
+          }
+          return item;
+        }
       }
     } catch {
       // ignore
@@ -342,14 +350,20 @@ export async function getProductBySlug(rawSlug: string): Promise<Product | null>
   if (isSupabaseConfigured()) {
     try {
       const supabase = createClient();
-      const { data, error } = await supabase
+      let query = supabase
         .from('products')
         .select(`
           *,
           category:categories(*),
           images:product_images(*)
         `)
-        .or(`slug.eq.${slug},slug.eq.${rawSlug}`)
+        .or(`slug.eq.${slug},slug.eq.${rawSlug}`);
+
+      if (!options?.allowDraft) {
+        query = query.eq('status', 'published');
+      }
+
+      const { data, error } = await query
         .limit(1)
         .maybeSingle();
 
@@ -362,11 +376,16 @@ export async function getProductBySlug(rawSlug: string): Promise<Product | null>
   }
 
   // Exact match on normalized slug or raw slug
-  let found = FALLBACK_PRODUCTS.find((p) => p.slug === slug || p.slug === rawSlug);
+  let pool = FALLBACK_PRODUCTS;
+  if (!options?.allowDraft) {
+    pool = pool.filter((p) => p.status === 'published');
+  }
+
+  let found = pool.find((p) => p.slug === slug || p.slug === rawSlug);
 
   // If not found, smart partial match
   if (!found) {
-    found = FALLBACK_PRODUCTS.find((p) => {
+    found = pool.find((p) => {
       const pSlug = p.slug.toLowerCase();
       const s = slug.toLowerCase();
       return pSlug.includes(s) || s.includes(pSlug);
@@ -383,7 +402,31 @@ export async function getProductBySlug(rawSlug: string): Promise<Product | null>
 }
 
 export async function getProductById(id: string): Promise<Product | null> {
-  const all = await getProducts({});
+  // 1. Direct Supabase query across all statuses (admin & internal)
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = createClient();
+      const { data, error } = await supabase
+        .from('products')
+        .select(`
+          *,
+          category:categories(*),
+          images:product_images(*)
+        `)
+        .or(`id.eq.${id},slug.eq.${id}`)
+        .limit(1)
+        .maybeSingle();
+
+      if (!error && data) {
+        return data as Product;
+      }
+    } catch {
+      // Fallback
+    }
+  }
+
+  // 2. Fallback checking all statuses
+  const all = await getProducts({ status: 'all' });
   return all.find((p) => p.id === id || p.slug === id) || null;
 }
 

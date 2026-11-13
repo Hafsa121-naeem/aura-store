@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { FALLBACK_PRODUCTS } from '@/lib/data/fallback-data';
+import { Product } from '@/lib/types/database';
 import {
   ShoppingBag,
   User as UserIcon,
@@ -40,7 +41,8 @@ export default function Navbar() {
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState(FALLBACK_PRODUCTS.slice(0, 4));
+  const publishedFallback = useMemo(() => FALLBACK_PRODUCTS.filter((p: Product) => p.status === 'published'), []);
+  const [searchResults, setSearchResults] = useState<Product[]>(publishedFallback.slice(0, 4));
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -69,18 +71,18 @@ export default function Navbar() {
 
   useEffect(() => {
     if (!searchQuery.trim()) {
-      setSearchResults(FALLBACK_PRODUCTS.slice(0, 4));
+      setSearchResults(publishedFallback.slice(0, 4));
     } else {
       const q = searchQuery.toLowerCase();
-      const matched = FALLBACK_PRODUCTS.filter(
-        (p) =>
+      const matched = publishedFallback.filter(
+        (p: Product) =>
           p.name.toLowerCase().includes(q) ||
           p.description.toLowerCase().includes(q) ||
           p.subcategory?.toLowerCase().includes(q)
       ).slice(0, 6);
       setSearchResults(matched);
     }
-  }, [searchQuery]);
+  }, [searchQuery, publishedFallback]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -519,7 +521,7 @@ export default function Navbar() {
                 </span>
 
                 <div className="divide-y divide-[#D8D2C6]/50 max-h-72 overflow-y-auto">
-                  {searchResults.map((item) => (
+                  {searchResults.map((item: Product) => (
                     <Link
                       key={item.id}
                       href={`/products/${item.slug}`}

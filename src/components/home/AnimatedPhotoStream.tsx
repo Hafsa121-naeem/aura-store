@@ -25,14 +25,14 @@ export default function AnimatedPhotoStream() {
   // Exactly 5 carefully chosen luxury objects: 1 Main Focal Anchor + 4 Supporting Objects
   const focalAnchor: FocalObject = {
     id: 'focal-01',
-    tag: 'FLAGSHIP SCULPTURE',
-    title: 'Horizon Pro ANC Hybrid Headphones',
+    tag: 'FLAGSHIP ACOUSTICS',
+    title: 'PulseStudio High-Fidelity Bluetooth Speaker',
     category: 'Acoustic Chamber',
-    price: 22499,
-    originalPrice: 26999,
-    image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=1200&q=85',
-    slug: 'horizon-pro-anc-hybrid-wireless-headphones',
-    specs: '40mm Milled Beryllium • 42dB Hybrid Noise Cancellation',
+    price: 12999,
+    originalPrice: 15500,
+    image: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=1200&q=85',
+    slug: 'pulsestudio-high-fidelity-bluetooth-speaker',
+    specs: 'Omnidirectional 360° Projection • IPX7 Waterproof • 24h Battery',
   };
 
   const supportingObjects: FocalObject[] = [

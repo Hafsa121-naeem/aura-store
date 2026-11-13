@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { X, Upload, Plus, Trash2, Check, AlertCircle, Save, Loader2, Image as ImageIcon, ExternalLink } from 'lucide-react';
-import { Product, ProductColorVariant, ProductImage } from '@/lib/types/database';
+import { Product, ProductColorVariant, ProductImage, ProductStatus } from '@/lib/types/database';
 import { updateProduct, createProduct } from '@/lib/services/api';
 import { formatPrice } from '@/lib/utils';
 
@@ -37,6 +37,7 @@ export default function ProductEditModal({
   const [price, setPrice] = useState<number>(product?.price || 0);
   const [salePrice, setSalePrice] = useState<number | ''>(product?.sale_price ?? '');
   const [stock, setStock] = useState<number>(product?.stock ?? 0);
+  const [status, setStatus] = useState<ProductStatus>(product?.status || 'published');
   const [categoryId, setCategoryId] = useState<string>(product?.category_id || 'c1-electronics');
   const [subcategory, setSubcategory] = useState<string>(product?.subcategory || '');
   
@@ -66,6 +67,7 @@ export default function ProductEditModal({
       setPrice(product.price || 0);
       setSalePrice(product.sale_price ?? '');
       setStock(product.stock ?? 0);
+      setStatus(product.status || 'published');
       setCategoryId(product.category_id || 'c1-electronics');
       setSubcategory(product.subcategory || '');
       setImages(
@@ -158,7 +160,7 @@ export default function ProductEditModal({
         subcategory,
         images: formattedImages,
         color_variants: variants,
-        status: product.status || 'published',
+        status,
         featured: product.featured ?? false,
         is_new: isNew ? true : (product.is_new ?? false),
         rating: product.rating ?? 5.0,
@@ -323,7 +325,7 @@ export default function ProductEditModal({
               2. Pricing (PKR / Rs.) &amp; Stock
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
                   Regular Price (PKR) *
@@ -366,6 +368,21 @@ export default function ProductEditModal({
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all"
                   placeholder="e.g. 25"
                 />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Catalog Status *
+                </label>
+                <select
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value as ProductStatus)}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm font-bold text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all"
+                >
+                  <option value="published">Published (Store Live)</option>
+                  <option value="draft">Draft (Hidden)</option>
+                  <option value="archived">Archived</option>
+                </select>
               </div>
             </div>
           </div>

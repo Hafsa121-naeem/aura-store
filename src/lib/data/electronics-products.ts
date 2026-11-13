@@ -29,7 +29,7 @@ export const ELECTRONICS_PRODUCTS: Product[] = [
     is_new: true,
     rating: 4.9,
     review_count: 74,
-    status: 'published',
+    status: 'draft',
     created_at: '2026-11-01T00:00:00.000Z',
     updated_at: '2026-11-01T00:00:00.000Z',
     color_variants: [

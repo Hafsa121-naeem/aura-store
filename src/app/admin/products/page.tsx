@@ -9,7 +9,7 @@ import ProductEditModal from '@/components/admin/ProductEditModal';
 import { FALLBACK_CATEGORIES } from '@/lib/data/fallback-data';
 import { Product } from '@/lib/types/database';
 import { formatPrice } from '@/lib/utils';
-import { getProducts, deleteProduct } from '@/lib/services/api';
+import { getProducts, deleteProduct, updateProduct } from '@/lib/services/api';
 import {
   Plus,
   Trash2,
@@ -23,8 +23,11 @@ import {
   RefreshCw,
   X,
   Eye,
+  EyeOff,
   Check,
   Sliders,
+  FileText,
+  Globe,
 } from 'lucide-react';
 
 export default function AdminProductsPage() {
@@ -32,8 +35,10 @@ export default function AdminProductsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [statusFilter, setStatusFilter] = useState<'all' | 'published' | 'draft' | 'archived'>('all');
   const [stockFilter, setStockFilter] = useState<'all' | 'in_stock' | 'low_stock' | 'out_of_stock'>('all');
   const [sortBy, setSortBy] = useState<'newest' | 'price-asc' | 'price-desc' | 'stock-asc' | 'name-asc'>('newest');
+  const [isTogglingStatus, setIsTogglingStatus] = useState<string | null>(null);
 
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,11 +48,11 @@ export default function AdminProductsPage() {
   // Notification toast
   const [toastMessage, setToastMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  // Load products from API / Supabase / localStorage
+  // Load products from API / Supabase / localStorage (includes ALL: published, draft, archived)
   const loadCatalog = async () => {
     setIsLoading(true);
     try {
-      const data = await getProducts({});
+      const data = await getProducts({ status: 'all' });
       setProducts(data);
     } catch (err) {
       console.error('Failed to load products:', err);
@@ -130,6 +135,36 @@ export default function AdminProductsPage() {
     }
   };
 
+  // Quick Toggle Draft <-> Published
+  const handleToggleStatus = async (p: Product) => {
+    const nextStatus = (p.status || 'published') === 'published' ? 'draft' : 'published';
+    const isNowPublished = nextStatus === 'published';
+    setIsTogglingStatus(p.id);
+
+    try {
+      const updated: Product = {
+        ...p,
+        status: nextStatus as any,
+        updated_at: new Date().toISOString(),
+      };
+      await updateProduct(updated);
+      setProducts((prev) =>
+        prev.map((item) => (item.id === p.id ? updated : item))
+      );
+      showToast(
+        'success',
+        isNowPublished
+          ? `"${p.name}" published to live website!`
+          : `"${p.name}" changed to Draft (hidden from public website).`
+      );
+    } catch (err) {
+      console.error('Failed to update status:', err);
+      showToast('error', `Failed to update status for "${p.name}".`);
+    } finally {
+      setIsTogglingStatus(null);
+    }
+  };
+
   // Filtered & Sorted products
   const filteredProducts = useMemo(() => {
     let result = [...products];
@@ -137,6 +172,11 @@ export default function AdminProductsPage() {
     // Category filter
     if (selectedCategory !== 'all') {
       result = result.filter((p) => p.category_id === selectedCategory);
+    }
+
+    // Publication Status filter
+    if (statusFilter !== 'all') {
+      result = result.filter((p) => (p.status || 'published') === statusFilter);
     }
 
     // Search query filter (name, SKU, subcategory)
@@ -176,10 +216,12 @@ export default function AdminProductsPage() {
     }
 
     return result;
-  }, [products, selectedCategory, searchQuery, stockFilter, sortBy]);
+  }, [products, selectedCategory, statusFilter, searchQuery, stockFilter, sortBy]);
 
   // Catalog Stats
   const totalProductsCount = products.length;
+  const publishedCount = products.filter((p) => (p.status || 'published') === 'published').length;
+  const draftCount = products.filter((p) => p.status === 'draft').length;
   const lowStockCount = products.filter((p) => p.stock > 0 && p.stock < 15).length;
   const outOfStockCount = products.filter((p) => p.stock === 0).length;
   const healthyStockCount = products.filter((p) => p.stock >= 15).length;
@@ -215,58 +257,72 @@ export default function AdminProductsPage() {
         )}
 
         {/* Dashboard Statistics Overview */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
-              <Package className="w-6 h-6" />
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
+          <div className="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
+              <Package className="w-5 h-5" />
             </div>
             <div>
               <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                Total Products
+                Total Catalog
               </p>
-              <h3 className="text-2xl font-black text-slate-900 tracking-tight">
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">
                 {totalProductsCount}
               </h3>
             </div>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
-              <CheckCircle2 className="w-6 h-6" />
+          <div className="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+              <CheckCircle2 className="w-5 h-5" />
             </div>
             <div>
               <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                In Stock Units
+                Published Live
               </p>
-              <h3 className="text-2xl font-black text-slate-900 tracking-tight">
-                {healthyStockCount}
+              <h3 className="text-xl font-black text-emerald-600 tracking-tight">
+                {publishedCount}
               </h3>
             </div>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 shrink-0">
-              <AlertTriangle className="w-6 h-6" />
+          <div className="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 shrink-0">
+              <FileText className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                Draft Products
+              </p>
+              <h3 className="text-xl font-black text-amber-600 tracking-tight">
+                {draftCount}
+              </h3>
+            </div>
+          </div>
+
+          <div className="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-600 shrink-0">
+              <AlertTriangle className="w-5 h-5" />
             </div>
             <div>
               <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                 Low Stock (&lt; 15)
               </p>
-              <h3 className="text-2xl font-black text-amber-600 tracking-tight">
+              <h3 className="text-xl font-black text-orange-600 tracking-tight">
                 {lowStockCount}
               </h3>
             </div>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600 shrink-0">
-              <Layers className="w-6 h-6" />
+          <div className="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3.5 col-span-2 md:col-span-1">
+            <div className="w-11 h-11 rounded-xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600 shrink-0">
+              <Layers className="w-5 h-5" />
             </div>
             <div>
               <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                 Out of Stock
               </p>
-              <h3 className="text-2xl font-black text-rose-600 tracking-tight">
+              <h3 className="text-xl font-black text-rose-600 tracking-tight">
                 {outOfStockCount}
               </h3>
             </div>
@@ -361,7 +417,7 @@ export default function AdminProductsPage() {
             {/* Search and Secondary Filter Row */}
             <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 pt-1">
               {/* Search Bar */}
-              <div className="sm:col-span-6 relative">
+              <div className="sm:col-span-5 relative">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3 pointer-events-none" />
                 <input
                   type="text"
@@ -381,23 +437,38 @@ export default function AdminProductsPage() {
                 )}
               </div>
 
-              {/* Stock Filter Dropdown */}
+              {/* Status Filter Dropdown */}
               <div className="sm:col-span-3">
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value as any)}
+                  aria-label="Filter by Publication Status"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                >
+                  <option value="all">Status: All Catalog ({totalProductsCount})</option>
+                  <option value="published">Status: Published Only ({publishedCount})</option>
+                  <option value="draft">Status: Drafts Only ({draftCount})</option>
+                  <option value="archived">Status: Archived</option>
+                </select>
+              </div>
+
+              {/* Stock Filter Dropdown */}
+              <div className="sm:col-span-2">
                 <select
                   value={stockFilter}
                   onChange={(e) => setStockFilter(e.target.value as any)}
                   aria-label="Filter by Stock Status"
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600"
                 >
-                  <option value="all">Stock: All Inventory</option>
-                  <option value="in_stock">In Stock (&gt;= 15 units)</option>
-                  <option value="low_stock">Low Stock (1 - 14 units)</option>
-                  <option value="out_of_stock">Out of Stock (0 units)</option>
+                  <option value="all">Stock: All</option>
+                  <option value="in_stock">In Stock (&gt;= 15)</option>
+                  <option value="low_stock">Low Stock (1-14)</option>
+                  <option value="out_of_stock">Out of Stock (0)</option>
                 </select>
               </div>
 
               {/* Sort By Dropdown */}
-              <div className="sm:col-span-3">
+              <div className="sm:col-span-2">
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as any)}
@@ -434,6 +505,7 @@ export default function AdminProductsPage() {
                 onClick={() => {
                   setSearchQuery('');
                   setSelectedCategory('all');
+                  setStatusFilter('all');
                   setStockFilter('all');
                 }}
                 className="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition-colors"
@@ -556,19 +628,59 @@ export default function AdminProductsPage() {
 
                           {/* Status */}
                           <td className="py-3.5 px-4">
-                            <span className="bg-slate-100 text-slate-700 text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-md border border-slate-200">
-                              {p.status || 'published'}
-                            </span>
+                            {p.status === 'draft' ? (
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase bg-amber-50 text-amber-800 border border-amber-200 shadow-2xs">
+                                <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                                Draft
+                              </span>
+                            ) : p.status === 'archived' ? (
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase bg-slate-100 text-slate-700 border border-slate-200">
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                                Archived
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-2xs">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                Published
+                              </span>
+                            )}
                           </td>
 
                           {/* Actions */}
                           <td className="py-3.5 px-6 text-right">
                             <div className="flex items-center justify-end gap-1.5">
+                              {/* Quick Toggle Draft <-> Published */}
+                              <button
+                                type="button"
+                                onClick={() => handleToggleStatus(p)}
+                                disabled={isTogglingStatus === p.id}
+                                className={`px-2.5 py-1.5 rounded-xl text-[11px] font-bold transition-all flex items-center gap-1 border shadow-2xs disabled:opacity-50 ${
+                                  p.status === 'draft'
+                                    ? 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-300'
+                                    : 'bg-amber-50 hover:bg-amber-100 text-amber-800 border-amber-300'
+                                }`}
+                                title={p.status === 'draft' ? 'Click to Publish live' : 'Click to Change to Draft'}
+                              >
+                                {isTogglingStatus === p.id ? (
+                                  <RefreshCw className="w-3 h-3 animate-spin" />
+                                ) : p.status === 'draft' ? (
+                                  <>
+                                    <Globe className="w-3 h-3" />
+                                    <span>Publish</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <FileText className="w-3 h-3" />
+                                    <span>Draft</span>
+                                  </>
+                                )}
+                              </button>
+
                               <Link
                                 href={`/products/${p.slug}`}
                                 target="_blank"
                                 className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors"
-                                title="View public product page"
+                                title={p.status === 'draft' ? 'Draft product preview (404 for customers)' : 'View public product page'}
                               >
                                 <ExternalLink className="w-3.5 h-3.5" />
                               </Link>
@@ -642,6 +754,15 @@ export default function AdminProductsPage() {
                             <span className="text-[10px] text-slate-600 font-semibold">
                               {category?.name}
                             </span>
+                            {p.status === 'draft' ? (
+                              <span className="text-[10px] font-black uppercase bg-amber-100 text-amber-800 px-1.5 py-0.2 rounded border border-amber-300">
+                                Draft
+                              </span>
+                            ) : (
+                              <span className="text-[10px] font-black uppercase bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded border border-emerald-300">
+                                Published
+                              </span>
+                            )}
                           </div>
                           <div className="mt-1 font-black text-slate-900 text-xs">
                             {hasSale ? (
@@ -673,6 +794,19 @@ export default function AdminProductsPage() {
                         </div>
 
                         <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => handleToggleStatus(p)}
+                            disabled={isTogglingStatus === p.id}
+                            className={`px-2 py-1 rounded-lg text-[10px] font-bold border transition-colors flex items-center gap-1 ${
+                              p.status === 'draft'
+                                ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                : 'bg-amber-50 text-amber-700 border-amber-200'
+                            }`}
+                          >
+                            {p.status === 'draft' ? 'Publish' : 'Draft'}
+                          </button>
+
                           <Link
                             href={`/products/${p.slug}`}
                             target="_blank"
