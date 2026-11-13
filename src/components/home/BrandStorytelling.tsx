@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import LazyImage from '@/components/ui/LazyImage';
 import Link from 'next/link';
 import { ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
@@ -78,11 +79,13 @@ export default function BrandStorytelling() {
           {/* Right Column: Visually Balanced Double Photographic Diptych */}
           <div className="lg:col-span-6 grid grid-cols-2 gap-5 sm:gap-6 items-start self-center">
             <div className="group relative aspect-[4/5] w-full bg-[#EDE8DF] border border-[#D8D2C6] hover:border-[#1A1918] overflow-hidden shadow-md transition-colors duration-500">
-              <Image
+              <LazyImage
                 src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=85"
                 alt="Full-Grain Leather Detail"
                 fill
-                loading="lazy"
+                rootMargin="150px 0px"
+                placeholderColor="#EDE8DF"
+                showSpinner={true}
                 sizes="(max-width: 1024px) 50vw, 400px"
                 className="object-cover object-center group-hover:scale-104 transition-transform duration-700 ease-out"
               />
@@ -92,11 +95,13 @@ export default function BrandStorytelling() {
             </div>
 
             <div className="group relative aspect-[4/5] w-full bg-[#EDE8DF] border border-[#D8D2C6] hover:border-[#1A1918] overflow-hidden shadow-md transition-colors duration-500">
-              <Image
+              <LazyImage
                 src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=85"
                 alt="Mindful Interior Space"
                 fill
-                loading="lazy"
+                rootMargin="150px 0px"
+                placeholderColor="#EDE8DF"
+                showSpinner={true}
                 sizes="(max-width: 1024px) 50vw, 400px"
                 className="object-cover object-center group-hover:scale-104 transition-transform duration-700 ease-out"
               />

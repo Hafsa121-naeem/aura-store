@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import LazyImage from '@/components/ui/LazyImage';
 import { ArrowRight, Compass, ShieldCheck } from 'lucide-react';
 
 export default function EditorialBannerSection() {
@@ -14,11 +15,13 @@ export default function EditorialBannerSection() {
         <div className="relative aspect-[16/10] sm:aspect-[21/9] w-full overflow-hidden bg-[#EDE8DF] border border-[#D8D2C6] shadow-xl group">
           
           {/* High-Resolution Atmospheric Lifestyle Photograph */}
-          <Image
+          <LazyImage
             src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1800&q=85"
             alt="The Architecture of Daily Rituals"
             fill
-            loading="lazy"
+            rootMargin="150px 0px"
+            placeholderColor="#EDE8DF"
+            showSpinner={true}
             sizes="100vw"
             className="object-cover object-center brightness-[0.82] contrast-[1.04] group-hover:scale-102 transition-transform duration-1000 ease-out"
           />

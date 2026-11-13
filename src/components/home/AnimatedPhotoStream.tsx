@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import LazyImage from '@/components/ui/LazyImage';
 import { motion, useReducedMotion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
@@ -316,11 +317,13 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
               >
                 <Link href={`/products/${supportingObjects[0].slug}`} className="block">
                   <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
-                    <Image
+                    <LazyImage
                       src={supportingObjects[0].image}
                       alt={supportingObjects[0].title}
                       fill
-                      loading="lazy"
+                      rootMargin="150px 0px"
+                      placeholderColor="#EDE8DF"
+                      showSpinner={true}
                       sizes="(max-width: 1024px) 50vw, 280px"
                       className="object-cover group-hover:scale-106 transition-transform duration-700"
                     />
@@ -370,11 +373,13 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
               >
                 <Link href={`/products/${supportingObjects[2].slug}`} className="block">
                   <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
-                    <Image
+                    <LazyImage
                       src={supportingObjects[2].image}
                       alt={supportingObjects[2].title}
                       fill
-                      loading="lazy"
+                      rootMargin="150px 0px"
+                      placeholderColor="#EDE8DF"
+                      showSpinner={true}
                       sizes="(max-width: 1024px) 50vw, 280px"
                       className="object-cover group-hover:scale-106 transition-transform duration-700"
                     />
@@ -435,11 +440,13 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
 
                   {/* High-Resolution Focal Image */}
                   <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF] mt-3">
-                    <Image
+                    <LazyImage
                       src={focalAnchor.image}
                       alt={focalAnchor.title}
                       fill
-                      loading="lazy"
+                      rootMargin="150px 0px"
+                      placeholderColor="#EDE8DF"
+                      showSpinner={true}
                       sizes="(max-width: 1024px) 100vw, 480px"
                       className="object-cover group-hover:scale-106 transition-transform duration-1000 ease-out"
                     />
@@ -502,11 +509,13 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
               >
                 <Link href={`/products/${supportingObjects[1].slug}`} className="block">
                   <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
-                    <Image
+                    <LazyImage
                       src={supportingObjects[1].image}
                       alt={supportingObjects[1].title}
                       fill
-                      loading="lazy"
+                      rootMargin="150px 0px"
+                      placeholderColor="#EDE8DF"
+                      showSpinner={true}
                       sizes="(max-width: 1024px) 50vw, 280px"
                       className="object-cover group-hover:scale-106 transition-transform duration-700"
                     />
@@ -556,11 +565,13 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
               >
                 <Link href={`/products/${supportingObjects[3].slug}`} className="block">
                   <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
-                    <Image
+                    <LazyImage
                       src={supportingObjects[3].image}
                       alt={supportingObjects[3].title}
                       fill
-                      loading="lazy"
+                      rootMargin="150px 0px"
+                      placeholderColor="#EDE8DF"
+                      showSpinner={true}
                       sizes="(max-width: 1024px) 50vw, 280px"
                       className="object-cover group-hover:scale-106 transition-transform duration-700"
                     />
@@ -608,11 +619,13 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
             >
               <Link href={`/products/${focalAnchor.slug}`} className="block">
                 <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
-                  <Image
+                  <LazyImage
                     src={focalAnchor.image}
                     alt={focalAnchor.title}
                     fill
-                    loading="lazy"
+                    rootMargin="150px 0px"
+                    placeholderColor="#EDE8DF"
+                    showSpinner={true}
                     sizes="100vw"
                     className="object-cover"
                   />
@@ -649,11 +662,13 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
                 >
                   <Link href={`/products/${item.slug}`} className="block">
                     <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#EDE8DF]">
-                      <Image
+                      <LazyImage
                         src={item.image}
                         alt={item.title}
                         fill
-                        loading="lazy"
+                        rootMargin="150px 0px"
+                        placeholderColor="#EDE8DF"
+                        showSpinner={true}
                         sizes="(max-width: 640px) 100vw, 50vw"
                         className="object-cover"
                       />
