@@ -12,7 +12,12 @@ export default function ProductGrid({
   products,
   emptyMessage = 'No products found matching your criteria.',
 }: ProductGridProps) {
-  if (products.length === 0) {
+  // Public Storefront Filter: strictly only show published products
+  const visibleProducts = products.filter(
+    (p) => (p.status || 'published') === 'published'
+  );
+
+  if (visibleProducts.length === 0) {
     return (
       <div className="py-16 text-center bg-white rounded-2xl border border-slate-200 p-8">
         <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 mx-auto mb-4">
@@ -26,7 +31,7 @@ export default function ProductGrid({
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {products.map((product) => (
+      {visibleProducts.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>

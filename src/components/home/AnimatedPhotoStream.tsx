@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { motion, useReducedMotion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
+import { Product } from '@/lib/types/database';
+import { getProducts } from '@/lib/services/api';
 
 interface FocalObject {
   id: string;
@@ -19,11 +21,24 @@ interface FocalObject {
   specs: string;
 }
 
-export default function AnimatedPhotoStream() {
+interface AnimatedPhotoStreamProps {
+  publishedProducts?: Product[];
+}
+
+export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhotoStreamProps = {}) {
   const shouldReduceMotion = useReducedMotion();
+  const [liveProducts, setLiveProducts] = React.useState<Product[]>(publishedProducts || []);
+
+  React.useEffect(() => {
+    if (!publishedProducts || publishedProducts.length === 0) {
+      getProducts({ status: 'published' }).then((prods) => {
+        if (Array.isArray(prods)) setLiveProducts(prods);
+      });
+    }
+  }, [publishedProducts]);
 
   // Exactly 5 carefully chosen luxury objects: 1 Main Focal Anchor + 4 Supporting Objects
-  const focalAnchor: FocalObject = {
+  const defaultFocalAnchor: FocalObject = {
     id: 'focal-01',
     tag: 'FLAGSHIP ACOUSTICS',
     title: 'PulseStudio High-Fidelity Bluetooth Speaker',
@@ -35,7 +50,7 @@ export default function AnimatedPhotoStream() {
     specs: 'Omnidirectional 360° Projection • IPX7 Waterproof • 24h Battery',
   };
 
-  const supportingObjects: FocalObject[] = [
+  const defaultSupportingObjects: FocalObject[] = [
     {
       id: 'sup-01',
       tag: 'TITANIUM TIMEPIECE',
@@ -81,6 +96,78 @@ export default function AnimatedPhotoStream() {
       specs: 'Organic Rosehip • Active Biomimetic Radiance Complex',
     },
   ];
+
+  // Strictly verify publication status against live database state & local overrides
+  const isSlugPublished = React.useCallback(
+    (slug: string) => {
+      if (typeof window !== 'undefined') {
+        try {
+          const stored = localStorage.getItem('aura_products_override');
+          if (stored) {
+            const overrides = JSON.parse(stored);
+            const ov = overrides[slug];
+            if (ov && ov.status !== 'published') return false;
+            if (ov && ov.status === 'published') return true;
+          }
+        } catch {}
+      }
+
+      if (liveProducts.length > 0) {
+        return liveProducts.some((p) => p.slug === slug && (p.status || 'published') === 'published');
+      }
+      return true;
+    },
+    [liveProducts]
+  );
+
+  // Available pool of substitutes if any default item is in draft status
+  const availableSubstitutes = React.useMemo(() => {
+    const usedSlugs = new Set([
+      defaultFocalAnchor.slug,
+      ...defaultSupportingObjects.map((s) => s.slug),
+    ]);
+    return liveProducts.filter(
+      (p) => (p.status || 'published') === 'published' && !usedSlugs.has(p.slug)
+    );
+  }, [liveProducts, defaultFocalAnchor.slug, defaultSupportingObjects]);
+
+  let substituteIdx = 0;
+  const getSubstitute = (categoryHint: string): FocalObject => {
+    const candidate =
+      availableSubstitutes.find(
+        (p) =>
+          p.subcategory_slug?.includes(categoryHint) ||
+          p.category_id?.includes(categoryHint)
+      ) || availableSubstitutes[substituteIdx++];
+
+    if (candidate) {
+      return {
+        id: candidate.id,
+        tag: 'CURATED LUXURY',
+        title: candidate.name,
+        category: candidate.subcategory || 'Artisanal Collection',
+        price: candidate.sale_price ?? candidate.price,
+        originalPrice: candidate.sale_price ? candidate.price : undefined,
+        image:
+          candidate.images?.[0]?.image_url ||
+          'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=85',
+        slug: candidate.slug,
+        specs: candidate.description ? candidate.description.slice(0, 65) : 'Luxury Craftsmanship',
+      };
+    }
+    return defaultFocalAnchor;
+  };
+
+  const focalAnchor: FocalObject = isSlugPublished(defaultFocalAnchor.slug)
+    ? defaultFocalAnchor
+    : getSubstitute('electronics');
+
+  const supportingObjects: FocalObject[] = defaultSupportingObjects.map((obj, i) => {
+    if (isSlugPublished(obj.slug)) {
+      return obj;
+    }
+    return getSubstitute(['watches', 'fashion', 'living', 'beauty'][i] || '');
+  });
 
   // 1. Continuous, automatic floating animation definitions (Enhanced noticeable movement with smooth, elegant cadence)
   const floatFocal = shouldReduceMotion

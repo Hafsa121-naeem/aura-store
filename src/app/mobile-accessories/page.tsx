@@ -3,6 +3,9 @@ import { getProducts } from '@/lib/services/api';
 import CategoryBrowseView from '@/components/products/CategoryBrowseView';
 import { MOBILE_SUBCATEGORIES } from '@/lib/data/mobile-products';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata = {
   title: 'Mobile & Tech Accessories | AURA STORE',
   description: 'Shop phone cases, GaN fast chargers, 3-in-1 wireless charging docks, earbuds, and aluminum stands with Cash on Delivery in Pakistan.',

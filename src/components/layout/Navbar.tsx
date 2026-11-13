@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { FALLBACK_PRODUCTS } from '@/lib/data/fallback-data';
+import { getProducts } from '@/lib/services/api';
 import { Product } from '@/lib/types/database';
 import {
   ShoppingBag,
@@ -41,8 +42,51 @@ export default function Navbar() {
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const publishedFallback = useMemo(() => FALLBACK_PRODUCTS.filter((p: Product) => p.status === 'published'), []);
-  const [searchResults, setSearchResults] = useState<Product[]>(publishedFallback.slice(0, 4));
+  const [livePublishedProducts, setLivePublishedProducts] = useState<Product[]>([]);
+
+  // Fetch live published products from database on mount & when search opens
+  useEffect(() => {
+    let isMounted = true;
+    const fetchPublished = async () => {
+      try {
+        const prods = await getProducts({ status: 'published' });
+        if (isMounted && Array.isArray(prods)) {
+          setLivePublishedProducts(prods);
+        }
+      } catch {
+        // Fallback handled
+      }
+    };
+    fetchPublished();
+    return () => {
+      isMounted = false;
+    };
+  }, [searchOpen]);
+
+  // Candidate pool strictly excluding ANY draft product
+  const searchablePool = useMemo(() => {
+    const baseList = livePublishedProducts.length > 0
+      ? livePublishedProducts
+      : FALLBACK_PRODUCTS.filter((p: Product) => (p.status || 'published') === 'published');
+
+    let valid = baseList.filter((p: Product) => (p.status || 'published') === 'published');
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('aura_products_override');
+        if (stored) {
+          const overrides = JSON.parse(stored);
+          valid = valid.filter((p: Product) => {
+            const ov = overrides[p.id] || overrides[p.slug];
+            if (ov && ov.status !== 'published') return false;
+            return true;
+          });
+        }
+      } catch {}
+    }
+    return valid;
+  }, [livePublishedProducts]);
+
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -71,10 +115,10 @@ export default function Navbar() {
 
   useEffect(() => {
     if (!searchQuery.trim()) {
-      setSearchResults(publishedFallback.slice(0, 4));
+      setSearchResults(searchablePool.slice(0, 4));
     } else {
       const q = searchQuery.toLowerCase();
-      const matched = publishedFallback.filter(
+      const matched = searchablePool.filter(
         (p: Product) =>
           p.name.toLowerCase().includes(q) ||
           p.description.toLowerCase().includes(q) ||
@@ -82,7 +126,7 @@ export default function Navbar() {
       ).slice(0, 6);
       setSearchResults(matched);
     }
-  }, [searchQuery, publishedFallback]);
+  }, [searchQuery, searchablePool]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();

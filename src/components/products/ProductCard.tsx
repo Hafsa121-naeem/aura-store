@@ -119,6 +119,11 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
     }
   };
 
+  // Public Storefront Protection: If product is drafted or not published, do not render card
+  if (currentProduct.status && currentProduct.status !== 'published') {
+    return null;
+  }
+
   return (
     <>
       <div

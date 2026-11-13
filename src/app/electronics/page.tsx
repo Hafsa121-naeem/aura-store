@@ -3,6 +3,9 @@ import { getProducts } from '@/lib/services/api';
 import CategoryBrowseView from '@/components/products/CategoryBrowseView';
 import { ELECTRONICS_SUBCATEGORIES } from '@/lib/data/electronics-products';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata = {
   title: 'Electronics | AURA STORE',
   description: 'Shop headphones, speakers, mechanical keyboards, gaming gadgets, and cameras with nationwide Cash on Delivery in Pakistan.',

@@ -3,8 +3,14 @@ import HeroShowcase from '@/components/home/HeroShowcase';
 import AnimatedPhotoStream from '@/components/home/AnimatedPhotoStream';
 import EditorialBannerSection from '@/components/home/EditorialBannerSection';
 import BrandStorytelling from '@/components/home/BrandStorytelling';
+import { getProducts } from '@/lib/services/api';
 
-export default function HomePage() {
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+export default async function HomePage() {
+  const publishedProducts = await getProducts({ status: 'published' });
+
   return (
     <div className="bg-[#F5F2EB] text-[#1A1918] min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-[#E0D8CB] selection:text-[#1A1918]">
       
@@ -12,7 +18,7 @@ export default function HomePage() {
       <HeroShowcase />
 
       {/* 2. The ONE Curated 3D Floating Exhibition: 5 Flagship Objects in Continuous 3D Float (Zero Repetition) */}
-      <AnimatedPhotoStream />
+      <AnimatedPhotoStream publishedProducts={publishedProducts} />
 
       {/* 3. Objects / Editorial Collection: Single Atmospheric Lifestyle Photograph & Narrative */}
       <EditorialBannerSection />

@@ -178,7 +178,7 @@ export async function getProducts(options: {
       }
 
       const { data, error } = await query;
-      if (!error && data && data.length > 0) {
+      if (!error && Array.isArray(data)) {
         // Double-check strict category isolation in memory
         let filteredData = data as Product[];
         if (targetCategoryId) {
@@ -196,6 +196,11 @@ export async function getProducts(options: {
           } catch {
             // ignore
           }
+        }
+
+        // Strictly enforce status filter after applying any local overrides
+        if (status && status !== 'all') {
+          filteredData = filteredData.filter((p) => (p.status || 'published') === status);
         }
 
         return filteredData;
@@ -350,28 +355,35 @@ export async function getProductBySlug(
   if (isSupabaseConfigured()) {
     try {
       const supabase = createClient();
-      let query = supabase
+      // Fetch product without status filter first to inspect its true database state
+      const { data, error } = await supabase
         .from('products')
         .select(`
           *,
           category:categories(*),
           images:product_images(*)
         `)
-        .or(`slug.eq.${slug},slug.eq.${rawSlug}`);
-
-      if (!options?.allowDraft) {
-        query = query.eq('status', 'published');
-      }
-
-      const { data, error } = await query
+        .or(`slug.eq.${slug},slug.eq.${rawSlug}`)
         .limit(1)
         .maybeSingle();
 
-      if (!error && data) {
-        return data as Product;
+      if (!error) {
+        if (!data) {
+          // Product does not exist in the database
+          return null;
+        }
+
+        const product = data as Product;
+        // Strict publication rule for storefront
+        if (!options?.allowDraft && product.status !== 'published') {
+          // Product is in database as draft or archived: return null so direct URL 404s
+          return null;
+        }
+
+        return product;
       }
     } catch {
-      // Fallback
+      // Fallback only if Supabase request threw an exception
     }
   }
 
@@ -393,6 +405,9 @@ export async function getProductBySlug(
   }
 
   if (found) {
+    if (!options?.allowDraft && found.status !== 'published') {
+      return null;
+    }
     return {
       ...found,
       category: found.category || FALLBACK_CATEGORIES.find((c) => c.id === found.category_id),
@@ -620,9 +635,14 @@ export async function getRelatedProducts(
   currentProductId: string,
   limit: number = 4
 ): Promise<Product[]> {
-  const all = await getProducts();
+  const all = await getProducts({ status: 'published' });
   return all
-    .filter((p) => p.id !== currentProductId && (!categoryId || p.category_id === categoryId))
+    .filter(
+      (p) =>
+        p.id !== currentProductId &&
+        (p.status || 'published') === 'published' &&
+        (!categoryId || p.category_id === categoryId)
+    )
     .slice(0, limit);
 }
 

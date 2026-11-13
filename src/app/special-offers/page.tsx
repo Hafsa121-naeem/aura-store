@@ -5,6 +5,9 @@ import ProductGrid from '@/components/products/ProductGrid';
 import FlashSaleBanner from '@/components/home/FlashSaleBanner';
 import { Flame, ArrowRight } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function SpecialOffersPage() {
   const allProducts = await getProducts();
   const discountedProducts = allProducts.filter(

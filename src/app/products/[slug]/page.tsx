@@ -3,6 +3,9 @@ import { notFound } from 'next/navigation';
 import { getProductBySlug, getProductReviews, getRelatedProducts } from '@/lib/services/api';
 import ProductDetailView from '@/components/products/ProductDetailView';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 interface ProductDetailPageProps {
   params: Promise<{
     slug: string;

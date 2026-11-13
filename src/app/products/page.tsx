@@ -4,6 +4,9 @@ import { getCategories, getProducts } from '@/lib/services/api';
 import ProductGrid from '@/components/products/ProductGrid';
 import { SlidersHorizontal, Search, Filter } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 interface ProductsPageProps {
   searchParams: Promise<{
     category?: string;

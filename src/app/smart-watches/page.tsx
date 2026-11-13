@@ -3,6 +3,9 @@ import { getProducts } from '@/lib/services/api';
 import CategoryBrowseView from '@/components/products/CategoryBrowseView';
 import { SMARTWATCH_SUBCATEGORIES } from '@/lib/data/smartwatch-products';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata = {
   title: 'Smart Watches | AURA STORE',
   description: 'Shop AMOLED smartwatches, curved sapphire displays, ECG tracking, stainless steel mesh bands, and fitness watches with nationwide Cash on Delivery in Pakistan.',

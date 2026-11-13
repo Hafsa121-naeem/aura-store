@@ -3,6 +3,9 @@ import { getProducts } from '@/lib/services/api';
 import CategoryBrowseView from '@/components/products/CategoryBrowseView';
 import { FASHION_SUBCATEGORIES } from '@/lib/data/fashion-products';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata = {
   title: 'Fashion & Accessories | AURA STORE',
   description: 'Explore handbags, jewellery, polarized sunglasses, footwear, and accessories with Cash on Delivery in Pakistan.',

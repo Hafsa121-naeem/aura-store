@@ -3,6 +3,9 @@ import { getProducts } from '@/lib/services/api';
 import CategoryBrowseView from '@/components/products/CategoryBrowseView';
 import { HOME_SUBCATEGORIES } from '@/lib/data/home-products';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata = {
   title: 'Home & Living | AURA STORE',
   description: 'Shop contemporary vases, ambient table lamps, linen bedding sets, dinnerware, and organizers with Cash on Delivery in Pakistan.',

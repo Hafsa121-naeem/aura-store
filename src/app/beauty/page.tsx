@@ -3,6 +3,9 @@ import { getProducts } from '@/lib/services/api';
 import CategoryBrowseView from '@/components/products/CategoryBrowseView';
 import { BEAUTY_SUBCATEGORIES } from '@/lib/data/beauty-products';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata = {
   title: 'Beauty & Skincare | AURA STORE',
   description: 'Shop vitamin C serums, moisture gels, matte lip tints, body care, hair masks, and perfumes with Cash on Delivery in Pakistan.',

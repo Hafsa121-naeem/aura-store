@@ -5,6 +5,9 @@ import { getProducts } from '@/lib/services/api';
 import ProductGrid from '@/components/products/ProductGrid';
 import { Star, Truck, ShieldCheck, ArrowRight } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function BestSellersPage() {
   const products = await getProducts({ sort: 'rating' });
 

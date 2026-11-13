@@ -4,6 +4,9 @@ import { getProducts } from '@/lib/services/api';
 import ProductGrid from '@/components/products/ProductGrid';
 import { ArrowRight } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function WishlistPage() {
   // Show a selection of recommended / saved items for demo
   const products = await getProducts({ limit: 4 });
