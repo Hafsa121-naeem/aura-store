@@ -293,7 +293,6 @@ export default function CategoryBrowseView({
                       priority
                       sizes="(max-width: 1024px) 100vw, 550px"
                       className="object-cover object-center group-hover:scale-104 transition-transform duration-1000 ease-out"
-                      unoptimized
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
                   </motion.div>

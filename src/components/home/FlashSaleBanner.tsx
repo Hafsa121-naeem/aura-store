@@ -147,8 +147,9 @@ export default function FlashSaleBanner() {
                       src={p.image}
                       alt={p.name}
                       fill
+                      loading="lazy"
+                      sizes="(max-width: 640px) 100vw, 300px"
                       className="object-cover hover:scale-105 transition-transform duration-500"
-                      unoptimized
                     />
                     <div className="absolute top-2 left-2 bg-[#b48a4c] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
                       {p.discount}% OFF

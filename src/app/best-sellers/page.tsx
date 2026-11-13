@@ -34,8 +34,8 @@ export default async function BestSellersPage() {
             alt="Best Sellers Showcase"
             fill
             priority
+            sizes="100vw"
             className="object-cover opacity-35 filter brightness-75"
-            unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent" />
         </div>

@@ -306,9 +306,9 @@ export default function Navbar() {
                               src={dept.image}
                               alt={dept.name}
                               fill
+                              loading="lazy"
                               sizes="60px"
                               className="object-cover group-hover:scale-105 transition-transform duration-700"
-                              unoptimized
                             />
                           </div>
                           <div className="flex flex-col justify-between">
@@ -578,9 +578,9 @@ export default function Navbar() {
                             src={item.images?.[0]?.image_url || 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=200&q=80'}
                             alt={item.name}
                             fill
+                            loading="lazy"
                             sizes="40px"
                             className="object-cover"
-                            unoptimized
                           />
                         </div>
                         <div>

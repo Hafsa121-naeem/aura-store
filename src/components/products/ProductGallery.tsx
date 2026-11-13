@@ -38,8 +38,9 @@ export default function ProductGallery({ images = [], productName }: ProductGall
                   src={img.image_url}
                   alt={img.alt_text || `${productName} preview ${index + 1}`}
                   fill
+                  loading="lazy"
+                  sizes="80px"
                   className="object-cover"
-                  unoptimized
                 />
               </button>
             );
@@ -57,7 +58,6 @@ export default function ProductGallery({ images = [], productName }: ProductGall
             priority
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover rounded-xl transition-opacity duration-300"
-            unoptimized
           />
         </div>
       </div>

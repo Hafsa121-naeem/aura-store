@@ -85,7 +85,6 @@ export default function HeroShowcase() {
                 priority
                 sizes="100vw"
                 className="object-cover object-[70%_50%] sm:object-[68%_55%] lg:object-[68%_55%] brightness-[0.98] contrast-[1.05] saturate-[1.05]"
-                unoptimized
               />
               {/* Desktop Left-to-Right Champagne Vignette (Leaves subject on right 100% vivid with zero haze) */}
               <div className="hidden sm:block absolute inset-y-0 left-0 sm:w-[68%] lg:w-[56%] bg-gradient-to-r from-[#F4EFE6]/98 via-[#F4EFE6]/85 sm:via-[#F4EFE6]/60 to-transparent pointer-events-none" />

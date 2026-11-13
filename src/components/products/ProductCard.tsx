@@ -22,6 +22,7 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   // Read overrides from localStorage for instantaneous update across product cards
   React.useEffect(() => {
@@ -136,34 +137,43 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
           href={`/products/${currentProduct.slug}`}
           className="relative aspect-square w-full overflow-hidden bg-[#EDE8DF] block group"
         >
-          {/* Primary Product Image */}
+          {/* Champagne Luxury Placeholder Skeleton */}
+          {!isImageLoaded && (
+            <div className="absolute inset-0 bg-[#EDE8DF] flex items-center justify-center animate-pulse z-0">
+              <div className="w-6 h-6 rounded-full border border-[#D8D2C6]/60 border-t-[#806B43] animate-spin opacity-50" />
+            </div>
+          )}
+
+          {/* Primary Product Image with Optimized Lazy Loading */}
           <Image
             src={activePreviewImage}
             alt={currentProduct.name}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            loading="lazy"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
             className={`object-cover object-center transition-all duration-700 ${
+              !isImageLoaded ? 'opacity-0 scale-98' : 'opacity-100 scale-100'
+            } ${
               isHovered && secondaryImage !== activePreviewImage
                 ? 'opacity-0 scale-102'
-                : 'opacity-100 group-hover:scale-102'
+                : 'group-hover:scale-102'
             }`}
+            onLoad={() => setIsImageLoaded(true)}
             onError={() => {
               setActivePreviewImage('https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80');
+              setIsImageLoaded(true);
             }}
-            unoptimized
           />
 
-          {/* Secondary Lifestyle Hover Image */}
-          {secondaryImage && secondaryImage !== activePreviewImage && (
+          {/* Secondary Lifestyle Hover Image (Deferred until hover) */}
+          {secondaryImage && secondaryImage !== activePreviewImage && isHovered && (
             <Image
               src={secondaryImage}
               alt={`${currentProduct.name} Alternate View`}
               fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-              className={`object-cover object-center transition-all duration-700 absolute inset-0 ${
-                isHovered ? 'opacity-100 scale-102' : 'opacity-0 scale-100'
-              }`}
-              unoptimized
+              loading="lazy"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+              className="object-cover object-center transition-all duration-700 absolute inset-0 opacity-100 scale-102"
             />
           )}
 

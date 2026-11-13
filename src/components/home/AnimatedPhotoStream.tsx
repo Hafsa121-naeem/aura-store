@@ -320,9 +320,9 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
                       src={supportingObjects[0].image}
                       alt={supportingObjects[0].title}
                       fill
-                      sizes="280px"
+                      loading="lazy"
+                      sizes="(max-width: 1024px) 50vw, 280px"
                       className="object-cover group-hover:scale-106 transition-transform duration-700"
-                      unoptimized
                     />
                     <div className="absolute top-2.5 left-2.5 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
                       {supportingObjects[0].tag}
@@ -374,9 +374,9 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
                       src={supportingObjects[2].image}
                       alt={supportingObjects[2].title}
                       fill
-                      sizes="280px"
+                      loading="lazy"
+                      sizes="(max-width: 1024px) 50vw, 280px"
                       className="object-cover group-hover:scale-106 transition-transform duration-700"
-                      unoptimized
                     />
                     <div className="absolute top-2.5 left-2.5 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
                       {supportingObjects[2].tag}
@@ -439,10 +439,9 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
                       src={focalAnchor.image}
                       alt={focalAnchor.title}
                       fill
-                      sizes="480px"
+                      loading="lazy"
+                      sizes="(max-width: 1024px) 100vw, 480px"
                       className="object-cover group-hover:scale-106 transition-transform duration-1000 ease-out"
-                      priority
-                      unoptimized
                     />
                     
                     {/* Corner Focal Badge */}
@@ -507,9 +506,9 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
                       src={supportingObjects[1].image}
                       alt={supportingObjects[1].title}
                       fill
-                      sizes="280px"
+                      loading="lazy"
+                      sizes="(max-width: 1024px) 50vw, 280px"
                       className="object-cover group-hover:scale-106 transition-transform duration-700"
-                      unoptimized
                     />
                     <div className="absolute top-2.5 left-2.5 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
                       {supportingObjects[1].tag}
@@ -561,9 +560,9 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
                       src={supportingObjects[3].image}
                       alt={supportingObjects[3].title}
                       fill
-                      sizes="280px"
+                      loading="lazy"
+                      sizes="(max-width: 1024px) 50vw, 280px"
                       className="object-cover group-hover:scale-106 transition-transform duration-700"
-                      unoptimized
                     />
                     <div className="absolute top-2.5 left-2.5 bg-[#FAF8F5]/90 px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider text-[#1A1918] border border-[#D8D2C6]">
                       {supportingObjects[3].tag}
@@ -613,9 +612,9 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
                     src={focalAnchor.image}
                     alt={focalAnchor.title}
                     fill
-                    sizes="600px"
+                    loading="lazy"
+                    sizes="100vw"
                     className="object-cover"
-                    unoptimized
                   />
                   <div className="absolute top-3 left-3 bg-[#FAF8F5]/90 px-2.5 py-1 text-[9px] font-mono text-[#806B43] uppercase tracking-wider">
                     {focalAnchor.tag}
@@ -654,9 +653,9 @@ export default function AnimatedPhotoStream({ publishedProducts }: AnimatedPhoto
                         src={item.image}
                         alt={item.title}
                         fill
-                        sizes="300px"
+                        loading="lazy"
+                        sizes="(max-width: 640px) 100vw, 50vw"
                         className="object-cover"
-                        unoptimized
                       />
                     </div>
                     <div className="pt-3 space-y-1">

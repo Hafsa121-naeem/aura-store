@@ -82,9 +82,9 @@ export default function BrandStorytelling() {
                 src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=85"
                 alt="Full-Grain Leather Detail"
                 fill
+                loading="lazy"
                 sizes="(max-width: 1024px) 50vw, 400px"
                 className="object-cover object-center group-hover:scale-104 transition-transform duration-700 ease-out"
-                unoptimized
               />
               <div className="absolute bottom-3 left-3 bg-[#FAF8F5]/95 backdrop-blur-sm px-3 py-1 border border-[#D8D2C6] text-[10px] font-mono uppercase tracking-wider text-[#1A1918] font-medium shadow-2xs">
                 Full-Grain Leather
@@ -96,9 +96,9 @@ export default function BrandStorytelling() {
                 src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=85"
                 alt="Mindful Interior Space"
                 fill
+                loading="lazy"
                 sizes="(max-width: 1024px) 50vw, 400px"
                 className="object-cover object-center group-hover:scale-104 transition-transform duration-700 ease-out"
-                unoptimized
               />
               <div className="absolute bottom-3 left-3 bg-[#FAF8F5]/95 backdrop-blur-sm px-3 py-1 border border-[#D8D2C6] text-[10px] font-mono uppercase tracking-wider text-[#1A1918] font-medium shadow-2xs">
                 Interior Harmony

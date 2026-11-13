@@ -139,7 +139,6 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                 fill
                 sizes="(max-width: 768px) 100vw, 500px"
                 className="object-cover object-center transition-transform duration-500 hover:scale-105"
-                unoptimized
               />
               {hasDiscount && (
                 <div className="absolute top-3 left-3 bg-[#b48a4c] text-white text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
@@ -166,8 +165,9 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                       src={img.image_url}
                       alt={`View ${idx + 1}`}
                       fill
+                      loading="lazy"
+                      sizes="64px"
                       className="object-cover"
-                      unoptimized
                     />
                   </button>
                 ))}

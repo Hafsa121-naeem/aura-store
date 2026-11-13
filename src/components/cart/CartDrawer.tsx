@@ -111,8 +111,9 @@ export default function CartDrawer() {
                         src={imageSrc}
                         alt={product.name}
                         fill
+                        loading="lazy"
+                        sizes="80px"
                         className="object-cover"
-                        unoptimized
                       />
                     </div>
 

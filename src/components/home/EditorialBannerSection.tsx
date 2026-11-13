@@ -18,9 +18,9 @@ export default function EditorialBannerSection() {
             src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1800&q=85"
             alt="The Architecture of Daily Rituals"
             fill
+            loading="lazy"
             sizes="100vw"
             className="object-cover object-center brightness-[0.82] contrast-[1.04] group-hover:scale-102 transition-transform duration-1000 ease-out"
-            unoptimized
           />
 
           {/* Soft Danish Gradient Overlay */}

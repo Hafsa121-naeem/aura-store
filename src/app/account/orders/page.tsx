@@ -130,8 +130,9 @@ export default async function OrdersPage() {
                             src={item.product_image}
                             alt={item.product_name}
                             fill
+                            loading="lazy"
+                            sizes="64px"
                             className="object-cover"
-                            unoptimized
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-slate-400 text-xs font-bold">

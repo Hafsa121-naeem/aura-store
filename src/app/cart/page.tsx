@@ -96,8 +96,9 @@ export default function CartPage() {
                       src={imageSrc}
                       alt={product.name}
                       fill
+                      loading="lazy"
+                      sizes="80px"
                       className="object-cover"
-                      unoptimized
                     />
                   </div>
 

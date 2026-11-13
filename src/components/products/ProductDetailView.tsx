@@ -255,7 +255,6 @@ export default function ProductDetailView({
                 priority
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 className="object-contain"
-                unoptimized
               />
             </div>
 
@@ -328,13 +327,14 @@ export default function ProductDetailView({
                         : 'border-slate-200 hover:border-slate-300 opacity-80 hover:opacity-100'
                     }`}
                   >
-                    <div className="relative w-full h-full">
+                    <div className="relative w-full h-full bg-[#FAF8F5]">
                       <Image
                         src={imgUrl}
                         alt={`${product.name} view ${idx + 1}`}
                         fill
+                        loading="lazy"
+                        sizes="80px"
                         className="object-contain"
-                        unoptimized
                       />
                     </div>
                   </button>
@@ -463,8 +463,9 @@ export default function ProductDetailView({
                           src={variant.image_url}
                           alt={variant.name}
                           fill
+                          loading="lazy"
+                          sizes="56px"
                           className="object-contain p-1"
-                          unoptimized
                         />
                         {/* Checkmark icon on selected */}
                         {isSelected && (

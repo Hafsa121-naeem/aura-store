@@ -399,8 +399,9 @@ export default function CheckoutPage() {
                         src={imageSrc}
                         alt={product.name}
                         fill
+                        loading="lazy"
+                        sizes="80px"
                         className="object-cover"
-                        unoptimized
                       />
                     </div>
                     <div className="flex-1 min-w-0">
