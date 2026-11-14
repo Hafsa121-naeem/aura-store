@@ -131,7 +131,7 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
       <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="group relative flex flex-col bg-[#FAF8F5] border border-[#D8D2C6]/70 hover:border-[#1A1918] transition-all duration-300"
+        className="group relative flex flex-col h-full bg-[#FAF8F5] border border-[#D8D2C6]/70 hover:border-[#1A1918] transition-all duration-300 shadow-2xs hover:shadow-md"
       >
         {/* Product Image Frame with Dual Hover Crossfade */}
         <Link
@@ -252,55 +252,57 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
 
         {/* Product Details Section */}
         <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between hairline-t">
-          <div className="space-y-1.5">
+          <div className="space-y-2 flex-1 flex flex-col">
             {/* Category / Subtitle */}
             <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-[#8C867D] font-light">
               <span className="truncate">{currentProduct.subcategory || 'Curated Object'}</span>
               {currentProduct.rating && (
-                <span className="flex items-center gap-1 font-mono text-[#5C5852]">
+                <span className="flex items-center gap-1 font-mono text-[#5C5852] shrink-0">
                   <Star className="w-2.5 h-2.5 fill-[#9E814D] text-[#9E814D]" />
                   <span>{currentProduct.rating.toFixed(1)}</span>
                 </span>
               )}
             </div>
 
-            {/* Product Name in Editorial Serif */}
-            <Link href={`/products/${currentProduct.slug}`} className="block group/link">
-              <h3 className="font-editorial text-base sm:text-lg text-[#1A1918] group-hover/link:text-[#806B43] transition-colors line-clamp-1 font-normal">
+            {/* Product Name in Editorial Serif - COMPLETE & NATURAL MULTI-LINE WRAPPING */}
+            <Link href={`/products/${currentProduct.slug}`} className="block group/link my-0.5">
+              <h3 className="font-editorial text-base sm:text-lg text-[#1A1918] group-hover/link:text-[#806B43] transition-colors font-normal leading-snug min-h-[3rem] sm:min-h-[3.35rem] flex items-start break-words">
                 {currentProduct.name}
               </h3>
             </Link>
 
             {/* Color Swatch Selectors */}
-            {colorVariants.length > 0 && (
-              <div className="flex items-center gap-1.5 pt-1">
-                {colorVariants.slice(0, 4).map((variant) => (
-                  <button
-                    key={variant.name}
-                    type="button"
-                    onClick={(e) => handleColorSelect(variant, e)}
-                    className={`w-3.5 h-3.5 rounded-full border transition-all ${
-                      activeColor?.name === variant.name
-                        ? 'ring-1 ring-offset-1 ring-[#1A1918] scale-110'
-                        : 'border-[#D8D2C6] hover:scale-105'
-                    }`}
-                    style={{ backgroundColor: variant.hex }}
-                    title={variant.name}
-                  />
-                ))}
-                {colorVariants.length > 4 && (
-                  <span className="text-[9px] text-[#8C867D] font-mono">
-                    +{colorVariants.length - 4}
-                  </span>
-                )}
-              </div>
-            )}
+            <div className="min-h-[1.5rem] flex items-center">
+              {colorVariants.length > 0 && (
+                <div className="flex items-center gap-1.5 pt-0.5">
+                  {colorVariants.slice(0, 5).map((variant) => (
+                    <button
+                      key={variant.name}
+                      type="button"
+                      onClick={(e) => handleColorSelect(variant, e)}
+                      className={`w-3.5 h-3.5 rounded-full border transition-all ${
+                        activeColor?.name === variant.name
+                          ? 'ring-1 ring-offset-1 ring-[#1A1918] scale-110'
+                          : 'border-[#D8D2C6] hover:scale-105'
+                      }`}
+                      style={{ backgroundColor: variant.hex }}
+                      title={variant.name}
+                    />
+                  ))}
+                  {colorVariants.length > 5 && (
+                    <span className="text-[9px] text-[#8C867D] font-mono">
+                      +{colorVariants.length - 5}
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Pricing & Stock Status */}
-          <div className="pt-3 mt-3 hairline-t flex items-baseline justify-between">
+          {/* Pricing & Stock Status - Always pinned to the bottom */}
+          <div className="pt-3 mt-auto hairline-t flex items-baseline justify-between">
             <div className="flex items-baseline gap-2">
-              <span className="text-sm font-light text-[#1A1918]">
+              <span className="text-base font-light text-[#1A1918]">
                 {formatPrice(effectivePrice)}
               </span>
               {hasDiscount && (

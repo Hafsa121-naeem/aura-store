@@ -19,18 +19,18 @@ export default function ProductGrid({
 
   if (visibleProducts.length === 0) {
     return (
-      <div className="py-16 text-center bg-white rounded-2xl border border-slate-200 p-8">
-        <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 mx-auto mb-4">
-          <PackageOpen className="w-8 h-8" />
+      <div className="py-20 text-center bg-[#FAF8F5] border border-[#D8D2C6] p-10">
+        <div className="w-16 h-16 bg-[#EDE8DF] border border-[#D8D2C6] flex items-center justify-center text-[#806B43] mx-auto mb-4">
+          <PackageOpen className="w-8 h-8 stroke-[1.25]" />
         </div>
-        <h3 className="text-base font-bold text-slate-800">No Products Available</h3>
-        <p className="text-sm text-slate-500 mt-1 max-w-sm mx-auto">{emptyMessage}</p>
+        <h3 className="font-editorial text-2xl font-light text-[#1A1918]">No Products Available</h3>
+        <p className="text-xs text-[#5C5852] font-light mt-1.5 max-w-sm mx-auto leading-relaxed">{emptyMessage}</p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 xl:gap-8 items-stretch">
       {visibleProducts.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
