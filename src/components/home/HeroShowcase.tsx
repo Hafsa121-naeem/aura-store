@@ -18,9 +18,9 @@ const HERO_SLIDES = [
     objectPosition: 'object-[75%_50%] sm:object-[72%_50%] lg:object-[70%_50%]',
   },
   {
-    src: '/hero/aura-hero-giftboxes-3d.jpg',
-    alt: 'AURA STORE Cream and Champagne Luxury Gift Boxes & Elegant Product Display',
-    objectPosition: 'object-[75%_50%] sm:object-[72%_50%] lg:object-[70%_50%]',
+    src: '/hero/aura-hero-emblem-3d.jpg',
+    alt: 'AURA STORE 3D Aesthetic Luxury Brand Logo & Gold Emblem',
+    objectPosition: 'object-[75%_50%] sm:object-[70%_50%] lg:object-[68%_50%]',
   },
 ];
 
