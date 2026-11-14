@@ -112,6 +112,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               updated_at: '2026-11-01T00:00:00.000Z',
             });
           }
+        } else {
+          // Check if mock role is stored in localStorage
+          if (typeof window !== 'undefined') {
+            const storedRole = localStorage.getItem('aura_mock_role');
+            if (storedRole) {
+              const isRoleAdmin = storedRole === 'admin';
+              setUser({
+                id: isRoleAdmin ? 'admin-user-1' : 'customer-user-1',
+                email: isRoleAdmin ? 'hfsanaeem3@gmail.com' : 'user@example.com',
+                user_metadata: { full_name: isRoleAdmin ? 'Hafsa Naeem' : 'Customer' },
+              } as unknown as User);
+              setProfile({
+                id: isRoleAdmin ? 'admin-user-1' : 'customer-user-1',
+                email: isRoleAdmin ? 'hfsanaeem3@gmail.com' : 'user@example.com',
+                full_name: isRoleAdmin ? 'Hafsa Naeem' : 'Customer',
+                avatar_url: null,
+                phone: '+92 300 1234567',
+                role: storedRole as UserRole,
+                created_at: '2026-11-01T00:00:00.000Z',
+                updated_at: '2026-11-01T00:00:00.000Z',
+              });
+            }
+          }
         }
       } catch {
         // ignore
@@ -294,6 +317,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const isAdmin =
     profile?.role === 'admin' ||
+    (typeof window !== 'undefined' && localStorage.getItem('aura_mock_role') === 'admin') ||
     Boolean(profile?.email && (profile.email.toLowerCase().includes('hfsanaeem3') || profile.email.toLowerCase().includes('admin'))) ||
     Boolean(user?.email && (user.email.toLowerCase().includes('hfsanaeem3') || user.email.toLowerCase().includes('admin')));
 
