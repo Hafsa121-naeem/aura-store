@@ -8,19 +8,19 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 const HERO_SLIDES = [
   {
-    src: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=2000&q=85&auto=format&fit=crop',
-    alt: 'AURA Luxury Living & Architectural Design - Editorial Collection',
-    objectPosition: 'object-[70%_50%] sm:object-[68%_55%] lg:object-[68%_55%]',
+    src: '/hero/aura-hero-bags-3d.jpg',
+    alt: 'AURA STORE Luxury Shopping Bags with Elegant Gold Ribbon & Premium Packaging',
+    objectPosition: 'object-[75%_50%] sm:object-[72%_50%] lg:object-[70%_50%]',
   },
   {
-    src: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=2000&q=85&auto=format&fit=crop',
-    alt: 'AURA High Fashion & Haute Horlogerie - Scandinavian Elegance',
-    objectPosition: 'object-[70%_45%] sm:object-[68%_50%] lg:object-[68%_50%]',
+    src: '/hero/aura-hero-giftboxes-3d.jpg',
+    alt: 'AURA STORE Cream and Champagne Luxury Gift Boxes with Embossed Gold Branding',
+    objectPosition: 'object-[75%_50%] sm:object-[72%_50%] lg:object-[70%_50%]',
   },
   {
-    src: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=2000&q=85&auto=format&fit=crop',
-    alt: 'AURA Curated Objects & Clean Living - Golden Hour Aesthetics',
-    objectPosition: 'object-[65%_45%] sm:object-[65%_45%] lg:object-[65%_45%]',
+    src: '/hero/aura-hero-logo-emblem.jpg',
+    alt: 'AURA STORE Official Golden Butterfly Wings Luxury Brand Emblem',
+    objectPosition: 'object-[75%_50%] sm:object-[70%_50%] lg:object-[68%_50%]',
   },
 ];
 
@@ -127,7 +127,7 @@ export default function HeroShowcase() {
                     src={slide.src}
                     alt={slide.alt}
                     fill
-                    priority={index === 0}
+                    priority
                     sizes="100vw"
                     className={`object-cover ${slide.objectPosition} brightness-[0.98] contrast-[1.05] saturate-[1.05]`}
                   />
