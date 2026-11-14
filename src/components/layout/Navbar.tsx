@@ -637,12 +637,12 @@ export default function Navbar() {
                   </button>
                 </div>
 
-                <div className="space-y-4 text-xs uppercase tracking-[0.22em] font-light text-[#1A1918]">
+                <div className="space-y-3.5 text-xs uppercase tracking-[0.2em] font-semibold text-[#1A1918]">
                   <Link
                     href="/"
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`block py-2 hairline-b ${
-                      pathname === '/' ? 'text-[#806B43] font-medium' : 'hover:text-[#806B43]'
+                    className={`block py-2.5 border-b border-[#D8D2C6] transition-colors ${
+                      pathname === '/' ? 'text-[#806B43] font-bold' : 'text-[#1A1918] hover:text-[#806B43]'
                     }`}
                   >
                     Home
@@ -650,27 +650,27 @@ export default function Navbar() {
                   <Link
                     href="/products"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block py-2 hairline-b hover:text-[#806B43]"
+                    className="block py-2.5 border-b border-[#D8D2C6] text-[#1A1918] font-bold hover:text-[#806B43] transition-colors"
                   >
                     All Objects (Catalog)
                   </Link>
                   <a
                     href="#composition"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block py-2 hairline-b text-[#806B43] font-medium"
+                    className="block py-2.5 border-b border-[#D8D2C6] text-[#806B43] font-bold hover:text-[#1A1918] transition-colors"
                   >
                     The Curated Five
                   </a>
                   <Link
                     href="/wishlist"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block py-2 hairline-b hover:text-[#806B43]"
+                    className="block py-2.5 border-b border-[#D8D2C6] text-[#1A1918] font-bold hover:text-[#806B43] transition-colors"
                   >
                     Saved Wishlist
                   </Link>
 
                   <div className="pt-4">
-                    <span className="text-[10px] text-[#8C867D] uppercase tracking-[0.24em] block mb-2">
+                    <span className="text-xs font-mono font-bold text-[#1A1918] uppercase tracking-[0.24em] block mb-3 pb-1.5 border-b border-[#D8D2C6]">
                       Spaces &amp; Departments
                     </span>
                     <div className="space-y-2">
@@ -679,7 +679,7 @@ export default function Navbar() {
                           key={d.id}
                           href={`/${d.slug}`}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block text-xs font-editorial text-[#5C5852] hover:text-[#1A1918] py-1"
+                          className="block text-xs font-semibold text-[#1A1918] hover:text-[#806B43] py-1.5 tracking-wider transition-colors"
                         >
                           {d.name}
                         </Link>
@@ -689,10 +689,10 @@ export default function Navbar() {
                 </div>
               </div>
 
-              <div className="pt-6 hairline-t text-[11px] text-[#8C867D] uppercase tracking-[0.16em] space-y-2">
+              <div className="pt-5 border-t border-[#D8D2C6] text-xs text-[#2B2927] uppercase tracking-[0.16em] space-y-1.5 font-medium">
                 <p>Cash on Delivery Nationwide</p>
                 <p>Doorstep Inspection Verified</p>
-                <p className="text-[#1A1918] font-medium">Helpline: +92 (0) 300 000 0000</p>
+                <p className="text-[#1A1918] font-bold pt-1">Helpline: +92 (0) 300 000 0000</p>
               </div>
             </motion.div>
           </div>

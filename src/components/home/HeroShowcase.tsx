@@ -18,9 +18,9 @@ const HERO_SLIDES = [
     objectPosition: 'object-[75%_50%] sm:object-[72%_50%] lg:object-[70%_50%]',
   },
   {
-    src: '/hero/aura-hero-emblem-clean-v2.jpg',
-    alt: 'AURA STORE 3D Aesthetic Luxury Brand Logo & Gold Emblem',
-    objectPosition: 'object-[75%_50%] sm:object-[70%_50%] lg:object-[68%_50%]',
+    src: '/hero/aura-official-butterfly-emblem-v3.jpg',
+    alt: 'AURA STORE Official Golden Butterfly Wings Luxury Brand Emblem',
+    objectPosition: 'object-[62%_20%] sm:object-[68%_50%] lg:object-[65%_50%]',
   },
 ];
 
