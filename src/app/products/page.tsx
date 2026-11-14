@@ -77,20 +77,20 @@ async function ProductsContent({ searchParams }: ProductsPageProps) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-10 items-start">
-        {/* Left Column: Filter Sidebar (Sticky) */}
-        <aside className="lg:col-span-3 2xl:col-span-2 lg:sticky lg:top-24 lg:self-start space-y-6 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto pr-1">
+        {/* Left Column: Filter Sidebar (Compact, Sleek, No Internal Scrolling) */}
+        <aside className="lg:col-span-3 2xl:col-span-2 lg:sticky lg:top-24 lg:self-start space-y-3.5">
           {/* Departments Filter Box */}
-          <div className="bg-[#FAF8F5] p-5 border border-[#D8D2C6] shadow-xs space-y-3">
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-[#1A1918] font-bold pb-2.5 border-b border-[#D8D2C6]">
+          <div className="bg-[#FAF8F5] p-3.5 sm:p-4 border border-[#D8D2C6] shadow-xs space-y-2.5">
+            <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-[#1A1918] font-bold pb-2 border-b border-[#D8D2C6]">
               <Filter className="w-3.5 h-3.5 text-[#806B43] stroke-[2.2]" />
               <span className="text-[#1A1918] tracking-widest">Departments</span>
             </div>
 
-            <ul className="space-y-1 text-[13px]">
+            <ul className="space-y-0.5 text-xs">
               <li>
                 <Link
                   href={`/products${currentSort ? `?sort=${currentSort}` : ''}`}
-                  className={`block px-3.5 py-2.5 transition-colors font-semibold rounded-xs ${
+                  className={`block px-3 py-1.5 transition-colors font-semibold rounded-xs ${
                     !currentCategorySlug
                       ? 'bg-[#1A1918] text-[#FAF8F5] shadow-xs'
                       : 'text-[#1A1918] hover:bg-[#EDE8DF] hover:text-[#806B43]'
@@ -105,7 +105,7 @@ async function ProductsContent({ searchParams }: ProductsPageProps) {
                   <li key={cat.id}>
                     <Link
                       href={`/products?category=${cat.slug}${currentSort ? `&sort=${currentSort}` : ''}`}
-                      className={`block px-3.5 py-2.5 transition-colors font-semibold rounded-xs ${
+                      className={`block px-3 py-1.5 transition-colors font-semibold rounded-xs ${
                         isSelected
                           ? 'bg-[#1A1918] text-[#FAF8F5] shadow-xs'
                           : 'text-[#1A1918] hover:bg-[#EDE8DF] hover:text-[#806B43]'
@@ -120,11 +120,11 @@ async function ProductsContent({ searchParams }: ProductsPageProps) {
           </div>
 
           {/* Price Range Filter Box */}
-          <div className="bg-[#FAF8F5] p-5 border border-[#D8D2C6] shadow-xs space-y-3">
-            <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-[#1A1918] font-bold pb-2.5 border-b border-[#D8D2C6]">
+          <div className="bg-[#FAF8F5] p-3.5 sm:p-4 border border-[#D8D2C6] shadow-xs space-y-2.5">
+            <h3 className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#1A1918] font-bold pb-2 border-b border-[#D8D2C6]">
               Price Range (PKR)
             </h3>
-            <div className="flex flex-col gap-1 text-[13px]">
+            <div className="flex flex-col gap-0.5 text-xs">
               {[
                 { label: 'All Prices', min: undefined, max: undefined },
                 { label: 'Under Rs. 5,000', min: undefined, max: 5000 },
@@ -148,7 +148,7 @@ async function ProductsContent({ searchParams }: ProductsPageProps) {
                   <Link
                     key={tier.label}
                     href={`/products?${query}`}
-                    className={`px-3.5 py-2 transition-colors flex items-center justify-between font-semibold rounded-xs ${
+                    className={`px-3 py-1.5 transition-colors flex items-center justify-between font-semibold rounded-xs ${
                       isActive
                         ? 'bg-[#1A1918] text-[#FAF8F5] shadow-xs'
                         : 'text-[#1A1918] hover:bg-[#EDE8DF] hover:text-[#806B43]'
