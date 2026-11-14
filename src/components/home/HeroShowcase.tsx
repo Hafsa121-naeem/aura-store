@@ -8,19 +8,19 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 const HERO_SLIDES = [
   {
+    src: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=2000&q=85&auto=format&fit=crop',
+    alt: 'AURA Luxury Living & Architectural Design',
+    objectPosition: 'object-[70%_50%] sm:object-[68%_55%] lg:object-[68%_55%]',
+  },
+  {
     src: '/hero/aura-hero-bags-3d.jpg',
     alt: 'AURA STORE Luxury Shopping Bags with Elegant Gold Ribbon & Premium Packaging',
     objectPosition: 'object-[75%_50%] sm:object-[72%_50%] lg:object-[70%_50%]',
   },
   {
     src: '/hero/aura-hero-giftboxes-3d.jpg',
-    alt: 'AURA STORE Cream and Champagne Luxury Gift Boxes with Embossed Gold Branding',
+    alt: 'AURA STORE Cream and Champagne Luxury Gift Boxes & Elegant Product Display',
     objectPosition: 'object-[75%_50%] sm:object-[72%_50%] lg:object-[70%_50%]',
-  },
-  {
-    src: '/hero/aura-hero-logo-emblem.jpg',
-    alt: 'AURA STORE Official Golden Butterfly Wings Luxury Brand Emblem',
-    objectPosition: 'object-[75%_50%] sm:object-[70%_50%] lg:object-[68%_50%]',
   },
 ];
 
