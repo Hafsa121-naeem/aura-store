@@ -254,10 +254,10 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
         <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between hairline-t">
           <div className="space-y-2 flex-1 flex flex-col">
             {/* Category / Subtitle */}
-            <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-[#8C867D] font-light">
+            <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-[#5C5852] font-medium">
               <span className="truncate">{currentProduct.subcategory || 'Curated Object'}</span>
               {currentProduct.rating && (
-                <span className="flex items-center gap-1 font-mono text-[#5C5852] shrink-0">
+                <span className="flex items-center gap-1 font-mono text-[#1A1918] font-medium shrink-0">
                   <Star className="w-2.5 h-2.5 fill-[#9E814D] text-[#9E814D]" />
                   <span>{currentProduct.rating.toFixed(1)}</span>
                 </span>

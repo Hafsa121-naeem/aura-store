@@ -63,14 +63,14 @@ async function ProductsContent({ searchParams }: ProductsPageProps) {
             <h1 className="font-editorial text-3xl sm:text-5xl font-light text-[#1A1918] tracking-tight">
               {activeCategory ? activeCategory.name : 'All Curated Objects'}
             </h1>
-            <p className="text-xs sm:text-sm text-[#5C5852] font-light mt-1.5 max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#2B2927] font-normal mt-1.5 max-w-2xl leading-relaxed">
               {activeCategory
                 ? activeCategory.description
                 : 'Browse our complete catalog of high-fidelity audio, precision smartwatches, luxury leather goods, clean skincare, and architectural living essentials with nationwide Cash on Delivery across Pakistan.'}
             </p>
           </div>
 
-          <div className="text-xs font-mono uppercase tracking-widest text-[#806B43]">
+          <div className="text-xs font-mono uppercase tracking-widest text-[#1A1918] font-medium">
             Displaying <span className="text-[#1A1918] font-bold">{products.length}</span> Objects
           </div>
         </div>
@@ -80,20 +80,20 @@ async function ProductsContent({ searchParams }: ProductsPageProps) {
         {/* Left Column: Filter Sidebar (Sticky) */}
         <aside className="lg:col-span-3 2xl:col-span-2 lg:sticky lg:top-24 lg:self-start space-y-6 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto pr-1">
           {/* Departments Filter Box */}
-          <div className="bg-[#FAF8F5] p-5 border border-[#D8D2C6] shadow-2xs space-y-3">
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-[#1A1918] pb-2.5 border-b border-[#D8D2C6]/60">
-              <Filter className="w-3.5 h-3.5 text-[#806B43]" />
-              <span>Departments</span>
+          <div className="bg-[#FAF8F5] p-5 border border-[#D8D2C6] shadow-xs space-y-3">
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-[#1A1918] font-bold pb-2.5 border-b border-[#D8D2C6]">
+              <Filter className="w-3.5 h-3.5 text-[#806B43] stroke-[2.2]" />
+              <span className="text-[#1A1918] tracking-widest">Departments</span>
             </div>
 
-            <ul className="space-y-1 text-xs">
+            <ul className="space-y-1 text-[13px]">
               <li>
                 <Link
                   href={`/products${currentSort ? `?sort=${currentSort}` : ''}`}
-                  className={`block px-3 py-2 transition-colors font-medium ${
+                  className={`block px-3.5 py-2.5 transition-colors font-semibold rounded-xs ${
                     !currentCategorySlug
-                      ? 'bg-[#1A1918] text-[#FAF8F5]'
-                      : 'text-[#5C5852] hover:bg-[#EDE8DF] hover:text-[#1A1918]'
+                      ? 'bg-[#1A1918] text-[#FAF8F5] shadow-xs'
+                      : 'text-[#1A1918] hover:bg-[#EDE8DF] hover:text-[#806B43]'
                   }`}
                 >
                   All Products
@@ -105,10 +105,10 @@ async function ProductsContent({ searchParams }: ProductsPageProps) {
                   <li key={cat.id}>
                     <Link
                       href={`/products?category=${cat.slug}${currentSort ? `&sort=${currentSort}` : ''}`}
-                      className={`block px-3 py-2 transition-colors font-medium ${
+                      className={`block px-3.5 py-2.5 transition-colors font-semibold rounded-xs ${
                         isSelected
-                          ? 'bg-[#1A1918] text-[#FAF8F5]'
-                          : 'text-[#5C5852] hover:bg-[#EDE8DF] hover:text-[#1A1918]'
+                          ? 'bg-[#1A1918] text-[#FAF8F5] shadow-xs'
+                          : 'text-[#1A1918] hover:bg-[#EDE8DF] hover:text-[#806B43]'
                       }`}
                     >
                       {cat.name}
@@ -120,82 +120,47 @@ async function ProductsContent({ searchParams }: ProductsPageProps) {
           </div>
 
           {/* Price Range Filter Box */}
-          <div className="bg-[#FAF8F5] p-5 border border-[#D8D2C6] shadow-2xs space-y-3">
-            <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-[#1A1918] pb-2.5 border-b border-[#D8D2C6]/60">
+          <div className="bg-[#FAF8F5] p-5 border border-[#D8D2C6] shadow-xs space-y-3">
+            <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-[#1A1918] font-bold pb-2.5 border-b border-[#D8D2C6]">
               Price Range (PKR)
             </h3>
-            <div className="flex flex-col gap-1.5 text-xs font-light">
-              <Link
-                href={`/products?${new URLSearchParams({
+            <div className="flex flex-col gap-1 text-[13px]">
+              {[
+                { label: 'All Prices', min: undefined, max: undefined },
+                { label: 'Under Rs. 5,000', min: undefined, max: 5000 },
+                { label: 'Rs. 5,000 to Rs. 15,000', min: 5000, max: 15000 },
+                { label: 'Rs. 15,000 to Rs. 30,000', min: 15000, max: 30000 },
+                { label: 'Rs. 30,000 and Above', min: 30000, max: undefined },
+              ].map((tier) => {
+                const isActive =
+                  tier.min === undefined && tier.max === undefined
+                    ? minPrice === undefined && maxPrice === undefined
+                    : minPrice === tier.min && maxPrice === tier.max;
+
+                const query = new URLSearchParams({
                   ...(currentCategorySlug ? { category: currentCategorySlug } : {}),
+                  ...(tier.min !== undefined ? { minPrice: String(tier.min) } : {}),
+                  ...(tier.max !== undefined ? { maxPrice: String(tier.max) } : {}),
                   ...(currentSort ? { sort: currentSort } : {}),
-                }).toString()}`}
-                className={`py-1 transition-colors ${
-                  minPrice === undefined && maxPrice === undefined
-                    ? 'text-[#806B43] font-medium'
-                    : 'text-[#5C5852] hover:text-[#1A1918]'
-                }`}
-              >
-                All Prices
-              </Link>
-              <Link
-                href={`/products?${new URLSearchParams({
-                  ...(currentCategorySlug ? { category: currentCategorySlug } : {}),
-                  maxPrice: '5000',
-                  ...(currentSort ? { sort: currentSort } : {}),
-                }).toString()}`}
-                className={`py-1 transition-colors ${
-                  maxPrice === 5000 && minPrice === undefined
-                    ? 'text-[#806B43] font-medium'
-                    : 'text-[#5C5852] hover:text-[#1A1918]'
-                }`}
-              >
-                Under Rs. 5,000
-              </Link>
-              <Link
-                href={`/products?${new URLSearchParams({
-                  ...(currentCategorySlug ? { category: currentCategorySlug } : {}),
-                  minPrice: '5000',
-                  maxPrice: '15000',
-                  ...(currentSort ? { sort: currentSort } : {}),
-                }).toString()}`}
-                className={`py-1 transition-colors ${
-                  minPrice === 5000 && maxPrice === 15000
-                    ? 'text-[#806B43] font-medium'
-                    : 'text-[#5C5852] hover:text-[#1A1918]'
-                }`}
-              >
-                Rs. 5,000 to Rs. 15,000
-              </Link>
-              <Link
-                href={`/products?${new URLSearchParams({
-                  ...(currentCategorySlug ? { category: currentCategorySlug } : {}),
-                  minPrice: '15000',
-                  maxPrice: '30000',
-                  ...(currentSort ? { sort: currentSort } : {}),
-                }).toString()}`}
-                className={`py-1 transition-colors ${
-                  minPrice === 15000 && maxPrice === 30000
-                    ? 'text-[#806B43] font-medium'
-                    : 'text-[#5C5852] hover:text-[#1A1918]'
-                }`}
-              >
-                Rs. 15,000 to Rs. 30,000
-              </Link>
-              <Link
-                href={`/products?${new URLSearchParams({
-                  ...(currentCategorySlug ? { category: currentCategorySlug } : {}),
-                  minPrice: '30000',
-                  ...(currentSort ? { sort: currentSort } : {}),
-                }).toString()}`}
-                className={`py-1 transition-colors ${
-                  minPrice === 30000
-                    ? 'text-[#806B43] font-medium'
-                    : 'text-[#5C5852] hover:text-[#1A1918]'
-                }`}
-              >
-                Rs. 30,000 and Above
-              </Link>
+                }).toString();
+
+                return (
+                  <Link
+                    key={tier.label}
+                    href={`/products?${query}`}
+                    className={`px-3.5 py-2 transition-colors flex items-center justify-between font-semibold rounded-xs ${
+                      isActive
+                        ? 'bg-[#1A1918] text-[#FAF8F5] shadow-xs'
+                        : 'text-[#1A1918] hover:bg-[#EDE8DF] hover:text-[#806B43]'
+                    }`}
+                  >
+                    <span>{tier.label}</span>
+                    {isActive && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] inline-block ml-2" />
+                    )}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </aside>
@@ -215,15 +180,15 @@ async function ProductsContent({ searchParams }: ProductsPageProps) {
                 name="search"
                 defaultValue={currentSearch}
                 placeholder="Search objects, audio, watches, leather, ceramics..."
-                className="w-full pl-9 pr-4 py-2.5 text-xs border border-[#D8D2C6] bg-[#EDE8DF]/60 focus:bg-[#FAF8F5] focus:outline-none focus:border-[#1A1918] font-light placeholder-[#8C867D] transition-colors"
+                className="w-full pl-9 pr-4 py-2.5 text-xs border border-[#D8D2C6] bg-[#EDE8DF]/60 focus:bg-[#FAF8F5] focus:outline-none focus:border-[#1A1918] font-medium text-[#1A1918] placeholder-[#5C5852] transition-colors"
               />
-              <Search className="w-4 h-4 text-[#8C867D] absolute left-3 top-3 pointer-events-none stroke-[1.5]" />
+              <Search className="w-4 h-4 text-[#1A1918] absolute left-3 top-3 pointer-events-none stroke-[2]" />
             </form>
 
             {/* Sorting Pills */}
             <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-[10px] font-mono text-[#8C867D] uppercase tracking-wider flex items-center gap-1 mr-1">
-                <SlidersHorizontal className="w-3.5 h-3.5" />
+              <span className="text-[10px] font-mono text-[#1A1918] font-bold uppercase tracking-wider flex items-center gap-1 mr-1">
+                <SlidersHorizontal className="w-3.5 h-3.5 text-[#806B43]" />
                 Sort:
               </span>
               {[
@@ -246,10 +211,10 @@ async function ProductsContent({ searchParams }: ProductsPageProps) {
                   <Link
                     key={s.value}
                     href={`/products?${query}`}
-                    className={`px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider transition-colors ${
+                    className={`px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider transition-colors font-medium ${
                       isCurrent
-                        ? 'bg-[#1A1918] text-[#FAF8F5]'
-                        : 'bg-[#EDE8DF] text-[#5C5852] hover:bg-[#D8D2C6] hover:text-[#1A1918]'
+                        ? 'bg-[#1A1918] text-[#FAF8F5] shadow-xs'
+                        : 'bg-[#EDE8DF] text-[#1A1918] border border-[#D8D2C6]/80 hover:bg-[#1A1918] hover:text-[#FAF8F5]'
                     }`}
                   >
                     {s.label}

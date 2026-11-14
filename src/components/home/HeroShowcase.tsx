@@ -1,14 +1,42 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
+const HERO_SLIDES = [
+  {
+    src: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=2000&q=85&auto=format&fit=crop',
+    alt: 'AURA Luxury Living & Architectural Design - Editorial Collection',
+    objectPosition: 'object-[70%_50%] sm:object-[68%_55%] lg:object-[68%_55%]',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=2000&q=85&auto=format&fit=crop',
+    alt: 'AURA High Fashion & Haute Horlogerie - Scandinavian Elegance',
+    objectPosition: 'object-[70%_45%] sm:object-[68%_50%] lg:object-[68%_50%]',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=2000&q=85&auto=format&fit=crop',
+    alt: 'AURA Curated Objects & Clean Living - Golden Hour Aesthetics',
+    objectPosition: 'object-[65%_45%] sm:object-[65%_45%] lg:object-[65%_45%]',
+  },
+];
+
 export default function HeroShowcase() {
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Auto-advance slideshow every 4.5 seconds with smooth continuous loop
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [shouldReduceMotion]);
 
   // Scroll-based parallax: smooth vertical movement as user scrolls through the hero section
   const { scrollYProgress } = useScroll({
@@ -78,22 +106,42 @@ export default function HeroShowcase() {
               }
               className="absolute inset-0 w-full h-full origin-[70%_50%]"
             >
-              <Image
-                src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=2000&q=85&auto=format&fit=crop"
-                alt="AURA Luxury Living & Architectural Design"
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover object-[70%_50%] sm:object-[68%_55%] lg:object-[68%_55%] brightness-[0.98] contrast-[1.05] saturate-[1.05]"
-              />
+              {/* Automatic Crossfading Luxury Image Slideshow */}
+              {HERO_SLIDES.map((slide, index) => (
+                <motion.div
+                  key={slide.src}
+                  initial={false}
+                  animate={{
+                    opacity: currentSlide === index ? 1 : 0,
+                  }}
+                  transition={{
+                    duration: 1.2,
+                    ease: 'easeInOut',
+                  }}
+                  className="absolute inset-0 w-full h-full"
+                  style={{
+                    zIndex: currentSlide === index ? 1 : 0,
+                  }}
+                >
+                  <Image
+                    src={slide.src}
+                    alt={slide.alt}
+                    fill
+                    priority={index === 0}
+                    sizes="100vw"
+                    className={`object-cover ${slide.objectPosition} brightness-[0.98] contrast-[1.05] saturate-[1.05]`}
+                  />
+                </motion.div>
+              ))}
+
               {/* Desktop Left-to-Right Champagne Vignette (Leaves subject on right 100% vivid with zero haze) */}
-              <div className="hidden sm:block absolute inset-y-0 left-0 sm:w-[68%] lg:w-[56%] bg-gradient-to-r from-[#F4EFE6]/98 via-[#F4EFE6]/85 sm:via-[#F4EFE6]/60 to-transparent pointer-events-none" />
+              <div className="hidden sm:block absolute inset-y-0 left-0 sm:w-[68%] lg:w-[56%] bg-gradient-to-r from-[#F4EFE6]/98 via-[#F4EFE6]/85 sm:via-[#F4EFE6]/60 to-transparent pointer-events-none z-10" />
               
               {/* Mobile Bottom Champagne Vignette (Protects lower text while keeping face and eyes completely clear in top half) */}
-              <div className="sm:hidden absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#F4EFE6]/98 via-[#F4EFE6]/75 to-transparent pointer-events-none" />
+              <div className="sm:hidden absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#F4EFE6]/98 via-[#F4EFE6]/75 to-transparent pointer-events-none z-10" />
 
               {/* Subtle Warm Champagne Glow */}
-              <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#C5A880]/15 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#C5A880]/15 rounded-full blur-3xl pointer-events-none z-10" />
             </motion.div>
           </motion.div>
         </motion.div>
@@ -207,6 +255,23 @@ export default function HeroShowcase() {
               </a>
             </motion.div>
           </motion.div>
+
+          {/* Minimalist Luxury Slideshow Navigation Indicators */}
+          <div className="flex items-center gap-2 pt-2" aria-label="Hero Slideshow Controls">
+            {HERO_SLIDES.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => setCurrentSlide(idx)}
+                className={`h-1 transition-all duration-500 rounded-full ${
+                  currentSlide === idx
+                    ? 'w-8 bg-[#5C4018]'
+                    : 'w-2.5 bg-[#5C4018]/30 hover:bg-[#5C4018]/60'
+                }`}
+                aria-label={`View hero photograph ${idx + 1}`}
+              />
+            ))}
+          </div>
         </div>
 
       </div>
