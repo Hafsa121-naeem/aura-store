@@ -28,65 +28,74 @@ export default function CartDrawer() {
   const freeShippingProgress = Math.min(100, (subtotal / freeShippingThreshold) * 100);
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden">
-      {/* Backdrop */}
+    <div className="fixed inset-0 z-50 overflow-hidden font-sans">
+      {/* Luxury Charcoal Backdrop */}
       <div
-        className="absolute inset-0 bg-slate-950/50 backdrop-blur-xs transition-opacity animate-in fade-in"
+        className="absolute inset-0 bg-[#1A1918]/60 backdrop-blur-xs transition-opacity duration-300 animate-in fade-in"
         onClick={() => setIsCartOpen(false)}
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col">
-          {/* Header */}
-          <div className="p-5 border-b border-slate-200 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5 text-indigo-600" />
-              <h2 className="text-base font-extrabold text-slate-900">
-                Shopping Bag ({itemCount} {itemCount === 1 ? 'item' : 'items'})
-              </h2>
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-6 sm:pl-10">
+        <div className="w-screen max-w-md bg-[#FAF8F5] text-[#1A1918] shadow-2xl flex flex-col border-l border-[#D8D2C6]/80">
+          
+          {/* 1. Header */}
+          <div className="p-6 border-b border-[#D8D2C6]/80 flex items-center justify-between bg-[#FAF8F5]">
+            <div className="flex items-center gap-3">
+              <ShoppingBag className="w-5 h-5 text-[#806B43] stroke-[1.5]" />
+              <div className="flex items-baseline gap-2">
+                <h2 className="font-editorial text-2xl font-light text-[#1A1918] tracking-tight">
+                  Shopping Bag
+                </h2>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#806B43]">
+                  ({itemCount} {itemCount === 1 ? 'object' : 'objects'})
+                </span>
+              </div>
             </div>
             <button
               onClick={() => setIsCartOpen(false)}
-              className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors"
+              className="p-1.5 text-[#8C867D] hover:text-[#1A1918] hover:bg-[#EDE8DF] transition-colors rounded-none"
+              aria-label="Close bag"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 stroke-[1.5]" />
             </button>
           </div>
 
-          {/* Shipping progress indicator */}
-          <div className="bg-slate-50 px-5 py-3 border-b border-slate-200">
+          {/* 2. Complimentary Nationwide Delivery Strip */}
+          <div className="bg-[#EDE8DF]/60 px-6 py-3.5 border-b border-[#D8D2C6]/80">
             {amountToFreeShipping > 0 ? (
-              <p className="text-xs text-slate-700 font-medium mb-1.5">
-                Add <span className="font-extrabold text-indigo-700">{formatPrice(amountToFreeShipping)}</span> more for <span className="font-bold">FREE Express Delivery</span>
+              <p className="font-mono text-[10px] uppercase tracking-wider text-[#5C5852] mb-2">
+                Add <span className="font-bold text-[#806B43]">{formatPrice(amountToFreeShipping)}</span> more for <span className="text-[#1A1918] font-medium">Complimentary Express Delivery</span>
               </p>
             ) : (
-              <p className="text-xs text-emerald-800 font-bold mb-1.5 flex items-center gap-1">
-                <Truck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Unlocked: Free Nationwide Express Delivery!</span>
+              <p className="font-mono text-[10px] uppercase tracking-wider text-[#806B43] mb-2 flex items-center gap-1.5 font-medium">
+                <Truck className="w-3.5 h-3.5 text-[#806B43] stroke-[1.5]" />
+                <span>Unlocked: Complimentary Nationwide Express Delivery</span>
               </p>
             )}
-            <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+            <div className="w-full bg-[#D8D2C6]/60 h-1 overflow-hidden">
               <div
-                className="bg-indigo-600 h-full rounded-full transition-all duration-300"
+                className="bg-[#806B43] h-full transition-all duration-500"
                 style={{ width: `${freeShippingProgress}%` }}
               />
             </div>
           </div>
 
-          {/* Cart Item List */}
-          <div className="flex-1 overflow-y-auto p-5 space-y-4">
+          {/* 3. Cart Items / Empty State */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-4">
             {items.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center py-12">
-                <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 mb-4">
-                  <ShoppingBag className="w-8 h-8" />
+              <div className="h-full flex flex-col items-center justify-center text-center py-16 px-4">
+                <div className="w-16 h-16 bg-[#EDE8DF] border border-[#D8D2C6] flex items-center justify-center text-[#806B43] mb-6">
+                  <ShoppingBag className="w-7 h-7 stroke-[1.25]" />
                 </div>
-                <h3 className="text-base font-bold text-slate-900">Your bag is empty</h3>
-                <p className="text-xs text-slate-700 max-w-xs mt-1 mb-6">
-                  Explore our curated electronics, watches, fashion, and lifestyle essentials.
+                <h3 className="font-editorial text-2xl font-light text-[#1A1918] tracking-tight mb-2">
+                  Your bag is empty
+                </h3>
+                <p className="text-xs text-[#5C5852] font-light leading-relaxed max-w-xs mb-8">
+                  Explore our curated high-fidelity audio, precision timepieces, and artisan lifestyle essentials.
                 </p>
                 <button
                   onClick={() => setIsCartOpen(false)}
-                  className="bg-slate-900 hover:bg-indigo-600 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition-colors shadow-xs"
+                  className="bg-[#1A1918] hover:bg-[#806B43] text-[#FAF8F5] px-8 py-3 text-xs uppercase tracking-[0.22em] font-light transition-all duration-300 shadow-sm"
                 >
                   Explore Catalog
                 </button>
@@ -103,10 +112,10 @@ export default function CartDrawer() {
                 return (
                   <div
                     key={item.id}
-                    className="flex gap-4 p-3 bg-slate-50/70 rounded-2xl border border-slate-200/80 hover:border-slate-300 transition-colors"
+                    className="flex gap-4 p-4 bg-[#FAF8F5] border border-[#D8D2C6]/80 hover:border-[#1A1918] transition-colors duration-300"
                   >
                     {/* Thumbnail */}
-                    <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-white border border-slate-200 shrink-0">
+                    <div className="relative w-20 h-20 bg-[#EDE8DF] border border-[#D8D2C6]/60 shrink-0 overflow-hidden">
                       <Image
                         src={imageSrc}
                         alt={product.name}
@@ -124,65 +133,65 @@ export default function CartDrawer() {
                           <Link
                             href={`/products/${product.slug}`}
                             onClick={() => setIsCartOpen(false)}
-                            className="text-xs font-bold text-slate-900 hover:text-indigo-600 line-clamp-1 transition-colors"
+                            className="font-editorial text-base text-[#1A1918] font-normal hover:text-[#806B43] line-clamp-1 transition-colors"
                           >
                             {product.name}
                           </Link>
                           <button
                             type="button"
                             onClick={() => removeItem(item.id)}
-                            className="text-slate-400 hover:text-rose-600 transition-colors p-0.5"
-                            aria-label="Remove item"
+                            className="text-[#8C867D] hover:text-[#806B43] transition-colors p-0.5"
+                            aria-label="Remove object"
                           >
-                            <Trash2 className="w-3.5 h-3.5" />
+                            <Trash2 className="w-3.5 h-3.5 stroke-[1.5]" />
                           </button>
                         </div>
 
                         {/* Selected Color / Variant Badge */}
-                        <div className="flex flex-wrap items-center gap-2 mt-1">
+                        <div className="flex flex-wrap items-center gap-2 mt-1.5">
                           {item.selectedColor && (
-                            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-slate-700 bg-white px-2 py-0.5 rounded-md border border-slate-200">
-                              <span className="w-2 h-2 rounded-full bg-slate-900" />
+                            <span className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-[#5C5852] bg-[#EDE8DF] px-2 py-0.5 border border-[#D8D2C6]">
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#1A1918]" />
                               {item.selectedColor}
                             </span>
                           )}
                           {item.selectedSize && (
-                            <span className="text-[11px] font-bold text-slate-700 bg-white px-2 py-0.5 rounded-md border border-slate-200">
+                            <span className="text-[10px] font-mono uppercase tracking-wider text-[#5C5852] bg-[#EDE8DF] px-2 py-0.5 border border-[#D8D2C6]">
                               Size: {item.selectedSize}
                             </span>
                           )}
                         </div>
 
-                        <div className="text-xs font-bold text-slate-900 mt-1">
+                        <div className="text-xs font-light text-[#8C867D] mt-1.5">
                           {formatPrice(unitPrice)}
                         </div>
                       </div>
 
-                      {/* Quantity Controls */}
-                      <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-200/60">
-                        <div className="flex items-center border border-slate-300 rounded-lg bg-white">
+                      {/* Quantity Controls & Line Total */}
+                      <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-[#D8D2C6]/60">
+                        <div className="flex items-center border border-[#D8D2C6] bg-[#FAF8F5]">
                           <button
                             type="button"
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="p-1 text-slate-600 hover:text-slate-950 transition-colors"
+                            className="p-1.5 text-[#5C5852] hover:text-[#1A1918] hover:bg-[#EDE8DF] transition-colors"
                             aria-label="Decrease quantity"
                           >
-                            <Minus className="w-3 h-3" />
+                            <Minus className="w-3 h-3 stroke-[1.5]" />
                           </button>
-                          <span className="w-7 text-center text-xs font-bold text-slate-900">
+                          <span className="w-7 text-center font-mono text-xs text-[#1A1918]">
                             {item.quantity}
                           </span>
                           <button
                             type="button"
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="p-1 text-slate-600 hover:text-slate-950 transition-colors"
+                            className="p-1.5 text-[#5C5852] hover:text-[#1A1918] hover:bg-[#EDE8DF] transition-colors"
                             aria-label="Increase quantity"
                           >
-                            <Plus className="w-3 h-3" />
+                            <Plus className="w-3 h-3 stroke-[1.5]" />
                           </button>
                         </div>
 
-                        <div className="text-xs font-extrabold text-slate-900">
+                        <div className="font-light text-sm text-[#1A1918]">
                           {formatPrice(unitPrice * item.quantity)}
                         </div>
                       </div>
@@ -193,19 +202,19 @@ export default function CartDrawer() {
             )}
           </div>
 
-          {/* Footer Checkout Summary */}
+          {/* 4. Footer Checkout Summary */}
           {items.length > 0 && (
-            <div className="p-5 border-t border-slate-200 bg-white space-y-3">
-              <div className="space-y-1.5 text-xs text-slate-600">
+            <div className="p-6 border-t border-[#D8D2C6] bg-[#FAF8F5] space-y-4">
+              <div className="space-y-2 text-xs font-light text-[#5C5852]">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span className="font-bold text-slate-900">{formatPrice(subtotal)}</span>
+                  <span className="font-normal text-[#1A1918]">{formatPrice(subtotal)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Estimated Shipping</span>
-                  <span className="font-bold text-slate-900">
+                  <span>Nationwide Express Delivery</span>
+                  <span className="font-normal text-[#1A1918]">
                     {shippingFee === 0 ? (
-                      <span className="text-emerald-700 font-bold">FREE</span>
+                      <span className="text-[#806B43] font-mono text-[10px] uppercase tracking-wider">COMPLIMENTARY</span>
                     ) : (
                       formatPrice(shippingFee)
                     )}
@@ -213,34 +222,35 @@ export default function CartDrawer() {
                 </div>
                 <div className="flex justify-between">
                   <span>Sales Tax (GST 5%)</span>
-                  <span className="font-bold text-slate-900">{formatPrice(tax)}</span>
+                  <span className="font-normal text-[#1A1918]">{formatPrice(tax)}</span>
                 </div>
-                <div className="flex justify-between text-sm font-black text-slate-900 pt-2 border-t border-slate-200">
-                  <span>Estimated Total</span>
-                  <span className="text-indigo-600">{formatPrice(total)}</span>
+                <div className="flex justify-between items-baseline pt-3 border-t border-[#D8D2C6]/80 text-[#1A1918]">
+                  <span className="font-editorial text-lg">Estimated Total</span>
+                  <span className="font-editorial text-2xl text-[#806B43] font-light">{formatPrice(total)}</span>
                 </div>
               </div>
 
-              <div className="pt-2 space-y-2">
+              <div className="pt-2 space-y-2.5">
                 <Link
                   href="/checkout"
                   onClick={() => setIsCartOpen(false)}
-                  className="w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm bg-slate-900 hover:bg-indigo-600 text-white flex items-center justify-center gap-2 transition-colors shadow-sm"
+                  className="w-full py-4 px-6 bg-[#1A1918] hover:bg-[#806B43] text-[#FAF8F5] text-xs uppercase tracking-[0.24em] font-light flex items-center justify-center gap-2 transition-all duration-300 shadow-sm"
                 >
                   <span>Proceed to Checkout</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 stroke-[1.5]" />
                 </Link>
 
                 <Link
                   href="/cart"
                   onClick={() => setIsCartOpen(false)}
-                  className="w-full py-2.5 px-4 rounded-xl font-semibold text-xs text-center text-slate-700 hover:bg-slate-100 transition-colors block"
+                  className="w-full py-2.5 px-4 text-xs font-mono uppercase tracking-widest text-center text-[#8C867D] hover:text-[#1A1918] transition-colors block"
                 >
                   View Full Cart Page
                 </Link>
               </div>
             </div>
           )}
+
         </div>
       </div>
     </div>

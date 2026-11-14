@@ -26,12 +26,12 @@ export default function Footer() {
   ];
 
   const clientCare = [
-    { name: 'Track Nationwide Order', href: '/account/orders' },
-    { name: 'Cash on Delivery Protocol', href: '/checkout' },
-    { name: 'Doorstep Inspection Policy', href: '/products' },
-    { name: '7-Day Replacement Guarantee', href: '/products' },
-    { name: 'Official 12-Month Warranty', href: '/products' },
-    { name: 'Admin Management Portal', href: '/admin/products' },
+    { name: 'Track Nationwide Order', href: '/track-order' },
+    { name: 'Cash on Delivery Protocol', href: '/policies/cash-on-delivery' },
+    { name: 'Doorstep Inspection Policy', href: '/policies/doorstep-inspection' },
+    { name: '7-Day Replacement Guarantee', href: '/policies/replacement-guarantee' },
+    { name: 'Official 12-Month Warranty', href: '/policies/warranty' },
+    { name: 'Admin Management Portal', href: '/admin' },
   ];
 
   return (

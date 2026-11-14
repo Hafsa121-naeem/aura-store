@@ -13,7 +13,7 @@ export interface LazyImageProps extends Omit<ImageProps, 'onLoad'> {
 export default function LazyImage({
   src,
   alt,
-  rootMargin = '150px 0px',
+  rootMargin = '500px 0px',
   placeholderColor = '#EDE8DF',
   className = '',
   priority = false,
@@ -22,9 +22,11 @@ export default function LazyImage({
   ...props
 }: LazyImageProps) {
   const [isInView, setIsInView] = useState(priority);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(priority);
   const containerRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
 
+  // 1. Viewport Intersection Observer
   useEffect(() => {
     if (priority || isInView) return;
 
@@ -49,12 +51,34 @@ export default function LazyImage({
     return () => observer.disconnect();
   }, [priority, isInView, rootMargin]);
 
+  // 2. Check if cached image already completed immediately upon render
+  useEffect(() => {
+    if (isInView && imgRef.current?.complete) {
+      setIsLoaded(true);
+    }
+  }, [isInView]);
+
+  // 3. Failsafe: Never allow an image to remain stuck in placeholder opacity-0
+  useEffect(() => {
+    if (isInView && !isLoaded) {
+      const failsafeTimer = setTimeout(() => {
+        setIsLoaded(true);
+      }, 350);
+      return () => clearTimeout(failsafeTimer);
+    }
+  }, [isInView, isLoaded]);
+
   // When src changes (e.g. active color variant change), reset isLoaded if needed
   const [currentSrc, setCurrentSrc] = useState(src);
   if (src !== currentSrc) {
     setCurrentSrc(src);
     setIsLoaded(false);
   }
+
+  const handleLoaded = () => {
+    setIsLoaded(true);
+    onImageLoad?.();
+  };
 
   return (
     <div
@@ -63,29 +87,30 @@ export default function LazyImage({
       style={{ backgroundColor: placeholderColor }}
     >
       {/* Luxury Champagne Placeholder Skeleton */}
-      {!isLoaded && (
-        <div
-          className="absolute inset-0 z-0 flex items-center justify-center transition-opacity duration-500"
-          style={{ backgroundColor: placeholderColor }}
-        >
-          {showSpinner && (
-            <div className="w-5 h-5 rounded-full border border-[#D8D2C6]/60 border-t-[#806B43] animate-spin opacity-40" />
-          )}
-        </div>
-      )}
+      <div
+        className={`absolute inset-0 z-0 flex items-center justify-center transition-opacity duration-500 pointer-events-none ${
+          isLoaded ? 'opacity-0' : 'opacity-100'
+        }`}
+        style={{ backgroundColor: placeholderColor }}
+      >
+        {showSpinner && !isLoaded && (
+          <div className="w-5 h-5 rounded-full border border-[#D8D2C6]/60 border-t-[#806B43] animate-spin opacity-40" />
+        )}
+      </div>
 
       {isInView && (
         <Image
+          ref={imgRef}
           src={src}
           alt={alt}
           priority={priority}
-          className={`transition-opacity duration-700 ${
+          loading={priority ? 'eager' : 'eager'}
+          decoding="async"
+          className={`transition-opacity duration-500 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           } ${className}`}
-          onLoad={() => {
-            setIsLoaded(true);
-            onImageLoad?.();
-          }}
+          onLoad={handleLoaded}
+          onError={handleLoaded}
           {...props}
         />
       )}

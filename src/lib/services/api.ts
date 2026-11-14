@@ -5,6 +5,7 @@ import {
   Order,
   Review,
   OrderStatus,
+  PaymentStatus,
 } from '@/lib/types/database';
 import {
   FALLBACK_CATEGORIES,
@@ -957,6 +958,8 @@ export async function createOrder(orderPayload: {
 }
 
 export async function getAllOrders(): Promise<Order[]> {
+  let supabaseOrders: Order[] = [];
+
   if (isSupabaseConfigured()) {
     try {
       const supabase = createClient();
@@ -969,53 +972,101 @@ export async function getAllOrders(): Promise<Order[]> {
         .order('created_at', { ascending: false });
 
       if (!error && data && data.length > 0) {
-        return data.map((d: any) => ({
-          id: d.id,
-          order_number: d.order_number,
-          user_id: d.user_id,
-          customer_email: d.guest_email || '',
-          customer_name: d.shipping_address?.full_name || 'Valued Customer',
-          customer_phone: d.shipping_address?.phone || null,
-          shipping_address: d.shipping_address,
-          subtotal: Number(d.subtotal),
-          shipping_fee: Number(d.shipping_cost || 0),
-          tax: Number(d.tax || 0),
-          total: Number(d.total),
-          payment_method: d.payment_method,
-          payment_status: d.payment_status,
-          order_status: d.status,
-          notes: d.notes,
-          created_at: d.created_at,
-          updated_at: d.updated_at,
-          items: (d.items || []).map((i: any) => ({
-            id: i.id,
-            order_id: i.order_id,
-            product_id: i.product_id,
-            product_name: i.product_name,
-            product_price: Number(i.price),
-            product_image: i.image_url,
-            quantity: i.quantity,
-            total_price: Number(i.price) * i.quantity,
-            selected_color: i.selected_color,
-            created_at: i.created_at,
-          })),
-        })) as Order[];
+        supabaseOrders = data.map((d: any) => {
+          let shipAddr = d.shipping_address;
+          if (typeof shipAddr === 'string') {
+            try {
+              shipAddr = JSON.parse(shipAddr);
+            } catch {
+              shipAddr = {};
+            }
+          }
+          shipAddr = shipAddr || {};
+
+          const customerName = shipAddr.full_name || shipAddr.fullName || d.customer_name || 'Customer';
+          const customerPhone = shipAddr.phone || d.customer_phone || null;
+          const customerEmail = d.guest_email || shipAddr.email || d.customer_email || '';
+
+          const rawItems = d.items || d.order_items || [];
+
+          return {
+            id: d.id,
+            order_number: d.order_number,
+            user_id: d.user_id,
+            customer_email: customerEmail,
+            customer_name: customerName,
+            customer_phone: customerPhone,
+            shipping_address: shipAddr,
+            subtotal: Number(d.subtotal || 0),
+            shipping_fee: Number(d.shipping_cost || 0),
+            tax: Number(d.tax || 0),
+            total: Number(d.total || 0),
+            payment_method: d.payment_method,
+            payment_status: d.payment_status,
+            order_status: d.status,
+            notes: d.notes,
+            created_at: d.created_at,
+            updated_at: d.updated_at,
+            items: rawItems.map((i: any) => ({
+              id: i.id,
+              order_id: i.order_id,
+              product_id: i.product_id,
+              product_name: i.product_name,
+              product_price: Number(i.price || 0),
+              product_image: i.image_url,
+              quantity: i.quantity || 1,
+              total_price: Number(i.price || 0) * (i.quantity || 1),
+              selected_color: i.selected_color,
+              created_at: i.created_at,
+            })),
+          };
+        }) as Order[];
       }
-    } catch {
-      // Fallback
+    } catch (err) {
+      console.warn('Supabase getAllOrders failed:', err);
     }
   }
 
+  // Merge with localStorage orders if present
+  let localOrders: Order[] = [];
   if (typeof window !== 'undefined') {
     try {
       const stored = localStorage.getItem('aura_orders');
-      if (stored) return JSON.parse(stored);
+      if (stored) {
+        localOrders = JSON.parse(stored);
+      }
     } catch {
       // ignore
     }
   }
 
-  return [];
+  if (supabaseOrders.length === 0 && localOrders.length === 0) {
+    return [];
+  }
+
+  const merged = [...supabaseOrders];
+  const seenNumbers = new Set(supabaseOrders.map((o) => o.order_number));
+
+  for (const lo of localOrders) {
+    if (!seenNumbers.has(lo.order_number)) {
+      merged.push(lo);
+      seenNumbers.add(lo.order_number);
+    }
+  }
+
+  return merged;
+}
+
+export async function getOrderById(orderIdOrNumber: string): Promise<Order | null> {
+  const all = await getAllOrders();
+  const cleanKey = orderIdOrNumber.trim().toLowerCase();
+  return (
+    all.find(
+      (o) =>
+        o.id.toLowerCase() === cleanKey ||
+        o.order_number.toLowerCase() === cleanKey
+    ) || null
+  );
 }
 
 export async function updateOrderStatus(orderId: string, newStatus: OrderStatus): Promise<void> {
@@ -1032,12 +1083,37 @@ export async function updateOrderStatus(orderId: string, newStatus: OrderStatus)
     try {
       const stored = localStorage.getItem('aura_orders');
       if (stored) {
-        const orders = JSON.parse(stored) as Order[];
-        const idx = orders.findIndex((o) => o.id === orderId);
-        if (idx !== -1) {
-          orders[idx].order_status = newStatus;
-          localStorage.setItem('aura_orders', JSON.stringify(orders));
-        }
+        const orders = JSON.parse(stored);
+        const updated = orders.map((o: Order) =>
+          o.id === orderId ? { ...o, order_status: newStatus } : o
+        );
+        localStorage.setItem('aura_orders', JSON.stringify(updated));
+      }
+    } catch {
+      // ignore
+    }
+  }
+}
+
+export async function updatePaymentStatus(orderId: string, newStatus: PaymentStatus): Promise<void> {
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = createClient();
+      await supabase.from('orders').update({ payment_status: newStatus }).eq('id', orderId);
+    } catch {
+      // Fallback
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = localStorage.getItem('aura_orders');
+      if (stored) {
+        const orders = JSON.parse(stored);
+        const updated = orders.map((o: Order) =>
+          o.id === orderId ? { ...o, payment_status: newStatus } : o
+        );
+        localStorage.setItem('aura_orders', JSON.stringify(updated));
       }
     } catch {
       // ignore
